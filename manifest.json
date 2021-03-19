@@ -1,0 +1,26 @@
+{
+  "description": "Wizard to generate RDF JSON-LD metadata",
+  "display": "standalone",
+  "lang": "en",
+  "name": "FAIR metadata wizard",
+  "short_name": "FAIR metadata wizard",
+  "start_url": "/?utm_source=web_app_manifest",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/fair-metadata-wizard/pwa/chrome-icon/chrome-icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/fair-metadata-wizard/pwa/chrome-icon/chrome-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/fair-metadata-wizard/pwa/chrome-icon/chrome-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
