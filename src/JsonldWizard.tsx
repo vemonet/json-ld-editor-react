@@ -5,10 +5,10 @@ import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } fro
 import GetAppIcon from '@material-ui/icons/GetApp';
 import AddIcon from '@material-ui/icons/Add';
 
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import MenuItem from '@material-ui/core/MenuItem';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+// import Autocomplete from '@material-ui/lab/Autocomplete';
+// import MenuItem from '@material-ui/core/MenuItem';
+// import Snackbar from '@material-ui/core/Snackbar';
+// import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -68,184 +68,14 @@ export default function JsonldWizard() {
   const classes = useStyles();
   const theme = useTheme();
 
-  // https://github.com/kodymoodley/fair-metadata-generator/blob/main/questions.csv
+  // Original form and output:
+  // Questions: https://github.com/kodymoodley/fair-metadata-generator/blob/main/questions.csv
   // Full output: https://github.com/kodymoodley/fair-metadata-html-page-generator/blob/main/testdata/inputdata/test.jsonld
+  
   const [state, setState] = React.useState({
     open: false,
     dialogOpen: false,
-    wizard_jsonld: {
-      "@context": "https://schema.org",
-      "@type": "Dataset",
-      "name": "ECJ case law text similarity analysis",
-      "description": "results from a study to analyse how closely the textual similarity of ECJ cases resembles the citation network of the cases.",
-      "version": "v2.0",
-      "url": "https://doi.org/10.5281/zenodo.4228652",
-      "license": "https://www.gnu.org/licenses/agpl-3.0.txt",
-      "encodingFormat": "CSV",
-      "temporalCoverage": "2019-09-14/2020-07-01",
-      "dateCreated": {
-          "@type": "Date",
-          "@value": "2019-09-14"
-      },
-      "datePublished": {
-          "@type": "Date",
-          "@value": "2020-07-01"
-      },
-      "distribution": {
-          "@type": "DataDownload",
-          "contentUrl": {
-              "@type": "URL",
-              "@value": "https://zenodo.org/record/4228652/files/docona_cjeu_results_2018_v2_html.zip?download=1"
-          },
-          "encodingFormat": "application/zip",
-          "contentSize": "1.1MB"
-      },
-      "inLanguage": {
-          "@type": "Language",
-          "name": "EN",
-          "alternateName": "EN"
-      },
-      "keywords": [
-          "case law",
-          "court decisions",
-          "text similarity",
-          "network analysis",
-          "word embeddings",
-          "word2vec",
-          "ecj",
-          "cjeu",
-          "EU court of justice",
-          "citations"
-      ],
-      "creator": {
-          "@type": "Person",
-          "@wizardRequired": true,
-          "name": "concat @givenName @familyName",
-          "givenName": "Kody",
-          "familyName": "Moodley",
-          "image": "https://www.maastrichtuniversity.nl/sites/default/files/styles/text_with_image_mobile_portrait/public/profile/kody.moodley/kody.moodley_photo_kmoodley.jpg?itok=bN7b8s_-&timestamp=1583505301",
-          "jobTitle": "Postdoctoral researcher",
-          "email": "kody.moodley@maastrichtuniversity.nl",
-          "affiliation": {
-              "@type": "Organization",
-              "name": "Maastricht Law & Tech Lab",
-              "url": {
-                  "@type": "URL",
-                  "@value": "https://www.maastrichtuniversity.nl/about-um/faculties/law/research/law-and-tech-lab"
-              },
-              "logo": {
-                  "@type": "ImageObject",
-                  "contentUrl": "https://www.maastrichtuniversity.nl/sites/default/files/styles/page_photo/public/compacte20versie20law20and20tech20lab.jpg?itok=7lm6PEQF"
-              }
-          }
-      },
-      "contributor": [
-          {
-              "@wizardMultivalueCheckArray": true,
-              "@type": "Person",
-              "givenName": "Pedro",
-              "familyName": "Hernandez Serrano",
-              "jobTitle": "Data Scientist",
-              "email": "p.hernandezserrano@maastrichtuniversity.nl",
-              "image": "https://www.maastrichtuniversity.nl/sites/default/files/styles/text_with_image_mobile_portrait/public/profile/p.hernandezserrano/p.hernandezserrano_PP%20%287%20of%2013%29.jpg?itok=IUdreoIw&timestamp=1610395201",
-              "affiliation": {
-                  "@type": "Organization",
-                  "name": "Institute of Data Science",
-                  "url": {
-                      "@type": "URL",
-                      "@value": "https://www.maastrichtuniversity.nl/research/institute-data-science"
-                  },
-                  "logo": {
-                      "@type": "ImageObject",
-                      "contentUrl": "https://avatars.githubusercontent.com/u/36262526?s=280&v=4"
-                  }
-              }
-          }
-      ],
-      "publisher": {
-          "@type": "Person",
-          "name": "Kody Moodley",
-          "givenName": "Kody",
-          "familyName": "Moodley",
-          "jobTitle": "Postdoctoral researcher",
-          "image": "https://www.maastrichtuniversity.nl/sites/default/files/styles/text_with_image_mobile_portrait/public/profile/kody.moodley/kody.moodley_photo_kmoodley.jpg?itok=bN7b8s_-&timestamp=1583505301",
-          "email": "kody.moodley@maastrichtuniversity.nl",
-          "affiliation": {
-              "@type": "Organization",
-              "name": "Maastricht Law & Tech Lab",
-              "url": {
-                  "@type": "URL",
-                  "@value": "https://www.maastrichtuniversity.nl/about-um/faculties/law/research/law-and-tech-lab"
-              },
-              "logo": {
-                  "@type": "ImageObject",
-                  "contentUrl": "https://www.maastrichtuniversity.nl/sites/default/files/styles/page_photo/public/compacte20versie20law20and20tech20lab.jpg?itok=7lm6PEQF"
-              }
-          }
-      },
-      "isBasedOn": [
-          {
-              "@type": "SoftwareApplication",
-              "name": "docona",
-              "description": "DoConA (Document Content and Citation Analysis Pipeline) is an open source, configurable and extensible Python tool to analyse the level of agreement between the citation network of a set of textual documents and the textual similarity of these documents.",
-              "applicationCategory": "Python script",
-              "operatingSystem": "cross-platform",
-              "version": "1.0",
-              "url": {
-                  "@type": "URL",
-                  "@value": "https://github.com/MaastrichtU-IDS/docona"
-              }
-          },
-          {
-              "@type": "CreativeWork",
-              "name": "ECJ case law and citation network",
-              "description": "Citation network and full text documents of each judgement by the Court of Justice of the European Union that was published publicly on the EUR-LEX website (https://eur-lex.europa.eu/homepage.html) up until December 2018",
-              "version": "2.0",
-              "url": {
-                  "@type": "URL",
-                  "@value": "https://doi.org/10.5281/zenodo.3926736"
-              }
-          }
-      ],
-      "citation": {
-          "@type": "CreativeWork",
-          "name": "Similarity and Relevance of Court Decisions: A Computational Study on CJEU Cases",
-          "creator": [
-              {
-                  "@type": "Person",
-                  "name": "Kody Moodley"
-              },
-              {
-                  "@type": "Person",
-                  "name": "Pedro Hernandez Serrano"
-              },
-              {
-                  "@type": "Person",
-                  "name": "Gijs van Dijck"
-              },
-              {
-                  "@type": "Person",
-                  "name": "Michel Dumontier"
-              }
-          ],
-          "publisher": {
-              "@type": "Organization",
-              "name": "IOS press",
-              "url": {
-                  "@type": "URL",
-                  "@value": "https://www.iospress.nl"
-              }
-          },
-          "datePublished": {
-              "@type": "Date",
-              "@value": "2019-12-10"
-          },
-          "sameAs": {
-              "@type": "URL",
-              "@value": "https://doi.org/10.3233/FAIA190307"
-          }
-      }
-    }
+    wizard_jsonld: wizard_jsonld
   });
   const stateRef = React.useRef(state);
   // Avoid conflict when async calls
@@ -254,10 +84,10 @@ export default function JsonldWizard() {
     setState(stateRef.current);
   }, [setState]);
   
+
   const handleSubmit  = (event: React.FormEvent) => {
-    event.preventDefault();
-    
     // Trigger file download
+    event.preventDefault();
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/turtle;charset=utf-8,' + encodeURIComponent(JSON.stringify(state.wizard_jsonld, null, 4)));
     element.setAttribute('download', 'metadata.json');
@@ -278,35 +108,25 @@ export default function JsonldWizard() {
   // const handleCategoryDropdown = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   setState({...state, category_dropdown: event.target.value})
   // }
-  // const handleStatusDropdown = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setState({...state, project_status: event.target.value})
-  // }
 
   return(
     <Container className='mainContainer'>
       <Typography variant="h4" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
         🧙‍♂️ FAIR metadata wizard
       </Typography>
-
       <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
         Quickly generates JSON-LD metadata for your datasets by filling a simple form
       </Typography>
 
-      {/* <Typography variant="body1" style={{textAlign: 'left', marginLeft: '30px', marginBottom: '20px'}}>
-        <br/>Your project will be automatically be added to the website tomorrow 📊
-        <br/>N.B. your project needs to be in <a href="https://github.com/MaastrichtU-IDS" className={classes.link}>MaastrichtU-IDS organization</a> to be retrieved automatically, <a href="https://github.com/MaastrichtU-IDS/fair-metadata-wizard/issues" className={classes.link}>create an issue</a> if it is hosted under a different name, we will add it to the list of external repositories.
-      </Typography> */}
-      
       <form onSubmit={handleSubmit}>
         <FormControl className={classes.settingsForm}>
 
-          <RenderQuestion renderObject={state.wizard_jsonld} 
+          <RenderObjectForm renderObject={state.wizard_jsonld} 
             onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld}); console.log(state.wizard_jsonld) } }
           />
 
           <div style={{width: '100%', textAlign: 'center'}}>
             <Button type="submit" 
-              // style={{width: '100%'}}
               variant="contained" 
               className={classes.saveButton} 
               startIcon={<GetAppIcon />}
@@ -314,51 +134,25 @@ export default function JsonldWizard() {
                 Download metadata as JSON-LD
             </Button>
           </div>
-
         </FormControl>
       </form>
-
     </Container>
   )
 }
 
-
-
-// Recursive component
-const RenderQuestion = ({ renderObject, onChange }: any) => {
+// Recursive component to display a JSON-LD object as form
+const RenderObjectForm = ({ renderObject, onChange }: any) => {
   const classes = useStyles();
   const theme = useTheme();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log(event.target);
-    // setState({...state, [event.target.id]: event.target.value})
-    renderObject[event.target.id] = event.target.value 
+    renderObject[event.target.id] = event.target.value
+    // call onChange function given by parent
     onChange(renderObject) 
   }
-
-  // const handleChange = (selectedOptionId: any): any => {
-  //   // // is currently selected
-  //   // if(renderObject[selectedOptionId]){
-  //   //   // remove selected key from options list
-  //   //   delete renderObject[selectedOptionId]; 
-  //   // } else { // is not currently selected
-  //   //   // Add selected key to optionsList
-  //   //   renderObject[selectedOptionId] = {} 
-  //   // }
-  //   console.log(selectedOptionId);
-  //   renderObject[selectedOptionId] = {} 
-  //   // call onChange function given by parent
-  //   onChange(renderObject) 
-  //   // console.log('renderObject');
-  //   // console.log(renderObject);
-  // }
   
   const handleRecursiveChange = (property: any, subSelections: any) => {
-    // console.log('property');
-    // console.log(property);
-    // console.log(subSelections);
     renderObject[property] = subSelections;
-    // call onChange function given by parent
     onChange(renderObject);
   }
   
@@ -371,12 +165,6 @@ const RenderQuestion = ({ renderObject, onChange }: any) => {
     onChange(renderObject);
   }
   
-  // function wizard_render(json_object):
-  // Iterate properties in the given json_object
-  // if property startsWith('@') > ignore
-  // if property value = array > Create button to add entry
-  // if property value = string or object with @value > Create TextInput
-  // if property value = object > Create Card and call wizard_render(object)
   // https://betterprogramming.pub/recursive-rendering-with-react-components-10fa07c45456
   return (
     <div>
@@ -391,42 +179,22 @@ const RenderQuestion = ({ renderObject, onChange }: any) => {
               placeholder={property}
               value={renderObject[property]}
               required
-              // className={classes.fullWidth}
+              className={classes.fullWidth}
               variant="outlined"
               onChange={handleChange}
               size='small'
               InputProps={{
                 className: classes.input
               }}
-              // InputLabelProps={{
-              //   className: classes.normalFont
-              // }}
-              // inputRef={this.formSearchQuery}
-              // defaultValue={triplestore.search_query}
             />
           }
-          {/* if property is an array: RenderQuestion recursion */}
-          {/* {(typeof renderObject[property] === 'array' && renderObject[property]) &&
-            <Card elevation={2} className={classes.paperPadding}>
-              <Typography variant="body2" style={{textAlign: 'left', marginBottom: theme.spacing(1), marginLeft: theme.spacing(2)}}>
-                {property}
-              </Typography>
-              <RenderQuestion
-                renderObject={renderObject[property]}
-                onChange={(subSelections: any) => handleRecursiveChange(property, subSelections)}
-              />
-            </Card>
-          } */}
 
-          {/* if property is an object : RenderQuestion recursion */}
+          {/* if property is an object : RenderObjectForm recursion */}
           {(typeof renderObject[property] === 'object' && renderObject[property]) &&
             <Card elevation={2} className={classes.paperPadding}>
-              {/* <Typography variant="body1" style={{textAlign: 'left', fontWeight: 900, marginBottom: theme.spacing(1), marginLeft: theme.spacing(2)}}>
-                {property}
-              </Typography> */}
               <Chip label={property}  style={{fontWeight: 900, marginBottom: theme.spacing(2), marginLeft: theme.spacing(1)}} />
               { Array.isArray(renderObject[property]) &&
-                  <Button onClick={(subSelections: any) => handleAddEntry(property, subSelections)}
+                <Button onClick={(subSelections: any) => handleAddEntry(property, subSelections)}
                   // style={{width: '100%'}}
                   variant="contained" 
                   size="small"
@@ -436,7 +204,7 @@ const RenderQuestion = ({ renderObject, onChange }: any) => {
                     Add entry
                 </Button>
               }
-              <RenderQuestion
+              <RenderObjectForm
                 renderObject={renderObject[property]}
                 onChange={(subSelections: any) => handleRecursiveChange(property, subSelections)}
               />
@@ -448,7 +216,165 @@ const RenderQuestion = ({ renderObject, onChange }: any) => {
   )
 }
 
-
+const wizard_jsonld = {
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "ECJ case law text similarity analysis",
+  "description": "results from a study to analyse how closely the textual similarity of ECJ cases resembles the citation network of the cases.",
+  "version": "v2.0",
+  "url": "https://doi.org/10.5281/zenodo.4228652",
+  "license": "https://www.gnu.org/licenses/agpl-3.0.txt",
+  "encodingFormat": "CSV",
+  "temporalCoverage": "2019-09-14/2020-07-01",
+  "dateCreated": {
+      "@type": "Date",
+      "@value": "2019-09-14"
+  },
+  "datePublished": {
+      "@type": "Date",
+      "@value": "2020-07-01"
+  },
+  "distribution": {
+      "@type": "DataDownload",
+      "contentUrl": {
+          "@type": "URL",
+          "@value": "https://zenodo.org/record/4228652/files/docona_cjeu_results_2018_v2_html.zip?download=1"
+      },
+      "encodingFormat": "application/zip",
+      "contentSize": "1.1MB"
+  },
+  "inLanguage": {
+      "@type": "Language",
+      "name": "EN",
+      "alternateName": "EN"
+  },
+  "keywords": [
+      "case law",
+      "court decisions",
+      "text similarity",
+      "network analysis",
+  ],
+  "creator": {
+      "@type": "Person",
+      "@wizardRequired": true,
+      "name": "concat @givenName @familyName",
+      "givenName": "Kody",
+      "familyName": "Moodley",
+      "image": "https://www.maastrichtuniversity.nl/sites/default/files/styles/text_with_image_mobile_portrait/public/profile/kody.moodley/kody.moodley_photo_kmoodley.jpg?itok=bN7b8s_-&timestamp=1583505301",
+      "jobTitle": "Postdoctoral researcher",
+      "email": "kody.moodley@maastrichtuniversity.nl",
+      "affiliation": {
+          "@type": "Organization",
+          "name": "Maastricht Law & Tech Lab",
+          "url": {
+              "@type": "URL",
+              "@value": "https://www.maastrichtuniversity.nl/about-um/faculties/law/research/law-and-tech-lab"
+          },
+          "logo": {
+              "@type": "ImageObject",
+              "contentUrl": "https://www.maastrichtuniversity.nl/sites/default/files/styles/page_photo/public/compacte20versie20law20and20tech20lab.jpg?itok=7lm6PEQF"
+          }
+      }
+  },
+  "contributor": [
+      {
+          "@wizardMultivalueCheckArray": true,
+          "@type": "Person",
+          "givenName": "Pedro",
+          "familyName": "Hernandez Serrano",
+          "jobTitle": "Data Scientist",
+          "email": "p.hernandezserrano@maastrichtuniversity.nl",
+          "image": "https://www.maastrichtuniversity.nl/sites/default/files/styles/text_with_image_mobile_portrait/public/profile/p.hernandezserrano/p.hernandezserrano_PP%20%287%20of%2013%29.jpg?itok=IUdreoIw&timestamp=1610395201",
+          "affiliation": {
+              "@type": "Organization",
+              "name": "Institute of Data Science",
+              "url": {
+                  "@type": "URL",
+                  "@value": "https://www.maastrichtuniversity.nl/research/institute-data-science"
+              },
+              "logo": {
+                  "@type": "ImageObject",
+                  "contentUrl": "https://avatars.githubusercontent.com/u/36262526?s=280&v=4"
+              }
+          }
+      }
+  ],
+  "publisher": {
+      "@type": "Person",
+      "name": "Kody Moodley",
+      "givenName": "Kody",
+      "familyName": "Moodley",
+      "jobTitle": "Postdoctoral researcher",
+      "image": "https://www.maastrichtuniversity.nl/sites/default/files/styles/text_with_image_mobile_portrait/public/profile/kody.moodley/kody.moodley_photo_kmoodley.jpg?itok=bN7b8s_-&timestamp=1583505301",
+      "email": "kody.moodley@maastrichtuniversity.nl",
+      "affiliation": {
+          "@type": "Organization",
+          "name": "Maastricht Law & Tech Lab",
+          "url": {
+              "@type": "URL",
+              "@value": "https://www.maastrichtuniversity.nl/about-um/faculties/law/research/law-and-tech-lab"
+          },
+          "logo": {
+              "@type": "ImageObject",
+              "contentUrl": "https://www.maastrichtuniversity.nl/sites/default/files/styles/page_photo/public/compacte20versie20law20and20tech20lab.jpg?itok=7lm6PEQF"
+          }
+      }
+  },
+  "isBasedOn": [
+      {
+          "@type": "SoftwareApplication",
+          "name": "docona",
+          "description": "DoConA (Document Content and Citation Analysis Pipeline) is an open source, configurable and extensible Python tool to analyse the level of agreement between the citation network of a set of textual documents and the textual similarity of these documents.",
+          "applicationCategory": "Python script",
+          "operatingSystem": "cross-platform",
+          "version": "1.0",
+          "url": {
+              "@type": "URL",
+              "@value": "https://github.com/MaastrichtU-IDS/docona"
+          }
+      },
+      {
+          "@type": "CreativeWork",
+          "name": "ECJ case law and citation network",
+          "description": "Citation network and full text documents of each judgement by the Court of Justice of the European Union that was published publicly on the EUR-LEX website (https://eur-lex.europa.eu/homepage.html) up until December 2018",
+          "version": "2.0",
+          "url": {
+              "@type": "URL",
+              "@value": "https://doi.org/10.5281/zenodo.3926736"
+          }
+      }
+  ],
+  "citation": {
+      "@type": "CreativeWork",
+      "name": "Similarity and Relevance of Court Decisions: A Computational Study on CJEU Cases",
+      "creator": [
+          {
+              "@type": "Person",
+              "name": "Kody Moodley"
+          },
+          {
+              "@type": "Person",
+              "name": "Michel Dumontier"
+          }
+      ],
+      "publisher": {
+          "@type": "Organization",
+          "name": "IOS press",
+          "url": {
+              "@type": "URL",
+              "@value": "https://www.iospress.nl"
+          }
+      },
+      "datePublished": {
+          "@type": "Date",
+          "@value": "2019-12-10"
+      },
+      "sameAs": {
+          "@type": "URL",
+          "@value": "https://doi.org/10.3233/FAIA190307"
+      }
+  }
+}
 
 
 
