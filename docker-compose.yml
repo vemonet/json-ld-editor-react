@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  fair-metadata-wizard:
+    build: .
+    container_name: fair-metadata-wizard
+    ports:
+      - 5000:5000
+    environment:
+      VIRTUAL_HOST: fair-metadata-wizard.137.120.31.102.nip.io
+      LETSENCRYPT_HOST: fair-metadata-wizard.137.120.31.102.nip.io
