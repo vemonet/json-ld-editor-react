@@ -1,8 +1,10 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Container, Paper, Button, Card } from "@material-ui/core";
+import { Typography, Container, Paper, Button, Card, Chip } from "@material-ui/core";
 import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } from '@material-ui/core';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import AddIcon from '@material-ui/icons/Add';
+
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import MenuItem from '@material-ui/core/MenuItem';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -34,6 +36,11 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'none',
     margin: theme.spacing(2, 2),
   },
+  addEntryButton: {
+    textTransform: 'none',
+    marginLeft: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
   fullWidth: {
     width: '100%',
   },
@@ -49,7 +56,7 @@ const useStyles = makeStyles(theme => ({
   },
   paperPadding: {
     padding: theme.spacing(2, 1),
-    margin: theme.spacing(2, 0),
+    margin: theme.spacing(2, 2),
   },
   paperTitle: {
     fontWeight: 300,
@@ -72,8 +79,10 @@ export default function JsonldWizard() {
       "name": "ECJ case law text similarity analysis",
       "description": "results from a study to analyse how closely the textual similarity of ECJ cases resembles the citation network of the cases.",
       "version": "v2.0",
+      "url": "https://doi.org/10.5281/zenodo.4228652",
       "license": "https://www.gnu.org/licenses/agpl-3.0.txt",
       "encodingFormat": "CSV",
+      "temporalCoverage": "2019-09-14/2020-07-01",
       "dateCreated": {
           "@type": "Date",
           "@value": "2019-09-14"
@@ -91,13 +100,11 @@ export default function JsonldWizard() {
           "encodingFormat": "application/zip",
           "contentSize": "1.1MB"
       },
-      "url": "https://doi.org/10.5281/zenodo.4228652",
       "inLanguage": {
           "@type": "Language",
           "name": "EN",
           "alternateName": "EN"
       },
-      "temporalCoverage": "2019-09-14/2020-07-01",
       "keywords": [
           "case law",
           "court decisions",
@@ -320,6 +327,7 @@ export default function JsonldWizard() {
 // Recursive component
 const RenderQuestion = ({ renderObject, onChange }: any) => {
   const classes = useStyles();
+  const theme = useTheme();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // console.log(event.target);
@@ -346,12 +354,20 @@ const RenderQuestion = ({ renderObject, onChange }: any) => {
   // }
   
   const handleRecursiveChange = (property: any, subSelections: any) => {
-    console.log('property');
-    console.log(property);
-    console.log(subSelections);
-    // add sub selections to current optionId
+    // console.log('property');
+    // console.log(property);
+    // console.log(subSelections);
     renderObject[property] = subSelections;
     // call onChange function given by parent
+    onChange(renderObject);
+  }
+  
+  const handleAddEntry = (property: any, event: any) => {
+    if (renderObject[property].length > 0) {
+      renderObject[property].push(renderObject[property][0]);
+    } else {
+      renderObject[property].push('New entry');
+    }
     onChange(renderObject);
   }
   
@@ -365,8 +381,8 @@ const RenderQuestion = ({ renderObject, onChange }: any) => {
   return (
     <div>
       {/* Object.keys(renderObject).map(...) */}
-      {Object.keys(renderObject).map((property: any) => (
-        <ul>
+      {Object.keys(renderObject).map((property: any, key: number) => (
+        <div key={key}>
           {/* if property is a string : TextInput */}
           {(typeof renderObject[property] === 'string' && renderObject[property]) &&
             <TextField
@@ -389,16 +405,44 @@ const RenderQuestion = ({ renderObject, onChange }: any) => {
               // defaultValue={triplestore.search_query}
             />
           }
+          {/* if property is an array: RenderQuestion recursion */}
+          {/* {(typeof renderObject[property] === 'array' && renderObject[property]) &&
+            <Card elevation={2} className={classes.paperPadding}>
+              <Typography variant="body2" style={{textAlign: 'left', marginBottom: theme.spacing(1), marginLeft: theme.spacing(2)}}>
+                {property}
+              </Typography>
+              <RenderQuestion
+                renderObject={renderObject[property]}
+                onChange={(subSelections: any) => handleRecursiveChange(property, subSelections)}
+              />
+            </Card>
+          } */}
+
           {/* if property is an object : RenderQuestion recursion */}
           {(typeof renderObject[property] === 'object' && renderObject[property]) &&
             <Card elevation={2} className={classes.paperPadding}>
+              {/* <Typography variant="body1" style={{textAlign: 'left', fontWeight: 900, marginBottom: theme.spacing(1), marginLeft: theme.spacing(2)}}>
+                {property}
+              </Typography> */}
+              <Chip label={property}  style={{fontWeight: 900, marginBottom: theme.spacing(2), marginLeft: theme.spacing(1)}} />
+              { Array.isArray(renderObject[property]) &&
+                  <Button onClick={(subSelections: any) => handleAddEntry(property, subSelections)}
+                  // style={{width: '100%'}}
+                  variant="contained" 
+                  size="small"
+                  className={classes.addEntryButton} 
+                  startIcon={<AddIcon />}
+                  color="primary" >
+                    Add entry
+                </Button>
+              }
               <RenderQuestion
                 renderObject={renderObject[property]}
                 onChange={(subSelections: any) => handleRecursiveChange(property, subSelections)}
               />
             </Card>
           }
-        </ul>
+        </div>
       ))}
     </div>
   )
