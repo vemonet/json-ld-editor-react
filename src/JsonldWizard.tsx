@@ -109,8 +109,8 @@ export default function JsonldWizard() {
     axios.defaults.headers.common['Accept'] = 'application/ld+json'
     axios.get(contextUrl)
       .then(res => {
-        console.log('ontology downloaded!')
-        console.log(res.data)
+        // console.log('ontology downloaded!')
+        // console.log(res.data)
         // if not json
         if (typeof res.data !== 'object') {
           // If not object, we try to parse
@@ -152,7 +152,7 @@ export default function JsonldWizard() {
         let store = $rdf.graph()
         let doc = $rdf.sym(uri);
         $rdf.parse(data, store, uri, mimeType)
-        console.log(store)
+        // console.log(store)
         $rdf.serialize(doc, store, uri, 'application/ld+json', (err: any, jsonldData: any) => {
           return resolve(JSON.parse(jsonldData)
             .sort((a: any, b: any) => {
@@ -199,7 +199,7 @@ export default function JsonldWizard() {
       </Typography>
 
       <JsonldUploader renderObject={state.wizard_jsonld} 
-        onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld}); console.log(state.wizard_jsonld) }} />
+        onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld})}} />
 
       <Snackbar open={state.ontoload_error_open} onClose={closeOntoloadError} autoHideDuration={10000}>
         <MuiAlert elevation={6} variant="filled" severity="error">
@@ -216,7 +216,7 @@ export default function JsonldWizard() {
         <FormControl className={classes.settingsForm}>
 
           <RenderObjectForm renderObject={state.wizard_jsonld} ontologyObject={state.ontology_jsonld}
-            onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld}); console.log(state.wizard_jsonld) } }
+            onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld})} }
           />
 
           <div style={{width: '100%', textAlign: 'center'}}>
@@ -344,17 +344,29 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
         <div key={key}>
           {property === '@type' &&
             <Autocomplete
+              key={property + key}
               id={property}
-              onInputChange={handleAutocompleteOntologyOptions}
+              // value={ { ['rdfs:label']: renderObject[property]}}
               defaultValue={{'rdfs:label': renderObject[property]}}
-              // value={{...{'rdfs:label': renderObject[property]}}}
-              // value={renderObject[property]}
               options={state.autocompleteOntologyOptions}
+              onInputChange={handleAutocompleteOntologyOptions}
+              onSelect={handleAutocompleteOntologyOptions}
+              onChange={(event, newInputValue: any) => {
+                if (newInputValue) {
+                  if (newInputValue['rdfs:label']) {
+                    // TODO: Only work for schema.org
+                    renderObject[property] = newInputValue['rdfs:label']
+                  } else {
+                    // This is more semantically accurate but it imports the whole concept object
+                    // We could use the @id URI
+                    renderObject[property] = newInputValue
+                  }
+                  onChange(renderObject)
+                }
+              }}
               groupBy={(option: any): any => {
-                // option['@type']
                 if (option['@type'] && Array.isArray(option['@type'])) {
                   // Handle when array of types provided (e.g. SIO via rdflib)
-                  console.log(option['@type'])
                   return option['@type'][0]
                 } else {
                   return option['@type']
@@ -363,11 +375,11 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
               getOptionSelected={(option: any, selectedValue: any): any => {
                 // Handle option label when provided with rdfs:label or direct
                 if (option['rdfs:label']) {
-                  if (typeof option['rdfs:label'] === 'string') return option['rdfs:label'] === selectedValue
+                  if (typeof option['rdfs:label'] === 'string') return option['rdfs:label'] === selectedValue['rdfs:label']
                   if (option['rdfs:label']['en']) return option['rdfs:label']['en'] === selectedValue
                 }
                 if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
-                  return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue
+                  return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
                 }
                 return option === selectedValue
               }}
@@ -397,13 +409,11 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
               // ListboxProps={{
               //   className: classes.input,
               // }}
-              // onChange={(event, newInputValue: any) => {
-              //   setState({...state, 'language_autocomplete': newInputValue})
-              // }}
               // defaultValue={[top100Films[13]]}
               // multiple
             />
           }
+
           {/* if property is a string : TextInput */}
           {(typeof renderObject[property] === 'string' && property !== '@type' && renderObject[property]) &&
             <Grid container>
