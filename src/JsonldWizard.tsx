@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Typography, Container, Paper, Button, Card, Chip, Grid } from "@material-ui/core";
 import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Delete';
@@ -50,6 +51,7 @@ const useStyles = makeStyles(theme => ({
   input: {
     background: 'white',
     fontSize: '14px',
+    width: '100%',
   },
   smallerFont: {
     fontSize: '12px',
@@ -152,12 +154,21 @@ const RenderObjectForm = ({ renderObject, onChange }: any) => {
   const classes = useStyles();
   const theme = useTheme();
 
+  const [state, setState] = React.useState({
+    autocompleteOntologyOptions: [],
+  });
+  const stateRef = React.useRef(state);
+  // Avoid conflict when async calls
+  const updateState = React.useCallback((update) => {
+    stateRef.current = {...stateRef.current, ...update};
+    setState(stateRef.current);
+  }, [setState]);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     renderObject[event.target.id] = event.target.value
     // call onChange function given by parent
     onChange(renderObject) 
   }
-  
   const handleRecursiveChange = (property: any, subSelections: any) => {
     renderObject[property] = subSelections;
     onChange(renderObject);
@@ -172,10 +183,25 @@ const RenderObjectForm = ({ renderObject, onChange }: any) => {
     }
     onChange(renderObject);
   }
-
   const handleRemoveEntry = (property: any, event: any) => {
     renderObject.splice(property, 1);
     onChange(renderObject);
+  }
+
+  function handleAutocompleteOntologyOptions(input_text: any) {
+    // Generate specific state key for this autocomplete
+    console.log("Update autocompleteOntology state")
+    // 1. Call the Ontology Search endpoint
+    // 2. Update autocomplete options via the state when inputChange
+    // 3. onChange: onChange as usual
+
+    if (input_text && input_text.target){
+      if (input_text.target.value && input_text.target.value !== 0) {
+        updateState({ autocompleteOntologyOptions: [input_text.target.value]})
+      } else {
+        updateState({ autocompleteOntologyOptions: [input_text.target.innerText]})
+      }
+    }
   }
   
   // https://betterprogramming.pub/recursive-rendering-with-react-components-10fa07c45456
@@ -184,8 +210,39 @@ const RenderObjectForm = ({ renderObject, onChange }: any) => {
       {/* Object.keys(renderObject).map(...) */}
       {Object.keys(renderObject).map((property: any, key: number) => (
         <div key={key}>
+          {property === '@type' &&
+            <Autocomplete
+              id={property}
+              onInputChange={handleAutocompleteOntologyOptions}
+              value={renderObject[property]}
+              // onChange={handleAutocomplete(event, 'sparql_endpoint')}
+              // onInputChange={handleAutocomplete(event, 'sparql_endpoint')}
+              options={state.autocompleteOntologyOptions}
+              // getOptionLabel={option => option.title}
+              freeSolo={true}
+              includeInputInList={true}
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  size='small'
+                  label="@type"
+                  placeholder="@type"
+                  className={classes.input}
+                />
+              )}
+              // ListboxProps={{
+              //   className: classes.input,
+              // }}
+              // onChange={(event, newInputValue: any) => {
+              //   setState({...state, 'language_autocomplete': newInputValue})
+              // }}
+              // defaultValue={[top100Films[13]]}
+              // multiple
+            />
+          }
           {/* if property is a string : TextInput */}
-          {(typeof renderObject[property] === 'string' && renderObject[property]) &&
+          {(typeof renderObject[property] === 'string' && property !== '@type' && renderObject[property]) &&
             <Grid container>
               <Grid item>
                 <TextField
