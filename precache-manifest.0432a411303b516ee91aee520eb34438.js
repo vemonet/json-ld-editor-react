@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "e9d56c874cb16d27fb04",
-    "url": "/fair-metadata-wizard/static/js/app.a39a67b6.chunk.js"
+    "revision": "6a351891a60f15f2f9f2",
+    "url": "/fair-metadata-wizard/static/js/app.cabb307c.chunk.js"
   },
   {
     "revision": "89f3b6fc6cbe301bd73e",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/fair-metadata-wizard/static/media/icon.72626586.png"
   },
   {
-    "revision": "1fec59897ae8d431cbeae3318a1bc140",
+    "revision": "ddf5220da37b4e4bd2bae063ca9b18d0",
     "url": "/fair-metadata-wizard/index.html"
   },
   {
