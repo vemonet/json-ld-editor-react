@@ -1,9 +1,10 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Container, Paper, Button, Card, Chip } from "@material-ui/core";
+import { Typography, Container, Paper, Button, Card, Chip, Grid } from "@material-ui/core";
 import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } from '@material-ui/core';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 // import Autocomplete from '@material-ui/lab/Autocomplete';
 // import MenuItem from '@material-ui/core/MenuItem';
@@ -164,6 +165,20 @@ const RenderObjectForm = ({ renderObject, onChange }: any) => {
     }
     onChange(renderObject);
   }
+
+  const handleRemoveEntry = (property: any, event: any) => {
+    console.log('handleRemoveEntry');
+    console.log(property);
+    console.log(event);
+    console.log(renderObject[property]);
+    // if (renderObject[property].length > 0) {
+    //   renderObject[property].push(renderObject[property][0]);
+    // } else {
+    //   renderObject[property].push('New entry');
+    // }
+    renderObject.splice(property, 1);
+    onChange(renderObject);
+  }
   
   // https://betterprogramming.pub/recursive-rendering-with-react-components-10fa07c45456
   return (
@@ -173,20 +188,37 @@ const RenderObjectForm = ({ renderObject, onChange }: any) => {
         <div key={key}>
           {/* if property is a string : TextInput */}
           {(typeof renderObject[property] === 'string' && renderObject[property]) &&
-            <TextField
-              id={property}
-              label={property}
-              placeholder={property}
-              value={renderObject[property]}
-              required
-              className={classes.fullWidth}
-              variant="outlined"
-              onChange={handleChange}
-              size='small'
-              InputProps={{
-                className: classes.input
-              }}
-            />
+            <Grid container>
+              <Grid item>
+                <TextField
+                  id={property}
+                  label={property}
+                  placeholder={property}
+                  value={renderObject[property]}
+                  required
+                  className={classes.fullWidth}
+                  variant="outlined"
+                  onChange={handleChange}
+                  size='small'
+                  InputProps={{
+                    className: classes.input
+                  }}
+                />
+              </Grid>
+              { Array.isArray(renderObject) && property !== '0' &&
+                <Grid item>
+                  <Button onClick={(subSelections: any) => handleRemoveEntry(property, subSelections)}
+                    variant="contained" 
+                    size="small"
+                    style={{ textTransform: 'none', marginLeft: theme.spacing(2) }}
+                    className={classes.addEntryButton} 
+                    startIcon={<RemoveIcon />}
+                    color="primary" >
+                      Remove
+                  </Button>
+                </Grid>
+              }
+            </Grid>
           }
 
           {/* if property is an object : RenderObjectForm recursion */}
