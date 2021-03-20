@@ -115,7 +115,7 @@ export default function JsonldWizard() {
   return(
     <Container className='mainContainer'>
       <Typography variant="h4" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        🧙‍♂️ FAIR metadata wizard
+          FAIR metadata wizard 🧙‍♂️
       </Typography>
       <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
         Quickly generates JSON-LD metadata for your datasets by filling a simple form

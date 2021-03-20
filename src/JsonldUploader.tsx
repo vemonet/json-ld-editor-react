@@ -69,17 +69,13 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
   }, [setState]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // renderObject[event.target.id] = event.target.value
     updateState({ upload_jsonld: event.target.value})
-    // call onChange function given by parent
-    // onChange(renderObject) 
   }
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // renderObject[event.target.id] = event.target.value
-    // call onChange function given by parent
     try {
+      // Call onChange function given by parent
       onChange(JSON.parse(state.upload_jsonld)) 
       updateState({...state, json_loaded_open: true})
     } catch (e) {
@@ -99,6 +95,7 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
   return(
     <Card style={{margin: theme.spacing(4,0)}}>
         <CardHeader
+          style={{ textAlign: 'center'}}
           action={
             <IconButton style={{fontSize: '16px'}}
               onClick={() => { updateState({ show_info_card: !state.show_info_card}) }}
@@ -115,8 +112,8 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
               }
             </IconButton>
           }
-          title="Provide your own JSON-LD"
-          subheader={"Upload your JSON-LD and edit it easily with this form."}
+          title="Provide your JSON-LD"
+          subheader={"Upload your JSON-LD as a template, and edit it easily."}
         />
 
 
