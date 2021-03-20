@@ -121,7 +121,7 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
         <Collapse in={state.show_info_card} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
-              All <code>@type</code> values autocomplete based on the classes and properties described in the ontology.
+              All <code>@type</code> values autocomplete are based on the classes and properties described in the ontology.
             </Typography>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
               The main <code>@context</code> URL is used to automatically download the related ontology as JSON-LD using Content-Negociation (accept application/json+ld). 

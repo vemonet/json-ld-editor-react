@@ -133,8 +133,11 @@ export default function JsonldWizard() {
           FAIR metadata wizard 🧙‍♂️
       </Typography>
       <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        Quickly generates JSON-LD metadata for your datasets by filling a simple form
+        Load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete for <code>@types</code>, based on the <code>@context</code> classes and properties
       </Typography>
+      {/* <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
+        with autocomplete for <code>@types</code>, based on the <code>@context</code> ontology classes and properties
+      </Typography> */}
 
       <JsonldUploader renderObject={state.wizard_jsonld} 
         onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld}); console.log(state.wizard_jsonld) }} />
