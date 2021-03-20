@@ -4,7 +4,7 @@ import { Typography, Container, Paper, Button, Card, Chip, Grid } from "@materia
 import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } from '@material-ui/core';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
+import RemoveIcon from '@material-ui/icons/Delete';
 
 // import Autocomplete from '@material-ui/lab/Autocomplete';
 // import MenuItem from '@material-ui/core/MenuItem';
@@ -214,7 +214,7 @@ const RenderObjectForm = ({ renderObject, onChange }: any) => {
                     className={classes.addEntryButton} 
                     startIcon={<RemoveIcon />}
                     color="primary" >
-                      Remove
+                      Delete
                   </Button>
                 </Grid>
               }
@@ -225,6 +225,23 @@ const RenderObjectForm = ({ renderObject, onChange }: any) => {
           {(typeof renderObject[property] === 'object' && renderObject[property]) &&
             <Card elevation={2} className={classes.paperPadding}>
               <Chip label={property}  style={{fontWeight: 900, marginBottom: theme.spacing(2), marginLeft: theme.spacing(1)}} />
+              { Array.isArray(renderObject) && property !== '0' &&
+                // <Grid item>
+                <Button onClick={(subSelections: any) => handleRemoveEntry(property, subSelections)}
+                  variant="contained" 
+                  size="small"
+                  style={{ textTransform: 'none', marginLeft: theme.spacing(2) }}
+                  className={classes.addEntryButton} 
+                  startIcon={<RemoveIcon />}
+                  color="primary" >
+                    Delete
+                </Button>
+                // </Grid>
+              }
+              <RenderObjectForm
+                renderObject={renderObject[property]}
+                onChange={(subSelections: any) => handleRecursiveChange(property, subSelections)}
+              />
               { Array.isArray(renderObject[property]) &&
                 <Button onClick={(subSelections: any) => handleAddEntry(property, subSelections)}
                   // style={{width: '100%'}}
@@ -233,13 +250,9 @@ const RenderObjectForm = ({ renderObject, onChange }: any) => {
                   className={classes.addEntryButton} 
                   startIcon={<AddIcon />}
                   color="primary" >
-                    Add entry
+                    Add {property} entry
                 </Button>
               }
-              <RenderObjectForm
-                renderObject={renderObject[property]}
-                onChange={(subSelections: any) => handleRecursiveChange(property, subSelections)}
-              />
             </Card>
           }
         </div>
