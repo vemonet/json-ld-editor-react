@@ -142,7 +142,7 @@ export default function JsonldWizard() {
 }
 
 // Recursive component to display a JSON-LD object as form
-const RenderObjectForm = ({ renderObject, onChange }: any) => {
+const RenderObjectForm = ({ renderObject, onChange, parentProperty }: any) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -159,23 +159,15 @@ const RenderObjectForm = ({ renderObject, onChange }: any) => {
   
   const handleAddEntry = (property: any, event: any) => {
     if (renderObject[property].length > 0) {
-      renderObject[property].push(renderObject[property][0]);
+      // Use {...object} to clone the object
+      renderObject[property].push({...renderObject[property][0]});
     } else {
-      renderObject[property].push('New entry');
+      renderObject[property].push('Entry ' + renderObject[property].length);
     }
     onChange(renderObject);
   }
 
   const handleRemoveEntry = (property: any, event: any) => {
-    console.log('handleRemoveEntry');
-    console.log(property);
-    console.log(event);
-    console.log(renderObject[property]);
-    // if (renderObject[property].length > 0) {
-    //   renderObject[property].push(renderObject[property][0]);
-    // } else {
-    //   renderObject[property].push('New entry');
-    // }
     renderObject.splice(property, 1);
     onChange(renderObject);
   }
@@ -226,7 +218,6 @@ const RenderObjectForm = ({ renderObject, onChange }: any) => {
             <Card elevation={2} className={classes.paperPadding}>
               <Chip label={property}  style={{fontWeight: 900, marginBottom: theme.spacing(2), marginLeft: theme.spacing(1)}} />
               { Array.isArray(renderObject) && property !== '0' &&
-                // <Grid item>
                 <Button onClick={(subSelections: any) => handleRemoveEntry(property, subSelections)}
                   variant="contained" 
                   size="small"
@@ -236,11 +227,22 @@ const RenderObjectForm = ({ renderObject, onChange }: any) => {
                   color="primary" >
                     Delete
                 </Button>
-                // </Grid>
+              }
+              { Array.isArray(renderObject[property]) &&
+                <Button onClick={(subSelections: any) => handleAddEntry(property, subSelections)}
+                  // style={{width: '100%'}}
+                  variant="contained" 
+                  size="small"
+                  className={classes.addEntryButton} 
+                  startIcon={<AddIcon />}
+                  color="primary" >
+                    Add {property} entry
+                </Button>
               }
               <RenderObjectForm
                 renderObject={renderObject[property]}
                 onChange={(subSelections: any) => handleRecursiveChange(property, subSelections)}
+                parentProperty={property}
               />
               { Array.isArray(renderObject[property]) &&
                 <Button onClick={(subSelections: any) => handleAddEntry(property, subSelections)}
