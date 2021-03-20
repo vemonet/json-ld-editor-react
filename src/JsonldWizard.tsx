@@ -193,7 +193,6 @@ const RenderObjectForm = ({ renderObject, onChange }: any) => {
                   label={property}
                   placeholder={property}
                   value={renderObject[property]}
-                  required
                   className={classes.fullWidth}
                   variant="outlined"
                   onChange={handleChange}
@@ -201,6 +200,9 @@ const RenderObjectForm = ({ renderObject, onChange }: any) => {
                   InputProps={{
                     className: classes.input
                   }}
+                  required
+                  InputLabelProps={{ required: false }}
+                  // All field are required but we hide the *
                 />
               </Grid>
               { Array.isArray(renderObject) && property !== '0' &&

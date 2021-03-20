@@ -27,7 +27,8 @@ const useStyles = makeStyles(theme => ({
   },
   input: {
     background: 'white',
-    fontSize: '14px',
+    fontSize: '11px',
+    fontFamily: 'monospace'
   },
   settingsForm: {
     width: '100%',
@@ -119,9 +120,6 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
 
         <Collapse in={state.show_info_card} timeout="auto" unmountOnExit>
           <CardContent>
-            {/* <Typography>
-              Paste the JSON-LD you want to edit here:
-            </Typography> */}
 
             <form onSubmit={handleSubmit}>
               <FormControl className={classes.settingsForm}>
@@ -141,10 +139,6 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
                     className: classes.input
                   }}
                 />
-
-                {/* <RenderObjectForm renderObject={state.wizard_jsonld} 
-                  onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld}); console.log(state.wizard_jsonld) } }
-                /> */}
 
                 <div style={{width: '100%', textAlign: 'center'}}>
                   <Button type="submit" 
