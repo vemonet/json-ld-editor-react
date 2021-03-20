@@ -205,9 +205,10 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
           const search_description = concept['rdfs:label'] + ' ' + concept['rdfs:comment'];
           return search_description.toLowerCase().indexOf( inputText.toLowerCase() ) !== -1
         })
-        .map((concept: any) => {
-          return concept['rdfs:label']
-        })
+        .sort((a: any, b: any) => a['@type'] < b['@type'] ? 1 : -1)
+        // .map((concept: any) => {
+        //   return concept['rdfs:label']
+        // })
       updateState({
         autocompleteOntologyOptions: matchingConcepts
       })
@@ -225,10 +226,16 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
               id={property}
               onInputChange={handleAutocompleteOntologyOptions}
               value={renderObject[property]}
-              // onChange={handleAutocomplete(event, 'sparql_endpoint')}
-              // onInputChange={handleAutocomplete(event, 'sparql_endpoint')}
               options={state.autocompleteOntologyOptions}
-              // getOptionLabel={option => option.title}
+              groupBy={(option: any): any => option['@type']}
+              getOptionLabel={(option: any): any => {
+                // Handle when provided with rdfs:label
+                if (option['rdfs:label']) {
+                  return option['rdfs:label']
+                } else {
+                  return option
+                }
+              }}
               freeSolo={true}
               includeInputInList={true}
               renderInput={params => (
