@@ -1,23 +1,23 @@
 {
   "files": {
-    "app.js": "/fair-metadata-wizard/static/js/app.f7096a89.chunk.js",
-    "app.js.map": "/fair-metadata-wizard/static/js/app.f7096a89.chunk.js.map",
+    "app.js": "/fair-metadata-wizard/static/js/app.153cb8d2.chunk.js",
+    "app.js.map": "/fair-metadata-wizard/static/js/app.153cb8d2.chunk.js.map",
     "runtime~app.js": "/fair-metadata-wizard/static/js/runtime~app.256c1066.js",
     "runtime~app.js.map": "/fair-metadata-wizard/static/js/runtime~app.256c1066.js.map",
-    "static/js/2.afc8e2ed.chunk.js": "/fair-metadata-wizard/static/js/2.afc8e2ed.chunk.js",
-    "static/js/2.afc8e2ed.chunk.js.map": "/fair-metadata-wizard/static/js/2.afc8e2ed.chunk.js.map",
+    "static/js/2.a8efa01b.chunk.js": "/fair-metadata-wizard/static/js/2.a8efa01b.chunk.js",
+    "static/js/2.a8efa01b.chunk.js.map": "/fair-metadata-wizard/static/js/2.a8efa01b.chunk.js.map",
     "favicon-16.png": "/fair-metadata-wizard/favicon-16.png",
     "favicon-32.png": "/fair-metadata-wizard/favicon-32.png",
     "favicon.ico": "/fair-metadata-wizard/favicon.ico",
     "index.html": "/fair-metadata-wizard/index.html",
     "manifest.json": "/fair-metadata-wizard/manifest.json",
     "serve.json": "/fair-metadata-wizard/serve.json",
-    "static/js/2.afc8e2ed.chunk.js.LICENSE.txt": "/fair-metadata-wizard/static/js/2.afc8e2ed.chunk.js.LICENSE.txt",
+    "static/js/2.a8efa01b.chunk.js.LICENSE.txt": "/fair-metadata-wizard/static/js/2.a8efa01b.chunk.js.LICENSE.txt",
     "static/media/icon.png": "/fair-metadata-wizard/static/media/icon.72626586.png"
   },
   "entrypoints": [
     "static/js/runtime~app.256c1066.js",
-    "static/js/2.afc8e2ed.chunk.js",
-    "static/js/app.f7096a89.chunk.js"
+    "static/js/2.a8efa01b.chunk.js",
+    "static/js/app.153cb8d2.chunk.js"
   ]
 }
