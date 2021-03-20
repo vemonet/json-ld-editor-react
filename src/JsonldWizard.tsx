@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Typography, Container, Paper, Button, Card, Chip, Grid, Snackbar } from "@material-ui/core";
 import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } from '@material-ui/core';
@@ -73,6 +74,8 @@ const useStyles = makeStyles(theme => ({
 export default function JsonldWizard() {
   const classes = useStyles();
   const theme = useTheme();
+  // useLocation hook to get URL params
+  let location = useLocation();
 
   // Original form and output:
   // Questions: https://github.com/kodymoodley/fair-metadata-generator/blob/main/questions.csv
@@ -82,6 +85,7 @@ export default function JsonldWizard() {
     open: false,
     dialogOpen: false,
     wizard_jsonld: wizard_jsonld,
+    jsonld_uri_provided: null,
     ontology_jsonld: {},
     ontoload_error_open: false,
     ontoload_success_open: false,
@@ -94,6 +98,19 @@ export default function JsonldWizard() {
   }, [setState]);
   
   React.useEffect(() => {
+    // Get URL params 
+    const params = new URLSearchParams(location.search + location.hash);
+    let jsonld_uri_provided = params.get('edit');
+    if (jsonld_uri_provided) {
+      axios.get(jsonld_uri_provided)
+        .then(res => {
+          updateState({
+            wizard_jsonld: res.data,
+            jsonld_uri_provided: jsonld_uri_provided,
+          })
+        })
+    }
+
     // Download the ontology JSON-LD at start
     let contextUrl = 'https://schema.org/'
     if (state.wizard_jsonld['@context']) {
@@ -198,8 +215,10 @@ export default function JsonldWizard() {
         Load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete for <code>@types</code>, based on the <code>@context</code> classes and properties
       </Typography>
 
-      <JsonldUploader renderObject={state.wizard_jsonld} 
-        onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld})}} />
+      {!state.jsonld_uri_provided &&
+        <JsonldUploader renderObject={state.wizard_jsonld} 
+          onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld})}} />
+      }
 
       <Snackbar open={state.ontoload_error_open} onClose={closeOntoloadError} autoHideDuration={10000}>
         <MuiAlert elevation={6} variant="filled" severity="error">
