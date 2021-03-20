@@ -1,22 +1,22 @@
 self.__precacheManifest = [
   {
-    "revision": "dbba1f250496e23dc142",
-    "url": "/fair-metadata-wizard/static/js/app.08ecaf10.chunk.js"
+    "revision": "747f2a22df9386c35780",
+    "url": "/fair-metadata-wizard/static/js/app.2ade2791.chunk.js"
   },
   {
     "revision": "89f3b6fc6cbe301bd73e",
     "url": "/fair-metadata-wizard/static/js/runtime~app.256c1066.js"
   },
   {
-    "revision": "beb1c44623fd7b1413f6",
-    "url": "/fair-metadata-wizard/static/js/2.a8efa01b.chunk.js"
+    "revision": "6d8229f02ac51ad56165",
+    "url": "/fair-metadata-wizard/static/js/2.dcd5d906.chunk.js"
   },
   {
     "revision": "951e6ef1c62c25b9b10b081968119584",
     "url": "/fair-metadata-wizard/static/media/icon.72626586.png"
   },
   {
-    "revision": "7f45bb133eb91075076d798f9beb1715",
+    "revision": "11059a04e364f0199d4d86d342a2631b",
     "url": "/fair-metadata-wizard/index.html"
   },
   {
@@ -33,7 +33,7 @@ self.__precacheManifest = [
   },
   {
     "revision": "89b0379e7bcda1a468d8b0343aeb4e53",
-    "url": "/fair-metadata-wizard/static/js/2.a8efa01b.chunk.js.LICENSE.txt"
+    "url": "/fair-metadata-wizard/static/js/2.dcd5d906.chunk.js.LICENSE.txt"
   },
   {
     "revision": "e78221aba04ce077cb705ff3c8d2bc05",
