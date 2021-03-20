@@ -434,7 +434,7 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
           }
 
           {/* if property is a string : TextInput */}
-          {(typeof renderObject[property] === 'string' && property !== '@type' && renderObject[property]) &&
+          {(typeof renderObject[property] === 'string' && property !== '@type') &&
             <Grid container>
               <Grid item>
                 <TextField
