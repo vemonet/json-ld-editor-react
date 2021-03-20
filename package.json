@@ -9,6 +9,7 @@
     "chartjs-plugin-labels": "^1.1.0",
     "expo": "~39.0.0",
     "normalizr": "^3.6.0",
+    "rdflib": "^2.2.0",
     "react": "~16.13.0",
     "react-chartjs-2": "^2.10.0",
     "react-dom": "~16.13.0",

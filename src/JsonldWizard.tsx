@@ -1,12 +1,17 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Container, Paper, Button, Card, Chip, Grid } from "@material-ui/core";
+import { Typography, Container, Paper, Button, Card, Chip, Grid, Snackbar } from "@material-ui/core";
 import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Delete';
 import axios from 'axios';
+// import * as jsonld from 'jsonld'
+// import {$rdf} from 'rdflib'
+// const jsonld = require('jsonld')
+const $rdf = require('rdflib')
 
 import JsonldUploader from "./JsonldUploader";
 
@@ -77,7 +82,9 @@ export default function JsonldWizard() {
     open: false,
     dialogOpen: false,
     wizard_jsonld: wizard_jsonld,
-    ontology_jsonld: {}
+    ontology_jsonld: {},
+    ontoload_error_open: false,
+    ontoload_success_open: false,
   });
   const stateRef = React.useRef(state);
   // Avoid conflict when async calls
@@ -89,8 +96,6 @@ export default function JsonldWizard() {
   React.useEffect(() => {
     // Download the ontology JSON-LD at start
     let contextUrl = 'https://schema.org/'
-    console.log(state.wizard_jsonld)
-    console.log(state.wizard_jsonld['@context'])
     if (state.wizard_jsonld['@context']) {
       contextUrl = state.wizard_jsonld['@context']
     }
@@ -104,15 +109,64 @@ export default function JsonldWizard() {
     axios.defaults.headers.common['Accept'] = 'application/ld+json'
     axios.get(contextUrl)
       .then(res => {
+        console.log('ontology downloaded!')
         console.log(res.data)
-        updateState({
-          ontology_jsonld: res.data
-        })
+        // if not json
+        if (typeof res.data !== 'object') {
+          // If not object, we try to parse
+          // const jsonLDList = await jsonld.fromRDF(result.quadList)
+          toJSONLD(res.data, contextUrl, 'application/rdf+xml')
+            .then((jsonld_rdf) => {
+              // console.log('rdf conversion done');
+              // console.log(jsonld_rdf);
+              updateState({
+                ontology_jsonld: {
+                  '@context': contextUrl,
+                  '@graph': jsonld_rdf
+                }
+              })
+              updateState({ontoload_success_open: true})
+              // jsonld.flatten(doc, (err: any, flattened: any) => {
+              //     console.log('flattened')
+              //     console.log(flattened)
+              //     // jsonld.frame(flattened, frame, (err: any, framed: any) => {
+              //     //     resolve(framed)
+              //     // })
+              // })
+            })
+        } else {
+          updateState({
+            ontology_jsonld: res.data
+          })
+          updateState({ontoload_success_open: true})
+        }
       })
       .catch(error => {
+        updateState({ontoload_error_open: true})
         console.log(error)
       })
-  }, [state.wizard_jsonld])
+  }, [state.wizard_jsonld['@context']])
+
+  const toJSONLD = (data: any, uri: any, mimeType: any) => {
+    return new Promise((resolve, reject) => {
+        let store = $rdf.graph()
+        let doc = $rdf.sym(uri);
+        $rdf.parse(data, store, uri, mimeType)
+        console.log(store)
+        $rdf.serialize(doc, store, uri, 'application/ld+json', (err: any, jsonldData: any) => {
+          return resolve(JSON.parse(jsonldData)
+            .sort((a: any, b: any) => {
+              if (a['@type'] && b['@type'] && Array.isArray(a['@type']) && Array.isArray(b['@type'])){
+                // Handle when array of types provided (e.g. SIO via rdflib)
+                return a['@type'][0] < b['@type'][0] ? 1 : -1
+              } else {
+                return a['@type'] < b['@type'] ? 1 : -1
+              }
+            })
+        )
+      })
+    })
+  }
 
   const handleSubmit  = (event: React.FormEvent) => {
     // Trigger file download
@@ -127,6 +181,14 @@ export default function JsonldWizard() {
     setState({...state, open: true})
   }
 
+  // Close Snackbar
+  const closeOntoloadError = () => {
+    updateState({...state, ontoload_error_open: false})
+  };
+  const closeOntoloadSuccess = () => {
+    updateState({...state, ontoload_success_open: false})
+  };
+
   return(
     <Container className='mainContainer'>
       <Typography variant="h4" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
@@ -135,12 +197,20 @@ export default function JsonldWizard() {
       <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
         Load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete for <code>@types</code>, based on the <code>@context</code> classes and properties
       </Typography>
-      {/* <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        with autocomplete for <code>@types</code>, based on the <code>@context</code> ontology classes and properties
-      </Typography> */}
 
       <JsonldUploader renderObject={state.wizard_jsonld} 
         onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld}); console.log(state.wizard_jsonld) }} />
+
+      <Snackbar open={state.ontoload_error_open} onClose={closeOntoloadError} autoHideDuration={10000}>
+        <MuiAlert elevation={6} variant="filled" severity="error">
+          The ontology at the URL {state.wizard_jsonld['@context']} provided in @context could not be loaded
+        </MuiAlert>
+      </Snackbar>
+      <Snackbar open={state.ontoload_success_open} onClose={closeOntoloadSuccess} autoHideDuration={10000}>
+        <MuiAlert elevation={6} variant="filled" severity="success">
+          The ontology {state.wizard_jsonld['@context']} from @context has been loaded successfully, it will be used for @types autocomplete
+        </MuiAlert>
+      </Snackbar>
 
       <form onSubmit={handleSubmit}>
         <FormControl className={classes.settingsForm}>
@@ -215,6 +285,10 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
       if (typeof concept['rdfs:comment'] === 'string') search_description = search_description + concept['rdfs:comment'];
       if (concept['rdfs:comment']['en']) search_description = search_description + concept['rdfs:comment']['en'];
     }
+    if (concept['http://www.w3.org/2000/01/rdf-schema#label']) {
+      if (typeof concept['http://www.w3.org/2000/01/rdf-schema#label'] === 'string') search_description = search_description + concept['http://www.w3.org/2000/01/rdf-schema#label'];
+      if (concept['http://www.w3.org/2000/01/rdf-schema#label'][0] && concept['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) search_description = search_description + concept['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'];
+    }
     return search_description;
   }
 
@@ -251,7 +325,14 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
         })
       }
       updateState({
-        autocompleteOntologyOptions: conceptsArray.sort((a: any, b: any) => a['@type'] < b['@type'] ? 1 : -1)
+        autocompleteOntologyOptions: conceptsArray.sort((a: any, b: any) => {
+          if (a['@type'] && b['@type'] && Array.isArray(a['@type']) && Array.isArray(b['@type'])){
+            // Handle when array of types provided (e.g. SIO via rdflib)
+            return a['@type'][0] < b['@type'][0] ? 1 : -1
+          } else {
+            return a['@type'] < b['@type'] ? 1 : -1
+          }
+        })
       })
     }
   }
@@ -265,20 +346,42 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
             <Autocomplete
               id={property}
               onInputChange={handleAutocompleteOntologyOptions}
-              value={renderObject[property]}
+              defaultValue={{'rdfs:label': renderObject[property]}}
+              // value={{...{'rdfs:label': renderObject[property]}}}
+              // value={renderObject[property]}
               options={state.autocompleteOntologyOptions}
-              groupBy={(option: any): any => option['@type']}
+              groupBy={(option: any): any => {
+                // option['@type']
+                if (option['@type'] && Array.isArray(option['@type'])) {
+                  // Handle when array of types provided (e.g. SIO via rdflib)
+                  console.log(option['@type'])
+                  return option['@type'][0]
+                } else {
+                  return option['@type']
+                }
+              }}
+              getOptionSelected={(option: any, selectedValue: any): any => {
+                // Handle option label when provided with rdfs:label or direct
+                if (option['rdfs:label']) {
+                  if (typeof option['rdfs:label'] === 'string') return option['rdfs:label'] === selectedValue
+                  if (option['rdfs:label']['en']) return option['rdfs:label']['en'] === selectedValue
+                }
+                if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
+                  return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue
+                }
+                return option === selectedValue
+              }}
               getOptionLabel={(option: any): any => {
-                // Handle when provided with rdfs:label
+                // Handle option label when provided with rdfs:label or direct
                 if (option['rdfs:label']) {
                   if (typeof option['rdfs:label'] === 'string') return option['rdfs:label']
                   if (option['rdfs:label']['en']) return option['rdfs:label']['en']
-                } else {
-                  return option
                 }
+                if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
+                  return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
+                }
+                return option
               }}
-              freeSolo={true}
-              includeInputInList={true}
               renderInput={params => (
                 <TextField
                   {...params}
@@ -289,6 +392,8 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
                   className={classes.input}
                 />
               )}
+              // freeSolo={true}
+              // includeInputInList={true}
               // ListboxProps={{
               //   className: classes.input,
               // }}

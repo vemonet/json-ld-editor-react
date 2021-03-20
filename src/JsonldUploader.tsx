@@ -128,7 +128,7 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
             </Typography>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
               This feature has been tested with <a href="https://schema.org" className={classes.link} target="_blank" rel="noopener noreferrer">https://schema.org</a> 
-              and <a href="http://www.w3.org/ns/csvw" className={classes.link} target="_blank" rel="noopener noreferrer">http://www.w3.org/ns/csvw</a>.
+              , <a href="http://www.w3.org/ns/csvw" className={classes.link} target="_blank" rel="noopener noreferrer">http://www.w3.org/ns/csvw</a> and <a href="https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl" className={classes.link} target="_blank" rel="noopener noreferrer">the SemanticScience ontology</a>.
             </Typography>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(3)}}>
               Provide a URL to download your ontology as JSON-LD in the main <code>@context</code>, and feel free to <a href="https://github.com/MaastrichtU-IDS/fair-metadata-wizard/issues" className={classes.link} target="_blank" rel="noopener noreferrer">create an issue</a> on GitHub if the autocomplete does not work.
@@ -167,9 +167,9 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
                     The JSON-LD provided is not valid
                   </MuiAlert>
                 </Snackbar>
-                <Snackbar open={state.json_loaded_open} onClose={closeJsonLoaded} autoHideDuration={8000}>
-                  <MuiAlert elevation={6} variant="filled" severity="success">
-                    Your JSON-LD has been loaded
+                <Snackbar open={state.json_loaded_open} onClose={closeJsonLoaded} autoHideDuration={10000}>
+                  <MuiAlert elevation={6} variant="filled" severity="info">
+                    Your JSON-LD has been loaded. Trying to load the ontology from the URL provided in @context...
                   </MuiAlert>
                 </Snackbar>
               </FormControl>
@@ -180,6 +180,8 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
       </Card>
   )
 }
+
+// https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl
 
 const csvw_jsonld = {
   "@context": "http://www.w3.org/ns/csvw",
