@@ -138,7 +138,6 @@ export default function JsonldWizard() {
 
       <JsonldUploader renderObject={state.wizard_jsonld} 
         onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld}); console.log(state.wizard_jsonld) }} />
-      {/* renderObject, onChange */}
 
       <form onSubmit={handleSubmit}>
         <FormControl className={classes.settingsForm}>
