@@ -88,9 +88,23 @@ export default function JsonldWizard() {
   
   React.useEffect(() => {
     // Download the ontology JSON-LD at start
-    const ontologyUrl = 'https://schema.org/version/latest/schemaorg-current-https.jsonld'
-    axios.get(ontologyUrl)
+    let contextUrl = 'https://schema.org/'
+    console.log(state.wizard_jsonld)
+    console.log(state.wizard_jsonld['@context'])
+    if (state.wizard_jsonld['@context']) {
+      contextUrl = state.wizard_jsonld['@context']
+    }
+    if (contextUrl.startsWith('https://schema.org') || contextUrl.startsWith('https://schema.org')) {
+      // Schema.org does not enable content-negociation 
+      contextUrl = 'https://schema.org/version/latest/schemaorg-current-https.jsonld'
+    }
+
+    // Try to download the ontology provided in @context URL as JSON-LD
+    // curl -iL -H 'Accept: application/ld+json' http://www.w3.org/ns/csvw
+    axios.defaults.headers.common['Accept'] = 'application/ld+json'
+    axios.get(contextUrl)
       .then(res => {
+        console.log(res.data)
         updateState({
           ontology_jsonld: res.data
         })
@@ -98,7 +112,7 @@ export default function JsonldWizard() {
       .catch(error => {
         console.log(error)
       })
-  }, [])
+  }, [state.wizard_jsonld])
 
   const handleSubmit  = (event: React.FormEvent) => {
     // Trigger file download
@@ -188,8 +202,22 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
     onChange(renderObject);
   }
 
+  function getConceptSearchDescription(concept: any) {
+    // TODO: improve resolution of labels, quick hack to work with schema.org and csvw
+    let search_description = ''
+    if (concept['rdfs:label']) {
+      if (typeof concept['rdfs:label'] === 'string') search_description = search_description + concept['rdfs:label'];
+      if (concept['rdfs:label']['en']) search_description = search_description + concept['rdfs:label']['en'];
+    }
+    if (concept['rdfs:comment']) {
+      if (typeof concept['rdfs:comment'] === 'string') search_description = search_description + concept['rdfs:comment'];
+      if (concept['rdfs:comment']['en']) search_description = search_description + concept['rdfs:comment']['en'];
+    }
+    return search_description;
+  }
+
   function handleAutocompleteOntologyOptions(event: any) {
-    // Generate specific state key for this autocomplete
+    // Get autocomplete options from searching the provided @context ontology JSON-LD
     let inputText = '';
     if (event && event.target){
       if (event.target.value && event.target.value !== 0) {
@@ -200,25 +228,35 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
     }
     if (inputText) {
       // Search for matching concepts in the ontology JSON-LD
-      const matchingConcepts = ontologyObject['@graph']
-        .filter((concept: any) => {
-          const search_description = concept['rdfs:label'] + ' ' + concept['rdfs:comment'];
-          return search_description.toLowerCase().indexOf( inputText.toLowerCase() ) !== -1
+      let conceptsArray: any = []
+      const ontologyGraph = ontologyObject['@graph']
+      if (Array.isArray(ontologyGraph)) {
+        // If @graph is array of entities (e.g. schema.org)
+        conceptsArray = ontologyGraph
+          .filter((concept: any) => {
+            return getConceptSearchDescription(concept).toLowerCase().indexOf( inputText.toLowerCase() ) !== -1
+          })
+      } else {
+        // If @graph is object of arrays of entities (e.g. csvw)
+        Object.keys(ontologyGraph).map((graphLabel: any) => {
+          if (ontologyGraph[graphLabel] && Array.isArray(ontologyGraph[graphLabel])) {
+            conceptsArray = conceptsArray.concat(ontologyGraph[graphLabel]
+              .filter((concept: any) => {
+                return getConceptSearchDescription(concept).toLowerCase().indexOf( inputText.toLowerCase() ) !== -1
+              })
+            )
+          }
         })
-        .sort((a: any, b: any) => a['@type'] < b['@type'] ? 1 : -1)
-        // .map((concept: any) => {
-        //   return concept['rdfs:label']
-        // })
+      }
       updateState({
-        autocompleteOntologyOptions: matchingConcepts
+        autocompleteOntologyOptions: conceptsArray.sort((a: any, b: any) => a['@type'] < b['@type'] ? 1 : -1)
       })
     }
   }
-  
+
   // https://betterprogramming.pub/recursive-rendering-with-react-components-10fa07c45456
   return (
     <div>
-      {/* Object.keys(renderObject).map(...) */}
       {Object.keys(renderObject).map((property: any, key: number) => (
         <div key={key}>
           {property === '@type' &&
@@ -231,7 +269,8 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
               getOptionLabel={(option: any): any => {
                 // Handle when provided with rdfs:label
                 if (option['rdfs:label']) {
-                  return option['rdfs:label']
+                  if (typeof option['rdfs:label'] === 'string') return option['rdfs:label']
+                  if (option['rdfs:label']['en']) return option['rdfs:label']['en']
                 } else {
                   return option
                 }

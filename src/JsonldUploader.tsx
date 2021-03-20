@@ -168,64 +168,27 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
   )
 }
 
-const test_jsonld = {
-  "@context": "https://schema.org",
-  "@type": "Dataset",
-  "label": "ECJ case law text similarity analysis",
-  "description": "results from a study to analyse how closely the textual similarity of ECJ cases resembles the citation network of the cases.",
-  "version": "v2.0",
-  "url": "https://doi.org/10.5281/zenodo.4228652",
-  "license": "https://www.gnu.org/licenses/agpl-3.0.txt",
-  "encodingFormat": "CSV",
-  "temporalCoverage": "2019-09-14/2020-07-01",
-  "dateCreated": {
-      "@type": "Date",
-      "@value": "2019-09-14"
-  },
-  "datePublished": {
-      "@type": "Date",
-      "@value": "2020-07-01"
-  },
-  "distribution": {
-      "@type": "DataDownload",
-      "contentUrl": {
-          "@type": "URL",
-          "@value": "https://zenodo.org/record/4228652/files/docona_cjeu_results_2018_v2_html.zip?download=1"
-      },
-      "encodingFormat": "application/zip",
-      "contentSize": "1.1MB"
-  },
-  "inLanguage": {
-      "@type": "Language",
-      "name": "EN",
-      "alternateName": "EN"
-  },
-  "keywords": [
-      "case law",
-      "court decisions",
-      "text similarity",
-      "network analysis",
-  ],
-  "creator": {
-      "@type": "Person",
-      "@wizardRequired": true,
-      "name": "concat @givenName @familyName",
-      "givenName": "Kody",
-      "familyName": "Moodley",
-      "image": "https://www.maastrichtuniversity.nl/sites/default/files/styles/text_with_image_mobile_portrait/public/profile/kody.moodley/kody.moodley_photo_kmoodley.jpg?itok=bN7b8s_-&timestamp=1583505301",
-      "jobTitle": "Postdoctoral researcher",
-      "email": "kody.moodley@maastrichtuniversity.nl",
-      "affiliation": {
-          "@type": "Organization",
-          "name": "Maastricht Law & Tech Lab",
-          "url": {
-              "@type": "URL",
-              "@value": "https://www.maastrichtuniversity.nl/about-um/faculties/law/research/law-and-tech-lab"
-          },
-          "logo": {
-              "@type": "ImageObject",
-              "contentUrl": "https://www.maastrichtuniversity.nl/sites/default/files/styles/page_photo/public/compacte20versie20law20and20tech20lab.jpg?itok=7lm6PEQF"
-          }
-      }
+const csvw_jsonld = {
+  "@context": "http://www.w3.org/ns/csvw",
+  "url": "tree-ops.csv",
+  "tableSchema": {
+    "columns": [{
+      "@type": "Schema",
+      "name": "GID",
+      "titles": "GID"
+    }, {
+      "name": "on_street",
+      "titles": "On Street"
+    }, {
+      "name": "species",
+      "titles": "Species"
+    }, {
+      "name": "trim_cycle",
+      "titles": "Trim Cycle"
+    }, {
+      "name": "inventory_date",
+      "titles": "Inventory Date",
+      "datatype": {"base": "date", "format": "M/d/yyyy"}
+    }]
   }
 }
