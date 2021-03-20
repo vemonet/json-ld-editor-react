@@ -6,6 +6,8 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Delete';
 
+import JsonldUploader from "./JsonldUploader";
+
 // import Autocomplete from '@material-ui/lab/Autocomplete';
 // import MenuItem from '@material-ui/core/MenuItem';
 // import Snackbar from '@material-ui/core/Snackbar';
@@ -119,6 +121,10 @@ export default function JsonldWizard() {
         Quickly generates JSON-LD metadata for your datasets by filling a simple form
       </Typography>
 
+      <JsonldUploader renderObject={state.wizard_jsonld} 
+        onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld}); console.log(state.wizard_jsonld) }} />
+      {/* renderObject, onChange */}
+
       <form onSubmit={handleSubmit}>
         <FormControl className={classes.settingsForm}>
 
@@ -142,7 +148,7 @@ export default function JsonldWizard() {
 }
 
 // Recursive component to display a JSON-LD object as form
-const RenderObjectForm = ({ renderObject, onChange, parentProperty }: any) => {
+const RenderObjectForm = ({ renderObject, onChange }: any) => {
   const classes = useStyles();
   const theme = useTheme();
 
