@@ -174,11 +174,12 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject }: any) => {
   }
   
   const handleAddEntry = (property: any, event: any) => {
-    if (renderObject[property].length > 0) {
+    if (typeof renderObject[property][0] === 'string') {
+      // If the array entries are strings and not objects
+      renderObject[property].push(property + ' ' + renderObject[property].length);
+    } else if (renderObject[property].length > 0) {
       // Use {...object} to clone the object
       renderObject[property].push({...renderObject[property][0]});
-    } else {
-      renderObject[property].push('Entry ' + renderObject[property].length);
     }
     onChange(renderObject);
   }
