@@ -112,14 +112,20 @@ export default function JsonldWizard() {
             wizard_jsonld: res.data,
             jsonld_uri_provided: jsonld_uri_provided,
           })
+          downloadOntology(res.data['@context'])
         })
+    } else {
+      downloadOntology(state.wizard_jsonld['@context'])
     }
+    
+  }, [state.wizard_jsonld['@context']])
 
+  const downloadOntology  = (contextUrl: string) => {
     // Download the ontology JSON-LD at start
-    let contextUrl = 'https://schema.org/'
-    if (state.wizard_jsonld['@context']) {
-      contextUrl = state.wizard_jsonld['@context']
-    }
+    // let contextUrl = 'https://schema.org/'
+    // if (state.wizard_jsonld['@context']) {
+    //   contextUrl = state.wizard_jsonld['@context']
+    // }
     if (contextUrl.startsWith('https://schema.org') || contextUrl.startsWith('https://schema.org')) {
       // Schema.org does not enable content-negociation 
       contextUrl = 'https://schema.org/version/latest/schemaorg-current-https.jsonld'
@@ -166,7 +172,7 @@ export default function JsonldWizard() {
         updateState({ontoload_error_open: true})
         console.log(error)
       })
-  }, [state.wizard_jsonld['@context']])
+  }
 
   const toJSONLD = (data: any, uri: any, mimeType: any) => {
     return new Promise((resolve, reject) => {
@@ -258,7 +264,6 @@ export default function JsonldWizard() {
   )
 }
 
-const clone = (obj: any) => Object.assign({}, obj);
 const renameKey = (object: any, old_key: any, new_key: any): any => {
   if (old_key !== new_key) {
     // @ts-ignore
@@ -266,11 +271,6 @@ const renameKey = (object: any, old_key: any, new_key: any): any => {
     delete object[old_key];
   }
   return object
-  // const clonedObj = clone(object);
-  // const targetKey = clonedObj[key];
-  // delete clonedObj[key];
-  // clonedObj[newKey] = targetKey;
-  // return clonedObj;
 };
 
 // Recursive component to display a JSON-LD object as form
@@ -308,11 +308,11 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
     }
     onChange(renderObject);
   }
-  const handleRemoveEntry = (property: any, event: any) => {
-    console.log(property);
-    renderObject.splice(property, 1);
-    onChange(renderObject);
-  }
+  // const handleRemoveEntry = (property: any, event: any) => {
+  //   console.log(property);
+  //   renderObject.splice(property, 1);
+  //   onChange(renderObject);
+  // }
   const handleAddProperty = (property: any, event: any) => {
     // if (typeof renderObject[property][0] === 'string') {
     //   // If the array entries are strings and not objects
@@ -438,11 +438,17 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
                     options={state.autocompleteOntologyOptions}
                     onInputChange={handleAutocompleteOntologyOptions}
                     onSelect={handleAutocompleteOntologyOptions}
+                    // TODO: improve resolution for CSVW
                     onChange={(event, newInputValue: any) => {
                       if (newInputValue) {
                         if (newInputValue['rdfs:label']) {
-                          // TODO: Only work for schema.org
-                          renderObject[property] = newInputValue['rdfs:label']
+                          // TODO: improve, make it more generic after normalizing JSON-LD?
+                          if (newInputValue['rdfs:label']['en']) {
+                            // Handle CSVW label with lang
+                            renderObject[property] = newInputValue['rdfs:label']['en']
+                          } else {
+                            renderObject[property] = newInputValue['rdfs:label']
+                          }
                         } else {
                           // This is more semantically accurate but it imports the whole concept object
                           // We could use the @id URI
@@ -529,8 +535,13 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
                               if (newInputValue) {
                                 let newProperty = ''
                                 if (newInputValue['rdfs:label']) {
-                                  // TODO: Only work for schema.org
-                                  newProperty = newInputValue['rdfs:label']
+                                  // TODO: improve, make it more generic after normalizing JSON-LD?
+                                  if (newInputValue['rdfs:label']['en']) {
+                                    // Handle CSVW label with lang
+                                    newProperty = newInputValue['rdfs:label']['en']
+                                  } else {
+                                    newProperty = newInputValue['rdfs:label']
+                                  }
                                 } else {
                                   newProperty = newInputValue
                                 }
@@ -637,7 +648,7 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
                         </Grid>
                       }
                       { !Array.isArray(renderObject) &&
-                        <Grid item xs={5} md={2}>
+                        <Grid item xs={5} md={3}>
                           {/* <Chip style={{ marginBottom: theme.spacing(1), marginLeft: theme.spacing(1)}} 
                             label={property}
                           /> */}
@@ -654,8 +665,13 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
                               if (newInputValue) {
                                 let newProperty = ''
                                 if (newInputValue['rdfs:label']) {
-                                  // TODO: Only work for schema.org
-                                  newProperty = newInputValue['rdfs:label']
+                                  // TODO: improve, make it more generic after normalizing JSON-LD?
+                                  if (newInputValue['rdfs:label']['en']) {
+                                    // Handle CSVW label with lang
+                                    newProperty = newInputValue['rdfs:label']['en']
+                                  } else {
+                                    newProperty = newInputValue['rdfs:label']
+                                  }
                                 } else {
                                   newProperty = newInputValue
                                 }

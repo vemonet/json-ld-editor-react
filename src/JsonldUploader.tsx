@@ -130,8 +130,11 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
               This feature has been tested with <a href="https://schema.org" className={classes.link} target="_blank" rel="noopener noreferrer">https://schema.org</a> 
               , <a href="http://www.w3.org/ns/csvw" className={classes.link} target="_blank" rel="noopener noreferrer">http://www.w3.org/ns/csvw</a> and <a href="https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl" className={classes.link} target="_blank" rel="noopener noreferrer">the SemanticScience ontology</a>.
             </Typography>
-            <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(3)}}>
+            <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
               Provide a URL to download your ontology as JSON-LD in the main <code>@context</code>, and feel free to <a href="https://github.com/MaastrichtU-IDS/fair-metadata-wizard/issues" className={classes.link} target="_blank" rel="noopener noreferrer">create an issue</a> on GitHub if the autocomplete does not work.
+            </Typography>
+            <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(3)}}>
+              You can also provide the JSON-LD file URL directly via the <code>?edit=</code> parameter in the URL to send the right form to fill to a collaborator, e.g. <a href="https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json" className={classes.link}>https://maastrichtu-ids.github.io/fair-metadata-wizard/?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json</a>
             </Typography>
 
             <form onSubmit={handleSubmit}>
