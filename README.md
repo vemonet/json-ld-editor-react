@@ -1,6 +1,6 @@
-# 🧙‍♂️📝 FAIR Metadata Wizard
-
 [![Deploy to GitHub Pages](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/workflows/Deploy%20website%20to%20GitHub%20Pages/badge.svg)](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/actions/workflows/deploy-github.yml) [![CodeQL analysis](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/workflows/CodeQL%20analysis/badge.svg)](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/actions/workflows/codeql-analysis.yml)
+
+# 🧙‍♂️📝 FAIR Metadata Wizard
 
 Web form to **load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete** for `@types`, based on the classes and properties of the ontology magically loaded from `@context` ✨️
 
