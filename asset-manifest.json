@@ -1,7 +1,7 @@
 {
   "files": {
-    "app.js": "/fair-metadata-wizard/static/js/app.3006ff15.chunk.js",
-    "app.js.map": "/fair-metadata-wizard/static/js/app.3006ff15.chunk.js.map",
+    "app.js": "/fair-metadata-wizard/static/js/app.a2138769.chunk.js",
+    "app.js.map": "/fair-metadata-wizard/static/js/app.a2138769.chunk.js.map",
     "runtime~app.js": "/fair-metadata-wizard/static/js/runtime~app.256c1066.js",
     "runtime~app.js.map": "/fair-metadata-wizard/static/js/runtime~app.256c1066.js.map",
     "static/js/2.17a84004.chunk.js": "/fair-metadata-wizard/static/js/2.17a84004.chunk.js",
@@ -18,6 +18,6 @@
   "entrypoints": [
     "static/js/runtime~app.256c1066.js",
     "static/js/2.17a84004.chunk.js",
-    "static/js/app.3006ff15.chunk.js"
+    "static/js/app.a2138769.chunk.js"
   ]
 }
