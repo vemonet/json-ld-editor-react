@@ -2,7 +2,11 @@
 
 # 🧙‍♂️📝 FAIR Metadata Wizard
 
-Web form to **load and edit JSON-LD RDF metadata files** in a user-friendly web interface, **with autocomplete** for `@types`, based on the classes and properties of the ontology magically loaded from `@context` ✨️
+Web form to **load and edit JSON-LD RDF metadata files** in a user-friendly web interface, **with autocomplete** for `@types`, based on the classes and properties of the **ontology magically loaded** from `@context` ✨️
+
+Built with [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/), and [Material-UI](https://material-ui.com/)
+
+Deployed as a static website on [GitHub Pages](https://pages.github.com/).
 
 ## Access 👩‍💻
 
