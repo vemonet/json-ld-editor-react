@@ -8,7 +8,7 @@ You can provide the URL of the JSON-LD file in the `?edit=` URL param. This auto
 
 Here are a few examples of metadata templates loaded from JSON-LD files URL: 
 
-* Edit Schema.org Dataset metadata (default): https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://github.com/kodymoodley/fair-metadata-html-page-generator/blob/main/testdata/inputdata/test.jsonld
+* Edit Schema.org Dataset metadata (default): https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/kodymoodley/fair-metadata-html-page-generator/main/testdata/inputdata/test.jsonld
 * Edit CSV on the Web metadata: https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json
 
 ## Run in development 🚧
