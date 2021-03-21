@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Typography, Container, Button, Card, FormControl, Snackbar } from "@material-ui/core";
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
-import GetAppIcon from '@material-ui/icons/GetApp';
+import DownloadJsonldIcon from '@material-ui/icons/Description';
 import axios from 'axios';
 const $rdf = require('rdflib')
 import { LoggedIn, LoggedOut, Value } from '@solid/react';
@@ -266,9 +266,9 @@ export default function JsonldWizard() {
             <Button type="submit" 
               variant="contained" 
               className={classes.saveButton} 
-              startIcon={<GetAppIcon />}
+              startIcon={<DownloadJsonldIcon />}
               color="secondary" >
-                Download metadata as JSON-LD
+                Download metadata in JSON-LD format
             </Button>
           </div>
         </FormControl>
