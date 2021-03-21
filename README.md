@@ -6,11 +6,11 @@ Web form to **load and edit JSON-LD RDF metadata files** in a user-friendly web 
 
 ## Access 👩‍💻
 
-Access the website at [https://maastrichtu-ids.github.io/fair-metadata-wizard 🔗](https://maastrichtu-ids.github.io/fair-metadata-wizard)
+Access the website at **[https://maastrichtu-ids.github.io/fair-metadata-wizard 🔗](https://maastrichtu-ids.github.io/fair-metadata-wizard)**
 
 You can provide the URL of the JSON-LD file in the `?edit=` URL param. This automatically loads this JSON-LD and the ontology provided in `@context`. This also deactivates the possibility to upload a new JSON-LD file, so that you can send the URL to anyone to faithfully fill this metadata file! 📬
 
-## Examples 📝
+## Metadata examples 📝
 
 Here are a few examples of metadata templates to load from JSON-LD files URL:
 
@@ -30,7 +30,7 @@ The following ontologies has been tested to be properly loaded when provided in 
 * BioLink model - from Turtle
   * https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.ttl
 
-Ontologies are converted from RDF formats to JSON-LD using `rdflib-js`.
+Ontologies are converted from RDF formats to JSON-LD using `rdflib-js`
 
 > Please report if an ontology does not load properly by [creating an issue on GitHub](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/issues).
 
