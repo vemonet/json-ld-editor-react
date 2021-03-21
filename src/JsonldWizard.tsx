@@ -133,6 +133,12 @@ export default function JsonldWizard() {
       contextUrl = 'https://schema.org/version/latest/schemaorg-current-https.jsonld'
     }
 
+    if (contextUrl.startsWith('http://')) {
+      // Resolving http:// ontologies is prevented by mixed active content (query http from https)
+      // We would need to deploy on our own DNS to use http (https is forced on github.io URLs)
+      contextUrl = contextUrl.replace('http://', 'https://')
+    }
+
     // Try to download the ontology provided in @context URL as JSON-LD
     // curl -iL -H 'Accept: application/ld+json' http://www.w3.org/ns/csvw
     axios.defaults.headers.common['Accept'] = 'application/ld+json'
