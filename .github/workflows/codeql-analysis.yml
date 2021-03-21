@@ -5,6 +5,7 @@ on:
     branches: [main]
   schedule:
     - cron: '0 5 * * 4'
+    # At 05:00 on Thursday
   # push:
   #   branches: [main]
 
@@ -16,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ['javascript', 'python']
+        language: ['javascript']
         # Supported options are ['csharp', 'cpp', 'go', 'java', 'javascript', 'python']
         # https://docs.github.com/en/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#overriding-automatic-language-detection
 

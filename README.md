@@ -4,18 +4,34 @@ Wizard to load and edit JSON-LD RDF metadata files in a user-friendly web interf
 
 Access the website at https://maastrichtu-ids.github.io/fair-metadata-wizard
 
-You can provide the URL of the JSON-LD file in the `?edit=` URL param. This automatically loads this JSON-LD and the ontology provided in `@context`. This also deactivates the possibility to upload a new JSON-LD file, so that you can send the URL to anyone to faithfully fill this metadata file!
+You can provide the URL of the JSON-LD file in the `?edit=` URL param. This automatically loads this JSON-LD and the ontology provided in `@context`. This also deactivates the possibility to upload a new JSON-LD file, so that you can send the URL to anyone to faithfully fill this metadata file! 📬
 
-Here are a few examples of metadata templates loaded from JSON-LD files URL: 
+Here are a few examples of metadata templates to load from JSON-LD files URL 📝 
 
 * Edit Schema.org Dataset metadata (default): https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/kodymoodley/fair-metadata-html-page-generator/main/testdata/inputdata/test.jsonld
 * Edit CSV on the Web metadata: https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json
+
+The following ontologies has been tested to be properly loaded when provided in `@context` ✔️
+
+* Schema.org - from JSON-LD
+  * https://schema.org/
+* CSV on the Web (CSVW) - from JSON-LD
+  * http://www.w3.org/ns/csvw
+* Semantic Science ontology (SIO) - from RDF/XML
+  * https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl
+* BioLink model - from Turtle
+  * https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.ttl
+
+Resources to help improving the wizard design:
+
+* https://medium.com/patternfly/comparing-web-forms-a-progressive-form-vs-a-wizard-110eefc584e7 
+  * (tl;dr: users seems to prefers having everything in the same page, than having multiple pages with Next / Previous)
 
 ## Run in development 🚧
 
 Requirements:  [npm](https://www.npmjs.com/get-npm) and [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) installed.
 
-Clone the repository:
+Clone the repository, and get in the folder:
 
 ```bash
 git clone https://github.com/MaastrichtU-IDS/fair-metadata-wizard 
@@ -28,7 +44,7 @@ Install dependencies :inbox_tray:
 yarn
 ```
 
-Web app will run on http://localhost:19006
+Web app will run on [http://localhost:19006 🏃](http://localhost:19006)
 
 ```bash
 yarn dev
@@ -36,7 +52,7 @@ yarn dev
 
 > The website should reload automatically at each changes to the code :arrows_clockwise:
 
-Upgrade the packages versions in `yarn.lock`
+Upgrade the packages versions in `yarn.lock` ⏫️
 
 ```bash
 yarn upgrade
@@ -46,7 +62,7 @@ yarn upgrade
 
 This website is automatically deployed by a [GitHub Actions worklow](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/actions?query=workflow%3A%22Deploy+to+GitHub+Pages%22) to GitHub Pages at https://maastrichtu-ids.github.io/fair-metadata-wizard
 
-You can build locally in `/web-build` folder and serve on [http://localhost:5000](http://localhost:5000)
+You can build locally in the `/web-build` folder, and serve on [http://localhost:5000](http://localhost:5000)
 
 ```bash
 yarn build
@@ -59,7 +75,7 @@ Or run directly using [Docker :whale:](https://docs.docker.com/get-docker/) (req
 docker-compose up
 ```
 
-> Checkout the [docker-compose.yml](/docker-compose.yml) file to see how we run the Docker image.
+> Checkout the [docker-compose.yml](/docker-compose.yml) file to see how we run the Docker image 👀
 
 ## Contribute
 
