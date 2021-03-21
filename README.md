@@ -2,7 +2,7 @@
 
 # 🧙‍♂️📝 FAIR Metadata Wizard
 
-Web form to **load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete** for `@types`, based on the classes and properties of the ontology magically loaded from `@context` ✨️
+Web form to **load and edit JSON-LD RDF metadata files** in a user-friendly web interface, **with autocomplete** for `@types`, based on the classes and properties of the ontology magically loaded from `@context` ✨️
 
 ## Access 👩‍💻
 
