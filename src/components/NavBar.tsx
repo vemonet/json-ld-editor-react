@@ -5,11 +5,23 @@ import { AppBar, Toolbar, Button, Tooltip } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import InfoIcon from '@material-ui/icons/Info';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import { AuthButton } from '@solid/react';
 
 // @ts-ignore
 import iconImage from '../../assets/icon.png';
 
 const useStyles = makeStyles(theme => ({
+  solidButton: {
+    backgroundColor: theme.palette.primary.main,
+    color: '#fff',
+    borderRadius: '6px',
+    // boxShadow: '0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08)',
+    padding: '7px 14px',
+    '&:hover': {  
+      backgroundColor: theme.palette.primary.dark,
+      cursor: 'pointer'
+    }
+  },
   menuButton: {
     color: theme.palette.common.white
   },
@@ -44,6 +56,9 @@ export default function NavBar() {
           </Tooltip>
         </Link> */}
         <div className="flexGrow"></div>
+
+        <AuthButton login='Login with SOLID' logout='Logout from SOLID' className={classes.solidButton}
+          popup="https://inrupt.net/common/popup.html"/>
         <Link to="/about" className={classes.linkButton}>
           <Tooltip title='About the Institute of Data Science'>
             <Button className={classes.menuButton}>

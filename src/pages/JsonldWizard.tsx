@@ -5,10 +5,11 @@ import { Typography, Container, Button, Card, FormControl, Snackbar } from "@mat
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import axios from 'axios';
+const $rdf = require('rdflib')
+import { LoggedIn, LoggedOut, Value } from '@solid/react';
 // import * as jsonld from 'jsonld'
 // import {$rdf} from 'rdflib'
 // const jsonld = require('jsonld')
-const $rdf = require('rdflib')
 
 import JsonldUploader from "../components/JsonldUploader";
 import RenderObjectForm from "../components/RenderObjectForm";
@@ -219,6 +220,17 @@ export default function JsonldWizard() {
       <Typography variant="h4" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
           FAIR metadata wizard 🧙‍♂️
       </Typography>
+
+      <LoggedIn>
+        <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
+          Welcome <Value src="user.name"/>!
+        </Typography>
+      </LoggedIn>
+      {/* <LoggedOut>
+        <p>
+          Please login with SOLID
+        </p>
+      </LoggedOut> */}
       <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
         Load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete for <code>@types</code>, based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
       </Typography>
