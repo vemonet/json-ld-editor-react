@@ -148,7 +148,14 @@ export default function RenderObjectForm(props: any) {
   }
   const handleRemoveProperty = (property: any, event: any): any => {
     delete renderObject[property];
-    onChange(renderObject);
+    let newObject = renderObject;
+    if (Array.isArray(renderObject)) {
+      // Properly remove null from array fater delete
+      newObject = renderObject.filter(function (el: any) {
+        return el != null;
+      });
+    }
+    onChange(newObject);
   }
 
   function getConceptSearchDescription(concept: any) {

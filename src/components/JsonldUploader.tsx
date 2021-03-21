@@ -103,18 +103,18 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
               }
             </IconButton>
           }
-          title="Provide your JSON-LD"
-          subheader={"Upload your JSON-LD as a template, and edit it easily."}
+          title="Upload your JSON-LD metadata"
+          subheader={"Paste your JSON-LD metadata file content in the box, and start to edit it easily."}
         />
 
 
         <Collapse in={state.show_info_card} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
-              All <code>@type</code> values autocomplete are based on the classes and properties described in the ontology.
+              All <code>@type</code> values and properties autocomplete are based on the classes and properties described in the ontology loaded.
             </Typography>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
-              The main <code>@context</code> URL is used to automatically download the related ontology as JSON-LD using Content-Negociation (accept application/json+ld). 
+              The main <code>@context</code> URL is used to automatically download the related ontology as JSON-LD using Content-Negociation (accept <code>application/json+ld</code>). 
             </Typography>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
               This feature has been tested with <a href="https://schema.org" className={classes.link} target="_blank" rel="noopener noreferrer">https://schema.org</a> 

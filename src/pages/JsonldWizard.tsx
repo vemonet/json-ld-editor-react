@@ -239,7 +239,7 @@ export default function JsonldWizard() {
         </p>
       </LoggedOut> */}
       <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        Load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete for <code>@types</code>, based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
+        Load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
       </Typography>
 
       {/* Display the JSON-LD file uploader (if no ?edit= URL param provided) */}
