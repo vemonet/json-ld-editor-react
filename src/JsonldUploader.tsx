@@ -151,6 +151,7 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
                   InputProps={{
                     className: classes.input
                   }}
+                  InputLabelProps={{ required: false }}
                 />
 
                 <div style={{width: '100%', textAlign: 'center'}}>
