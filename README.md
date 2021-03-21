@@ -82,13 +82,13 @@ Or run directly using [Docker :whale:](https://docs.docker.com/get-docker/) (req
 docker-compose up
 ```
 
-> Checkout the [docker-compose.yml](/docker-compose.yml) file to see how we run the Docker image 👀
+> Checkout the [docker-compose.yml](/docker-compose.yml) file to see how we run the Docker image ⛵️
 
-## Contribute
+## Contribute 🤝
 
 Contributions are welcome! See the [guidelines to contribute](/CONTRIBUTING.md).
 
-## See also
+## See also 👀
 
 Resources to help improving the wizard design:
 
