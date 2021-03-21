@@ -427,17 +427,19 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
                     </Typography>
                   </Grid>
                 }
-                <Grid item>
-                  <IconButton onClick={(subSelections: any) => handleRemoveProperty(property, subSelections)}
-                    // variant="contained" 
-                    // size="small"
-                    style={{ margin: theme.spacing(1,1) }}
-                    className={classes.addEntryButton} 
-                    // startIcon={<RemoveIcon />}
-                    color="default" >
-                      <RemoveIcon />
-                  </IconButton>
-                </Grid>
+                {property !== '@context' &&
+                  <Grid item>
+                    <IconButton onClick={(subSelections: any) => handleRemoveProperty(property, subSelections)}
+                      // variant="contained" 
+                      // size="small"
+                      style={{ margin: theme.spacing(1,1) }}
+                      className={classes.addEntryButton} 
+                      // startIcon={<RemoveIcon />}
+                      color="default" >
+                        <RemoveIcon />
+                    </IconButton>
+                  </Grid>
+                }
                 {property === '@type' &&
                   <Grid item style={{width: '80%'}}>
                   {/* Autocomplete for @types */}
