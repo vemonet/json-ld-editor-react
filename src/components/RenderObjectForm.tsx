@@ -5,9 +5,11 @@ import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } fro
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Delete';
-import AddObjectPropertyIcon from '@material-ui/icons/AccountTree';
+import AddObjectPropertyIcon from '@material-ui/icons/SubdirectoryArrowRight';
+// Share SubdirectoryArrowRight
 import AddDataPropertyIcon from '@material-ui/icons/PlaylistAdd';
-import AddObjectArrayIcon from '@material-ui/icons/Queue';
+import AddObjectArrayIcon from '@material-ui/icons/AccountTree';
+// import AddObjectArrayIcon from '@material-ui/icons/Queue';
 import AddDataArrayIcon from '@material-ui/icons/PostAdd';
 
 const useStyles = makeStyles(theme => ({
@@ -239,6 +241,7 @@ export default function RenderObjectForm(props: any) {
                       // size="small"
                       style={{ margin: theme.spacing(1,1) }}
                       className={classes.addEntryButton} 
+                      disabled={property === '0'}
                       // startIcon={<RemoveIcon />}
                       color="default" >
                         <RemoveIcon />
@@ -616,15 +619,6 @@ export default function RenderObjectForm(props: any) {
             color="primary" >
               Data Property
           </Button>
-          <Button onClick={(subSelections: any) => handleAddProperty('objectProperty', subSelections)}
-            style={{marginTop: theme.spacing(1)}}
-            variant="contained" 
-            size="small"
-            className={classes.addEntryButton} 
-            startIcon={<AddObjectPropertyIcon />}
-            color="primary" >
-              Object Property
-          </Button>
           <Button onClick={(subSelections: any) => handleAddProperty('dataArray', subSelections)}
             style={{marginTop: theme.spacing(1)}}
             variant="contained" 
@@ -633,6 +627,15 @@ export default function RenderObjectForm(props: any) {
             startIcon={<AddDataArrayIcon />}
             color="primary" >
               Data array
+          </Button>
+          <Button onClick={(subSelections: any) => handleAddProperty('objectProperty', subSelections)}
+            style={{marginTop: theme.spacing(1)}}
+            variant="contained" 
+            size="small"
+            className={classes.addEntryButton} 
+            startIcon={<AddObjectPropertyIcon />}
+            color="primary" >
+              Object Property
           </Button>
           <Button onClick={(subSelections: any) => handleAddProperty('objectArray', subSelections)}
             style={{marginTop: theme.spacing(1)}}

@@ -10,7 +10,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 // @ts-ignore
-import iconImage from '../assets/icon.png';
+import iconImage from '../../assets/icon.png';
 
 const useStyles = makeStyles(theme => ({
   menuButton: {
@@ -32,7 +32,7 @@ export default function NavBar() {
   const classes = useStyles();
 
   return (
-    <AppBar title="" position='fixed'>
+    <AppBar title="" position='static'>
       <Toolbar variant='dense'>
         <Link to="/" className={classes.linkLogo}>
           <Tooltip title='FAIR metadata wizard 🧙‍♂️'>
