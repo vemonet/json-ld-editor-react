@@ -1,10 +1,7 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from "react-router-dom";
-
-import { AppBar, Toolbar, Button } from '@material-ui/core';
-import Tooltip from '@material-ui/core/Tooltip';
-
+import { AppBar, Toolbar, Button, Tooltip } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import InfoIcon from '@material-ui/icons/Info';
 import MenuBookIcon from '@material-ui/icons/MenuBook';

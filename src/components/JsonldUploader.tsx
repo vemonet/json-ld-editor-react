@@ -1,11 +1,9 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Container, Box, Button, Chip, Tooltip, Grid, Paper, CircularProgress, Card, CardContent, CardHeader, Collapse, CardActions, List, ListItem, ListItemAvatar, Avatar, ListItemText, Snackbar } from "@material-ui/core";
-import { IconButton, InputBase } from "@material-ui/core";
+import { IconButton, Typography, Button, FormControl, TextField, CircularProgress, Card, CardContent, CardHeader, Collapse, Snackbar } from "@material-ui/core";
 import UploadIcon from '@material-ui/icons/Publish';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } from '@material-ui/core';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles(theme => ({

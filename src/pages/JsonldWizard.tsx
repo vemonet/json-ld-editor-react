@@ -1,8 +1,7 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Container, Paper, Button, Card, Chip, Grid, Snackbar, Box, IconButton } from "@material-ui/core";
-import { FormControl, TextField, Input, InputLabel, FormHelperText, Select } from '@material-ui/core';
+import { Typography, Container, Button, Card, FormControl, Snackbar } from "@material-ui/core";
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import axios from 'axios';
@@ -75,12 +74,7 @@ export default function JsonldWizard() {
   const classes = useStyles();
   const theme = useTheme();
   // useLocation hook to get URL params
-  let location = useLocation();
-
-  // Original form and output:
-  // Questions: https://github.com/kodymoodley/fair-metadata-generator/blob/main/questions.csv
-  // Full output: https://github.com/kodymoodley/fair-metadata-html-page-generator/blob/main/testdata/inputdata/test.jsonld
-  
+  let location = useLocation();  
   const [state, setState] = React.useState({
     open: false,
     dialogOpen: false,
@@ -97,8 +91,14 @@ export default function JsonldWizard() {
     setState(stateRef.current);
   }, [setState]);
   
+  // Original form and output:
+  // Questions: https://github.com/kodymoodley/fair-metadata-generator/blob/main/questions.csv
+  // Full output: https://github.com/kodymoodley/fair-metadata-html-page-generator/blob/main/testdata/inputdata/test.jsonld
+
   React.useEffect(() => {
-    // Get URL params 
+    // Get the edit URL param if provided, and download ontology if @context changed
+    // Ontology is stored in state.ontology_jsonld 
+    // and passed to renderObjectForm to resolve classes and properties
     const params = new URLSearchParams(location.search + location.hash);
     let jsonld_uri_provided = params.get('edit');
     if (jsonld_uri_provided) {
@@ -138,6 +138,7 @@ export default function JsonldWizard() {
         if (typeof res.data !== 'object') {
           // If not object, we try to parse
           // const jsonLDList = await jsonld.fromRDF(result.quadList)
+          // TODO: support other types than just RDF/XML
           toJSONLD(res.data, contextUrl, 'application/rdf+xml')
             .then((jsonld_rdf) => {
               // console.log('rdf conversion done');
@@ -171,6 +172,7 @@ export default function JsonldWizard() {
   }
 
   const toJSONLD = (data: any, uri: any, mimeType: any) => {
+    // Convert RDF to JSON-LD using rdflib
     return new Promise((resolve, reject) => {
         let store = $rdf.graph()
         let doc = $rdf.sym(uri);
@@ -192,7 +194,7 @@ export default function JsonldWizard() {
   }
 
   const handleSubmit  = (event: React.FormEvent) => {
-    // Trigger file download
+    // Trigger JSON-LD file download
     event.preventDefault();
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/turtle;charset=utf-8,' + encodeURIComponent(JSON.stringify(state.wizard_jsonld, null, 4)));
@@ -221,6 +223,7 @@ export default function JsonldWizard() {
         Load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete for <code>@types</code>, based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
       </Typography>
 
+      {/* Display the JSON-LD file uploader (if no ?edit= URL param provided) */}
       {!state.jsonld_uri_provided &&
         <JsonldUploader renderObject={state.wizard_jsonld} 
           onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld})}} />
@@ -240,11 +243,13 @@ export default function JsonldWizard() {
       <form onSubmit={handleSubmit}>
         <FormControl className={classes.settingsForm}>
 
+          {/* First call of RenderObjectForm (the rest is handled recursively in this component) */}
           <RenderObjectForm renderObject={state.wizard_jsonld} ontologyObject={state.ontology_jsonld}
             onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld})} }
             fullJsonld={state.wizard_jsonld}
           />
 
+          {/* Button to download the JSON-LD */}
           <div style={{width: '100%', textAlign: 'center'}}>
             <Button type="submit" 
               variant="contained" 
