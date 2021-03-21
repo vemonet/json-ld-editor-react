@@ -10,6 +10,8 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Delete';
 import AddObjectPropertyIcon from '@material-ui/icons/AccountTree';
 import AddDataPropertyIcon from '@material-ui/icons/PlaylistAdd';
+import AddObjectArrayIcon from '@material-ui/icons/Queue';
+import AddDataArrayIcon from '@material-ui/icons/PostAdd';
 import axios from 'axios';
 // import * as jsonld from 'jsonld'
 // import {$rdf} from 'rdflib'
@@ -326,6 +328,15 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
         '@type': 'Object Type',
         'property': 'value',
       }
+    } else if (property === 'objectArray') {
+      renderObject['property'] = [{
+        '@type': 'Object Type',
+        'property': 'value',
+      }]
+    } else if (property === 'dataArray') {
+      renderObject['property'] = [
+        'value',
+      ]
     } else {
       renderObject['property'] = 'value'
     }
@@ -798,7 +809,7 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
             className={classes.addEntryButton} 
             startIcon={<AddDataPropertyIcon />}
             color="primary" >
-              Add Data Property
+              Data Property
           </Button>
           <Button onClick={(subSelections: any) => handleAddProperty('objectProperty', subSelections)}
             style={{marginTop: theme.spacing(1)}}
@@ -807,7 +818,25 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
             className={classes.addEntryButton} 
             startIcon={<AddObjectPropertyIcon />}
             color="primary" >
-              Add Object Property
+              Object Property
+          </Button>
+          <Button onClick={(subSelections: any) => handleAddProperty('dataArray', subSelections)}
+            style={{marginTop: theme.spacing(1)}}
+            variant="contained" 
+            size="small"
+            className={classes.addEntryButton} 
+            startIcon={<AddDataArrayIcon />}
+            color="primary" >
+              Data array
+          </Button>
+          <Button onClick={(subSelections: any) => handleAddProperty('objectArray', subSelections)}
+            style={{marginTop: theme.spacing(1)}}
+            variant="contained" 
+            size="small"
+            className={classes.addEntryButton} 
+            startIcon={<AddObjectArrayIcon />}
+            color="primary" >
+              Object array
           </Button>
         </>
       }
