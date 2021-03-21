@@ -7,8 +7,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 import GitHubIcon from '@material-ui/icons/GitHub';
 import InfoIcon from '@material-ui/icons/Info';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 // @ts-ignore
@@ -34,10 +32,10 @@ export default function NavBar() {
   const classes = useStyles();
 
   return (
-    <AppBar title="" position='sticky'>
+    <AppBar title="" position='fixed'>
       <Toolbar variant='dense'>
         <Link to="/" className={classes.linkLogo}>
-          <Tooltip title='IDS Projects dashboard'>
+          <Tooltip title='FAIR metadata wizard 🧙‍♂️'>
             <img src={iconImage} style={{height: '2em', width: '2em', marginRight: '10px'}} alt="Logo" />
           </Tooltip>
         </Link>

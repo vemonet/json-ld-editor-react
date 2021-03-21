@@ -4,10 +4,10 @@ import { Router, Route, Link } from "./react-router";
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import './App.css';
-import NavBar from "./src/NavBar";
-import Footer from "./src/Footer";
-import JsonldWizard from "./src/JsonldWizard";
-import About from "./src/About";
+import NavBar from "./src/components/NavBar";
+import Footer from "./src/components/Footer";
+import JsonldWizard from "./src/pages/JsonldWizard";
+import About from "./src/pages/About";
 
 // Change theme color and typography here
 const theme = createMuiTheme({
