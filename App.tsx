@@ -13,7 +13,9 @@ import About from "./src/pages/About";
 const theme = createMuiTheme({
   palette: {
     primary: { light: '#63a4ff', main: blue[700], dark: '#004ba0' },
-    secondary: { light: '#4caf50', main: '#087f23', dark: '#00600f' },
+    secondary: { light: '#ff7043', main: '#ff5722', dark: '#087f23' },
+    // Green:
+    // secondary: { light: '#4caf50', main: '#087f23', dark: '#00600f' },
     // primary: { light: blue[50], main: blue[600], dark: blue[900] },
     // red: { light: '#f05545', main: '#b71c1c', dark: '#7f0000' },
     // default: { light: '#fafafa', main: '#eceff1', dark: grey[600] }
