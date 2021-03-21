@@ -1,10 +1,12 @@
+# 🧙‍♂️📝 FAIR Metadata Wizard
+
 [![Deploy to GitHub Pages](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/workflows/Deploy%20website%20to%20GitHub%20Pages/badge.svg)](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/actions/workflows/deploy-github.yml) [![CodeQL analysis](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/workflows/CodeQL%20analysis/badge.svg)](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/actions/workflows/codeql-analysis.yml)
 
-🧙‍♂️📝 Wizard to **load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete** for `@types`, based on the classes and properties of the ontology magically loaded from `@context` ✨️
+Web form to **load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete** for `@types`, based on the classes and properties of the ontology magically loaded from `@context` ✨️
 
 ## Access 👩‍💻
 
-Access the website at https://maastrichtu-ids.github.io/fair-metadata-wizard
+Access the website at [https://maastrichtu-ids.github.io/fair-metadata-wizard 🔗](https://maastrichtu-ids.github.io/fair-metadata-wizard)
 
 You can provide the URL of the JSON-LD file in the `?edit=` URL param. This automatically loads this JSON-LD and the ontology provided in `@context`. This also deactivates the possibility to upload a new JSON-LD file, so that you can send the URL to anyone to faithfully fill this metadata file! 📬
 
@@ -27,6 +29,8 @@ The following ontologies has been tested to be properly loaded when provided in 
   * https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl
 * BioLink model - from Turtle
   * https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.ttl
+
+Ontologies are converted from RDF formats to JSON-LD using `rdflib-js`.
 
 > Please report if an ontology does not load properly by [creating an issue on GitHub](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/issues).
 
