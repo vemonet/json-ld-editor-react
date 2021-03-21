@@ -34,7 +34,7 @@ Ontologies are converted from RDF formats to JSON-LD using `rdflib-js`.
 
 > Please report if an ontology does not load properly by [creating an issue on GitHub](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/issues).
 
-## Run in development 🚧
+## Run in development 🏗️
 
 Requirements:  [npm](https://www.npmjs.com/get-npm) and [yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable) installed.
 
