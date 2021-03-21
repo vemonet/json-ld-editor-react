@@ -344,7 +344,6 @@ const wizard_jsonld = {
   ],
   "creator": {
       "@type": "Person",
-      "@wizardRequired": true,
       "name": "concat @givenName @familyName",
       "givenName": "Kody",
       "familyName": "Moodley",
@@ -366,7 +365,6 @@ const wizard_jsonld = {
   },
   "contributor": [
       {
-          "@wizardMultivalueCheckArray": true,
           "@type": "Person",
           "givenName": "Pedro",
           "familyName": "Hernandez Serrano",
