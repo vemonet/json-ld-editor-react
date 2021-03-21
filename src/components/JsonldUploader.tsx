@@ -118,7 +118,9 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
             </Typography>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
               This feature has been tested with <a href="https://schema.org" className={classes.link} target="_blank" rel="noopener noreferrer">https://schema.org</a> 
-              , <a href="http://www.w3.org/ns/csvw" className={classes.link} target="_blank" rel="noopener noreferrer">http://www.w3.org/ns/csvw</a> and <a href="https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl" className={classes.link} target="_blank" rel="noopener noreferrer">the SemanticScience ontology</a>.
+              , <a href="http://www.w3.org/ns/csvw" className={classes.link} target="_blank" rel="noopener noreferrer">http://www.w3.org/ns/csvw</a>
+              , <a href="https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl" className={classes.link} target="_blank" rel="noopener noreferrer">the SemanticScience ontology</a>
+              , and <a href="https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.ttl" className={classes.link} target="_blank" rel="noopener noreferrer">the BioLink model</a>
             </Typography>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
               Provide a URL to download your ontology as JSON-LD in the main <code>@context</code>, and feel free to <a href="https://github.com/MaastrichtU-IDS/fair-metadata-wizard/issues" className={classes.link} target="_blank" rel="noopener noreferrer">create an issue</a> on GitHub if the autocomplete does not work.
@@ -174,6 +176,8 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
       </Card>
   )
 }
+
+// https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.ttl
 
 // https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl
 

@@ -140,10 +140,10 @@ export default function JsonldWizard() {
           // If not object, we try to parse
           // const jsonLDList = await jsonld.fromRDF(result.quadList)
           // TODO: support other types than just RDF/XML
-          toJSONLD(res.data, contextUrl, 'application/rdf+xml')
+          toJSONLD(res.data, contextUrl)
             .then((jsonld_rdf) => {
-              // console.log('rdf conversion done');
-              // console.log(jsonld_rdf);
+              console.log('Ontology downloaded, and converted to JSON-LD RDF:');
+              console.log(jsonld_rdf);
               updateState({
                 ontology_jsonld: {
                   '@context': contextUrl,
@@ -172,12 +172,19 @@ export default function JsonldWizard() {
       })
   }
 
-  const toJSONLD = (data: any, uri: any, mimeType: any) => {
+  const toJSONLD = (data: any, uri: any) => {
     // Convert RDF to JSON-LD using rdflib
+    let rdf_format = 'application/rdf+xml';
+    if (uri.endsWith('.ttl')) rdf_format = 'text/turtle'
+    if (uri.endsWith('.nq')) rdf_format = 'application/n-quads'
+    // Or text/x-nquads
+    if (uri.endsWith('.nt')) rdf_format = 'application/n-triples'
+    if (uri.endsWith('.n3')) rdf_format = 'text/n3'
+    if (uri.endsWith('.trig')) rdf_format = 'application/trig'
     return new Promise((resolve, reject) => {
         let store = $rdf.graph()
         let doc = $rdf.sym(uri);
-        $rdf.parse(data, store, uri, mimeType)
+        $rdf.parse(data, store, uri, rdf_format)
         // console.log(store)
         $rdf.serialize(doc, store, uri, 'application/ld+json', (err: any, jsonldData: any) => {
           return resolve(JSON.parse(jsonldData)
