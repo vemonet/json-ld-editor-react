@@ -50,10 +50,12 @@ const useStyles = makeStyles(theme => ({
   fullWidth: {
     width: '100%',
   },
+  autocomplete: {
+    marginRight: theme.spacing(2)
+  },
   formInput: {
     background: 'white',
-    fontSize: '14px',
-    width: '100%',
+    width: '100%'
   },
   smallerFont: {
     fontSize: '12px',
@@ -455,7 +457,7 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
               {/* if property is a string : TextInput */}
               {(typeof renderObject[property] === 'string' && property !== '@type') &&
                 <>
-                  <Grid container spacing={2}>
+                  <Grid container spacing={0}>
                     { fullJsonld['@wizardQuestions'] && fullJsonld['@wizardQuestions'][property] &&
                       <Grid item xs={12}>
                         <Typography variant="body1" style={{fontWeight: 900, textAlign: 'left', marginTop: theme.spacing(1), marginLeft: theme.spacing(2)}}>
@@ -469,6 +471,7 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
                         <Autocomplete
                           key={property + key}
                           id={property}
+                          className={classes.autocomplete}
                           // value={ { ['rdfs:label']: renderObject[property]}}
                           defaultValue={{'rdfs:label': property}}
                           options={state.autocompleteOntologyOptions}
@@ -538,7 +541,7 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
                       </Grid>
                     }
                     {/* Full width for TextField on small screen 60% for bigger */}
-                    <Grid item xs={12} md={7} style={{ width: '50%'}}>
+                    <Grid item xs={12} md={7}>
                       <TextField
                         id={property}
                         multiline

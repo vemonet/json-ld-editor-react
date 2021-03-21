@@ -22,8 +22,8 @@ const theme = createMuiTheme({
     "fontFamily": "\"Open Sans\", \"Roboto\", \"Arial\"",
     "fontWeightLight": 300,
     "fontWeightRegular": 400,
-    "fontWeightMedium": 500
-    // "fontSize": 13
+    "fontWeightMedium": 500,
+    "fontSize": 11
   },
 });
 
