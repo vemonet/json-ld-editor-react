@@ -8,6 +8,8 @@ import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Delete';
+import AddObjectPropertyIcon from '@material-ui/icons/AccountTree';
+import AddDataPropertyIcon from '@material-ui/icons/PlaylistAdd';
 import axios from 'axios';
 // import * as jsonld from 'jsonld'
 // import {$rdf} from 'rdflib'
@@ -307,6 +309,28 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
     onChange(renderObject);
   }
   const handleRemoveEntry = (property: any, event: any) => {
+    renderObject.splice(property, 1);
+    onChange(renderObject);
+  }
+  const handleAddProperty = (property: any, event: any) => {
+    // if (typeof renderObject[property][0] === 'string') {
+    //   // If the array entries are strings and not objects
+    //   renderObject[property].push(property + ' ' + renderObject[property].length);
+    // } else if (renderObject[property].length > 0) {
+    //   // Use {...object} to clone the object
+    //   renderObject[property].push({...renderObject[property][0]});
+    // }
+    if (property === 'objectProperty') {
+      renderObject['property'] = {
+        '@type': 'Object Type',
+        'property': 'value',
+      }
+    } else {
+      renderObject['property'] = 'value'
+    }
+    onChange(renderObject);
+  }
+  const handleRemoveProperty = (property: any, event: any) => {
     renderObject.splice(property, 1);
     onChange(renderObject);
   }
@@ -723,6 +747,28 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
           }
         </div>
       ))}
+      { typeof renderObject === 'object' && !Array.isArray(renderObject) &&
+        <>
+          <Button onClick={(subSelections: any) => handleAddProperty('dataProperty', subSelections)}
+            style={{marginTop: theme.spacing(1)}}
+            variant="contained" 
+            size="small"
+            className={classes.addEntryButton} 
+            startIcon={<AddDataPropertyIcon />}
+            color="primary" >
+              Add Data Property
+          </Button>
+          <Button onClick={(subSelections: any) => handleAddProperty('objectProperty', subSelections)}
+            style={{marginTop: theme.spacing(1)}}
+            variant="contained" 
+            size="small"
+            className={classes.addEntryButton} 
+            startIcon={<AddObjectPropertyIcon />}
+            color="primary" >
+              Add Object Property
+          </Button>
+        </>
+      }
     </div>
   )
 }
