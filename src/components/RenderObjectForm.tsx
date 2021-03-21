@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Button, Card, Chip, Grid, Snackbar, Box, IconButton, TextField } from "@material-ui/core";
+import { Typography, Button, Card, Chip, Grid, Snackbar, Box, IconButton, TextField, Tooltip } from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Delete';
@@ -256,13 +256,15 @@ export default function RenderObjectForm(props: any) {
                 {property !== '@context' &&
                   // Button to delete any property object
                   <Grid item>
-                    <IconButton onClick={(subSelections: any) => handleRemoveProperty(property, subSelections)}
-                      style={{ margin: theme.spacing(1,1) }}
-                      className={classes.addEntryButton} 
-                      disabled={property === '0' || property === '@type'}
-                      color="default" >
-                        <RemoveIcon />
-                    </IconButton>
+                    <Tooltip title='Delete the property and its child objects'>
+                      <IconButton onClick={(subSelections: any) => handleRemoveProperty(property, subSelections)}
+                        style={{ margin: theme.spacing(1,1) }}
+                        className={classes.addEntryButton} 
+                        disabled={property === '0' || property === '@type'}
+                        color="default" >
+                          <RemoveIcon />
+                      </IconButton>
+                    </Tooltip>
                   </Grid>
                 }
                 {property === '@type' &&
@@ -602,7 +604,7 @@ export default function RenderObjectForm(props: any) {
                               size="small"
                               className={classes.addEntryButton} 
                               startIcon={<AddIcon />}
-                              color="primary" >
+                              color="default" >
                                 Add {property} entry
                             </Button>
                           </Grid>
@@ -624,7 +626,7 @@ export default function RenderObjectForm(props: any) {
                           size="small"
                           className={classes.addEntryButton} 
                           startIcon={<AddIcon />}
-                          color="primary" >
+                          color="default" >
                             Add {property} entry
                         </Button>
                       }
@@ -637,9 +639,52 @@ export default function RenderObjectForm(props: any) {
           }
         </div>
       ))}
-      { typeof renderObject === 'object' && !Array.isArray(renderObject) &&
+      {typeof renderObject === 'object' && !Array.isArray(renderObject) && 
+        // Buttons to add new properties or arrays for each object
         <>
-          {/* Buttons to add new properties or arrays for each object */}
+          {/* <GridList cols={1}>
+            <GridListTile key={tile.img} cols={tile.cols || 1}>
+            <img src={tile.img} alt={tile.title} />
+            </GridListTile>
+            ))}
+            </GridList> */}
+          <Tooltip title='Add Data Property'>
+            <IconButton onClick={(subSelections: any) => handleAddProperty('dataProperty', subSelections)}
+              style={{marginTop: theme.spacing(1)}}
+              className={classes.addEntryButton}
+              color="default" >
+                <AddDataPropertyIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title='Add Data Array'>
+            <IconButton onClick={(subSelections: any) => handleAddProperty('dataArray', subSelections)}
+              style={{marginTop: theme.spacing(1)}}
+              className={classes.addEntryButton} 
+              color="default" >
+                <AddDataArrayIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title='Add Object Property'>
+            <IconButton onClick={(subSelections: any) => handleAddProperty('objectProperty', subSelections)}
+              style={{marginTop: theme.spacing(1)}}
+              className={classes.addEntryButton}
+              color="default" >
+                <AddObjectPropertyIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title='Add Object Array'>
+            <IconButton onClick={(subSelections: any) => handleAddProperty('objectArray', subSelections)}
+              style={{marginTop: theme.spacing(1)}}
+              className={classes.addEntryButton} 
+              color="default" >
+                <AddObjectArrayIcon />
+            </IconButton>
+          </Tooltip>
+        </>
+      } 
+      {/* { typeof renderObject === 'object' && !Array.isArray(renderObject) &&
+        // Buttons to add new properties or arrays for each object
+        <>
           <Button onClick={(subSelections: any) => handleAddProperty('dataProperty', subSelections)}
             style={{marginTop: theme.spacing(1)}}
             variant="contained" 
@@ -677,7 +722,7 @@ export default function RenderObjectForm(props: any) {
               Object array
           </Button>
         </>
-      }
+      } */}
     </div>
   )
 }

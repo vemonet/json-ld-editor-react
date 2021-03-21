@@ -303,6 +303,7 @@ const wizard_jsonld = {
     'distribution': 'Supply a direct download link for this dataset:',
     'contentSize': 'How large is the download file size e.g. 128KB, 54MB, 1.5GB?',
     'isBasedOn': 'Was this dataset generated with the aid of or using a piece of software?',
+    'applicationCategory': 'Indicate type of software e.g. Python script or Java GUI application:',
     'citation': 'Is there an academic publication which describes or centrally makes use of this dataset?',
     'datePublished': 'On what date was the dataset published? YYYY-MM-DD',
     'dateCreated': 'On what date was the dataset created? YYYY-MM-DD',
