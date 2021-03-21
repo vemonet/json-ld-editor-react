@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   addEntryButton: {
     textTransform: 'none',
     marginLeft: theme.spacing(2),
-    marginTop: theme.spacing(2),
+    // marginTop: theme.spacing(2),
   },
   fullWidth: {
     width: '100%',
@@ -62,7 +62,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'left'
   },
   paperPadding: {
-    padding: theme.spacing(2, 1),
+    padding: theme.spacing(2, 2),
     margin: theme.spacing(2, 2),
   },
   paperTitle: {
@@ -212,7 +212,7 @@ export default function JsonldWizard() {
           FAIR metadata wizard 🧙‍♂️
       </Typography>
       <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        Load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete for <code>@types</code>, based on the <code>@context</code> classes and properties
+        Load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete for <code>@types</code>, based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
       </Typography>
 
       {!state.jsonld_uri_provided &&
@@ -455,15 +455,90 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
               {/* if property is a string : TextInput */}
               {(typeof renderObject[property] === 'string' && property !== '@type') &&
                 <>
-                  { fullJsonld['@wizardQuestions'] && fullJsonld['@wizardQuestions'][property] &&
-                    <Typography variant="body2" style={{fontWeight: 900, textAlign: 'left', marginTop: theme.spacing(1), marginBottom: theme.spacing(0.5), marginLeft: theme.spacing(2)}}>
-                      {fullJsonld['@wizardQuestions'][property]}
-                    </Typography>
-                    // <FormHelperText>{fullJsonld['@wizardQuestions'][property]}</FormHelperText>
-                  }
-                  <Grid container>
+                  <Grid container spacing={2}>
+                    { fullJsonld['@wizardQuestions'] && fullJsonld['@wizardQuestions'][property] &&
+                      <Grid item xs={12}>
+                        <Typography variant="body1" style={{fontWeight: 900, textAlign: 'left', marginTop: theme.spacing(1), marginLeft: theme.spacing(2)}}>
+                          {fullJsonld['@wizardQuestions'][property]}
+                        </Typography>
+                      </Grid>
+                    }
+                    { !property.startsWith('@') && !Array.isArray(renderObject) &&
+                      <Grid item xs={4} md={3}>
+                        {/* Autocomplete for data properties */}
+                        <Autocomplete
+                          key={property + key}
+                          id={property}
+                          // value={ { ['rdfs:label']: renderObject[property]}}
+                          defaultValue={{'rdfs:label': property}}
+                          options={state.autocompleteOntologyOptions}
+                          onInputChange={handleAutocompleteOntologyOptions}
+                          onSelect={handleAutocompleteOntologyOptions}
+                          onChange={(event, newInputValue: any) => {
+                            if (newInputValue) {
+                              let newProperty = ''
+                              if (newInputValue['rdfs:label']) {
+                                // TODO: Only work for schema.org
+                                newProperty = newInputValue['rdfs:label']
+                              } else {
+                                newProperty = newInputValue
+                              }
+                              if (newProperty) renameKey(renderObject, property, newProperty);
+                              onChange(renderObject)
+                            }
+                          }}
+                          groupBy={(option: any): any => {
+                            if (option['@type'] && Array.isArray(option['@type'])) {
+                              // Handle when array of types provided (e.g. SIO via rdflib)
+                              return option['@type'][0]
+                            } else {
+                              return option['@type']
+                            }
+                          }}
+                          getOptionSelected={(option: any, selectedValue: any): any => {
+                            // Handle option label when provided with rdfs:label or direct
+                            if (option['rdfs:label']) {
+                              if (typeof option['rdfs:label'] === 'string') return option['rdfs:label'] === selectedValue['rdfs:label']
+                              if (option['rdfs:label']['en']) return option['rdfs:label']['en'] === selectedValue
+                            }
+                            if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
+                              return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
+                            }
+                            return option === selectedValue
+                          }}
+                          getOptionLabel={(option: any): any => {
+                            // Handle option label when provided with rdfs:label or direct
+                            if (option['rdfs:label']) {
+                              if (typeof option['rdfs:label'] === 'string') return option['rdfs:label']
+                              if (option['rdfs:label']['en']) return option['rdfs:label']['en']
+                            }
+                            if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
+                              return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
+                            }
+                            return option
+                          }}
+                          renderInput={params => (
+                            <TextField
+                              {...params}
+                              variant="filled"
+                              size='small'
+                              label="Data Property"
+                              placeholder="Data Property"
+                              className={classes.formInput}
+                            />
+                          )}
+                          // freeSolo={true}
+                          // includeInputInList={true}
+                          // ListboxProps={{
+                          //   className: classes.formInput,
+                          // }}
+                          // defaultValue={[top100Films[13]]}
+                          // multiple
+                        />
+                      </Grid>
+                    }
                     {/* Full width for TextField on small screen 60% for bigger */}
-                    <Grid item xs={12} md={8} style={{ width: '50%'}}>
+                    <Grid item xs={12} md={7} style={{ width: '50%'}}>
                       <TextField
                         id={property}
                         multiline
@@ -487,7 +562,7 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
                         <Button onClick={(subSelections: any) => handleRemoveEntry(property, subSelections)}
                           variant="contained" 
                           size="small"
-                          style={{ textTransform: 'none', marginLeft: theme.spacing(2) }}
+                          style={{ textTransform: 'none', marginLeft: theme.spacing(2), marginTop: theme.spacing(1) }}
                           className={classes.addEntryButton} 
                           startIcon={<RemoveIcon />}
                           color="primary" >
@@ -503,81 +578,90 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
               {(typeof renderObject[property] === 'object' && renderObject[property]) &&
                 <Card elevation={2} className={classes.paperPadding}>
                   <Grid container>
-                    <Grid item xs={5} md={2}>
-                      {/* <Chip style={{ marginBottom: theme.spacing(1), marginLeft: theme.spacing(1)}} 
-                        label={property}
-                      /> */}
-                      {/* Autocomplete for object properties */}
-                      <Autocomplete
-                        key={property + key}
-                        id={property}
-                        // value={ { ['rdfs:label']: renderObject[property]}}
-                        defaultValue={{'rdfs:label': property}}
-                        options={state.autocompleteOntologyOptions}
-                        onInputChange={handleAutocompleteOntologyOptions}
-                        onSelect={handleAutocompleteOntologyOptions}
-                        onChange={(event, newInputValue: any) => {
-                          if (newInputValue) {
-                            let newProperty = ''
-                            if (newInputValue['rdfs:label']) {
-                              // TODO: Only work for schema.org
-                              newProperty = newInputValue['rdfs:label']
-                            } else {
-                              newProperty = newInputValue
+                    { Array.isArray(renderObject) &&
+                      <Grid item>
+                        <Chip style={{ marginBottom: theme.spacing(1), marginLeft: theme.spacing(1)}} 
+                          label={property}
+                        />
+                      </Grid>
+                    }
+                    { !Array.isArray(renderObject) &&
+                      <Grid item xs={5} md={2}>
+                        {/* <Chip style={{ marginBottom: theme.spacing(1), marginLeft: theme.spacing(1)}} 
+                          label={property}
+                        /> */}
+                        {/* Autocomplete for object properties */}
+                        <Autocomplete
+                          key={property + key}
+                          id={property}
+                          // value={ { ['rdfs:label']: renderObject[property]}}
+                          defaultValue={{'rdfs:label': property}}
+                          options={state.autocompleteOntologyOptions}
+                          onInputChange={handleAutocompleteOntologyOptions}
+                          onSelect={handleAutocompleteOntologyOptions}
+                          onChange={(event, newInputValue: any) => {
+                            if (newInputValue) {
+                              let newProperty = ''
+                              if (newInputValue['rdfs:label']) {
+                                // TODO: Only work for schema.org
+                                newProperty = newInputValue['rdfs:label']
+                              } else {
+                                newProperty = newInputValue
+                              }
+                              if (newProperty) renameKey(renderObject, property, newProperty);
+                              onChange(renderObject)
                             }
-                            if (newProperty) renameKey(renderObject, property, newProperty);
-                            onChange(renderObject)
-                          }
-                        }}
-                        groupBy={(option: any): any => {
-                          if (option['@type'] && Array.isArray(option['@type'])) {
-                            // Handle when array of types provided (e.g. SIO via rdflib)
-                            return option['@type'][0]
-                          } else {
-                            return option['@type']
-                          }
-                        }}
-                        getOptionSelected={(option: any, selectedValue: any): any => {
-                          // Handle option label when provided with rdfs:label or direct
-                          if (option['rdfs:label']) {
-                            if (typeof option['rdfs:label'] === 'string') return option['rdfs:label'] === selectedValue['rdfs:label']
-                            if (option['rdfs:label']['en']) return option['rdfs:label']['en'] === selectedValue
-                          }
-                          if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
-                            return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
-                          }
-                          return option === selectedValue
-                        }}
-                        getOptionLabel={(option: any): any => {
-                          // Handle option label when provided with rdfs:label or direct
-                          if (option['rdfs:label']) {
-                            if (typeof option['rdfs:label'] === 'string') return option['rdfs:label']
-                            if (option['rdfs:label']['en']) return option['rdfs:label']['en']
-                          }
-                          if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
-                            return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
-                          }
-                          return option
-                        }}
-                        renderInput={params => (
-                          <TextField
-                            {...params}
-                            variant="filled"
-                            size='small'
-                            label="Object Property"
-                            placeholder="Object Property"
-                            className={classes.formInput}
-                          />
-                        )}
-                        // freeSolo={true}
-                        // includeInputInList={true}
-                        // ListboxProps={{
-                        //   className: classes.formInput,
-                        // }}
-                        // defaultValue={[top100Films[13]]}
-                        // multiple
-                      />
-                    </Grid>
+                          }}
+                          groupBy={(option: any): any => {
+                            if (option['@type'] && Array.isArray(option['@type'])) {
+                              // Handle when array of types provided (e.g. SIO via rdflib)
+                              return option['@type'][0]
+                            } else {
+                              return option['@type']
+                            }
+                          }}
+                          getOptionSelected={(option: any, selectedValue: any): any => {
+                            // Handle option label when provided with rdfs:label or direct
+                            if (option['rdfs:label']) {
+                              if (typeof option['rdfs:label'] === 'string') return option['rdfs:label'] === selectedValue['rdfs:label']
+                              if (option['rdfs:label']['en']) return option['rdfs:label']['en'] === selectedValue
+                            }
+                            if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
+                              return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
+                            }
+                            return option === selectedValue
+                          }}
+                          getOptionLabel={(option: any): any => {
+                            // Handle option label when provided with rdfs:label or direct
+                            if (option['rdfs:label']) {
+                              if (typeof option['rdfs:label'] === 'string') return option['rdfs:label']
+                              if (option['rdfs:label']['en']) return option['rdfs:label']['en']
+                            }
+                            if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
+                              return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
+                            }
+                            return option
+                          }}
+                          renderInput={params => (
+                            <TextField
+                              {...params}
+                              variant="filled"
+                              size='small'
+                              label="Object Property"
+                              placeholder="Object Property"
+                              className={classes.formInput}
+                            />
+                          )}
+                          // freeSolo={true}
+                          // includeInputInList={true}
+                          // ListboxProps={{
+                          //   className: classes.formInput,
+                          // }}
+                          // defaultValue={[top100Films[13]]}
+                          // multiple
+                        />
+                      </Grid>
+                    }
                     { fullJsonld['@wizardQuestions'] && fullJsonld['@wizardQuestions'][property] &&
                       <Grid item>
                         <Typography variant="body1" style={{fontWeight: 900, textAlign: 'left', marginTop: theme.spacing(3), marginLeft: theme.spacing(1)}}>
@@ -601,7 +685,7 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
                     { Array.isArray(renderObject[property]) &&
                       <Grid item>
                         <Button onClick={(subSelections: any) => handleAddEntry(property, subSelections)}
-                          // style={{width: '100%'}}
+                          style={{marginTop: theme.spacing(3)}}
                           variant="contained" 
                           size="small"
                           className={classes.addEntryButton} 
@@ -621,7 +705,7 @@ const RenderObjectForm = ({ renderObject, onChange, ontologyObject, fullJsonld }
                   />
                   { Array.isArray(renderObject[property]) &&
                     <Button onClick={(subSelections: any) => handleAddEntry(property, subSelections)}
-                      // style={{width: '100%'}}
+                      style={{marginTop: theme.spacing(1)}}
                       variant="contained" 
                       size="small"
                       className={classes.addEntryButton} 
