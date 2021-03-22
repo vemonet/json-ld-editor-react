@@ -2,7 +2,7 @@
 
 # 🧙‍♂️📝 FAIR Metadata Wizard
 
-**Load and edit JSON-LD RDF metadata files** in a user-friendly web interface, **with autocomplete** for `@types`, based on the classes and properties of the **ontology magically loaded** from `@context` ✨️
+**Load and edit JSON-LD RDF metadata files** in a user-friendly web interface, **with autocomplete** based on the classes and properties of the **ontology magically loaded** from `@context` ✨️
 
 Built with [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/), and [Material-UI](https://material-ui.com/).
 
@@ -21,7 +21,7 @@ A few URL parameters can be provided to automate some actions:
 
 * **Disable adding or removing objects** in the form with `toysrus=false`
   * e.g. https://maastrichtu-ids.github.io/fair-metadata-wizard?toysrus=false
-  * Help making sure the people filling the form will comply with the provided structure 
+  * It helps to ensure the people filling the form will comply with a given structure 
 
 Combined: https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=false
 
@@ -36,13 +36,13 @@ Here are a few examples of metadata templates to load from JSON-LD files URL:
 
 The following ontologies has been tested to be properly loaded when provided in `@context`
 
-* Schema.org - from JSON-LD
+* [Schema.org](https://schema.org/) - from JSON-LD
   * https://schema.org/
-* CSV on the Web (CSVW) - from JSON-LD
+* [CSV on the Web (CSVW)](https://w3c.github.io/csvw/primer/) - from JSON-LD
   * http://www.w3.org/ns/csvw
-* Semantic Science ontology (SIO) - from RDF/XML
+* [Semantic Science ontology (SIO)](https://github.com/MaastrichtU-IDS/semanticscience) - from RDF/XML
   * https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl
-* BioLink model - from Turtle
+* [BioLink model](https://biolink.github.io/biolink-model/docs/) - from Turtle
   * https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.ttl
 
 Ontologies are converted from RDF formats to JSON-LD using `rdflib-js`
@@ -113,5 +113,6 @@ Contributions are welcome! See the [guidelines to contribute](/CONTRIBUTING.md).
 
 Resources to help improving the wizard design:
 
-* https://medium.com/patternfly/comparing-web-forms-a-progressive-form-vs-a-wizard-110eefc584e7 
-  * tl;dr: users seems to prefers having everything in the same page, than having multiple pages with Next / Previous
+* [Generating RDF from Tabular Data on the Web](https://www.w3.org/TR/2015/REC-csv2rdf-20151217) - W3C recommendation  (2015)
+* [Comparing web forms approaches](https://medium.com/patternfly/comparing-web-forms-a-progressive-form-vs-a-wizard-110eefc584e7) - unformal article
+  * Users seems to prefers having everything in the same page, than having multiple pages with Next / Previous (2020)
