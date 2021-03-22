@@ -1,7 +1,9 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { IconButton, Typography, Button, FormControl, TextField, CircularProgress, Card, CardContent, CardHeader, Collapse, Snackbar } from "@material-ui/core";
+import { IconButton, Typography, Button, FormControl, TextField, CircularProgress, Card, CardContent, CardHeader, Collapse, Snackbar,  List, ListItem, ListItemAvatar, Avatar, ListItemText } from "@material-ui/core";
 import UploadIcon from '@material-ui/icons/CloudUpload';
+import EditParamIcon from '@material-ui/icons/Link';
+import LockFormParamIcon from '@material-ui/icons/Lock';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
@@ -122,12 +124,38 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
               , <a href="https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl" className={classes.link} target="_blank" rel="noopener noreferrer">the SemanticScience ontology</a>
               , and <a href="https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.ttl" className={classes.link} target="_blank" rel="noopener noreferrer">the BioLink model</a>
             </Typography>
-            <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
+            <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(2)}}>
               Provide a URL to download your ontology as JSON-LD in the main <code>@context</code>, and feel free to <a href="https://github.com/MaastrichtU-IDS/fair-metadata-wizard/issues" className={classes.link} target="_blank" rel="noopener noreferrer">create an issue</a> on GitHub if the autocomplete does not work.
             </Typography>
-            <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(3)}}>
-              You can also provide the JSON-LD file URL directly via the <code>?edit=</code> parameter in the URL to send the right form to fill to a collaborator, e.g. <a href="https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json" className={classes.link}>https://maastrichtu-ids.github.io/fair-metadata-wizard/?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json</a>
+
+            <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(0)}}>
+              A few URL parameters can be provided to automate some actions:
             </Typography>
+            <List style={{marginTop: theme.spacing(0), marginBottom: theme.spacing(1)}}>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <EditParamIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText>
+                  <b>Provide the URL of the JSON-LD to edit</b> with the <code>edit=http://myjsonld</code> parameter in the URL, convenient to send the right form to a collaborator, e.g. <a href="https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json" className={classes.link}>https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json</a>
+                </ListItemText>
+              </ListItem>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <LockFormParamIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText>
+                  <b>Lock the form</b> with <code>toysrus=false</code>, to insure your user can only change the values in the provided structure, e.g. <a href="https://maastrichtu-ids.github.io/fair-metadata-wizard?toysrus=false" className={classes.link}>https://maastrichtu-ids.github.io/fair-metadata-wizard?toysrus=false</a>
+                </ListItemText>
+              </ListItem>
+            </List>
+            {/* <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(3)}}>
+              You can also provide the JSON-LD file URL directly via the <code>?edit=</code> parameter in the URL to send the right form to fill to a collaborator, e.g. <a href="https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json" className={classes.link}>https://maastrichtu-ids.github.io/fair-metadata-wizard/?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json</a>
+            </Typography> */}
 
             <form onSubmit={handleSubmit}>
               <FormControl className={classes.settingsForm}>
