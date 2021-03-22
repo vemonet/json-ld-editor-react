@@ -476,8 +476,7 @@ export default function RenderObjectForm(props: any) {
                         value={renderObject[property]}
                         className={classes.fullWidth}
                         variant="outlined"
-                        // onChange={handleTextFieldChange}
-                        onInput={handleTextFieldChange}
+                        onChange={handleTextFieldChange}
                         size='small'
                         InputProps={{
                           className: classes.formInput
