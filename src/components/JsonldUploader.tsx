@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { IconButton, Typography, Button, FormControl, TextField, CircularProgress, Card, CardContent, CardHeader, Collapse, Snackbar } from "@material-ui/core";
-import UploadIcon from '@material-ui/icons/Publish';
+import UploadIcon from '@material-ui/icons/CloudUpload';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
