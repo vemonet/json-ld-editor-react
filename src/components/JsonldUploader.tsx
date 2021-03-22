@@ -161,7 +161,7 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText>
-                  <b>Lock the form</b> with the <code>toysrus=false</code> URL parameter, to insure your users can't play around, and can only change the property values in the provided structure, e.g. <a href="https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=false" className={classes.link}>https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=false</a>
+                  <b>Lock the form</b> with the <code>toysrus=closed</code> URL parameter, to insure your users can't play around, and can only change the property values in the provided structure, e.g. <a href="https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=closed" className={classes.link}>https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=closed</a>
                 </ListItemText>
               </ListItem>
             </List>

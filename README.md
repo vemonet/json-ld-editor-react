@@ -19,11 +19,11 @@ A few URL parameters can be provided to automate some actions:
   * It will automatically load the JSON-LD available at this URL, and the ontology provided in `@context`. 
   * It also deactivates the possibility to upload a new JSON-LD file, so that you can send the URL to anyone to faithfully fill this metadata file! 📬
 
-* **Disable adding or removing objects** in the form with `toysrus=false`
-  * e.g. https://maastrichtu-ids.github.io/fair-metadata-wizard?toysrus=false
+* **Disable adding or removing objects** in the form with `toysrus=closed`
+  * e.g. https://maastrichtu-ids.github.io/fair-metadata-wizard?toysrus=closed
   * It helps to ensure the people filling the form will comply with a given structure 
 
-Combined: https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=false
+Combined: https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=closed
 
 ## Metadata examples 📝
 

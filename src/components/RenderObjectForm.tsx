@@ -688,7 +688,7 @@ export default function RenderObjectForm(props: any) {
             </GridListTile>
             ))}
             </GridList> */}
-          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Data Property to the <code>{parentProperty}</code> object<br/>(new property with a string value)</Typography>}>
+          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add a Data Property to the <code>{parentProperty}</code> object<br/>(new property with a string value)</Typography>}>
             <IconButton onClick={(subSelections: any) => handleAddProperty('dataProperty', subSelections)}
               style={{marginTop: theme.spacing(1)}}
               className={classes.editButtons}
@@ -696,7 +696,7 @@ export default function RenderObjectForm(props: any) {
                 <AddDataPropertyIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Data Array to the <code>{parentProperty}</code> object<br/>(new property pointing to an array of strings)</Typography>}>
+          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add a Data Array to the <code>{parentProperty}</code> object<br/>(new property pointing to an array of strings)</Typography>}>
             <IconButton onClick={(subSelections: any) => handleAddProperty('dataArray', subSelections)}
               style={{marginTop: theme.spacing(1)}}
               className={classes.editButtons} 
@@ -704,7 +704,7 @@ export default function RenderObjectForm(props: any) {
                 <AddDataArrayIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Object Property to the <code>{parentProperty}</code> object<br/>(new property pointing to a new object)</Typography>}>
+          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add an Object Property to the <code>{parentProperty}</code> object<br/>(new property pointing to a new object)</Typography>}>
             <IconButton onClick={(subSelections: any) => handleAddProperty('objectProperty', subSelections)}
               style={{marginTop: theme.spacing(1)}}
               className={classes.editButtons}
@@ -712,7 +712,7 @@ export default function RenderObjectForm(props: any) {
                 <AddObjectPropertyIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Object Array to the <code>{parentProperty}</code> object<br/>(new property pointing to an array of objects)</Typography>}>
+          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add an Object Array to the <code>{parentProperty}</code> object<br/>(new property pointing to an array of objects)</Typography>}>
             <IconButton onClick={(subSelections: any) => handleAddProperty('objectArray', subSelections)}
               style={{marginTop: theme.spacing(1)}}
               className={classes.editButtons} 

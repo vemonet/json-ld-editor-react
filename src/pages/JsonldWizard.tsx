@@ -104,8 +104,8 @@ export default function JsonldWizard() {
     const params = new URLSearchParams(location.search + location.hash);
     let jsonld_uri_provided = params.get('edit');
     let editionEnabled = params.get('toysrus');
-    if (editionEnabled === 'false') {
-      // Disable edit if toysrus=false
+    if (editionEnabled === 'closed') {
+      // Disable edit if toysrus=closed
       updateState({ edit_enabled: false })
     }
     if (jsonld_uri_provided) {
