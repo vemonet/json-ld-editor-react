@@ -276,6 +276,7 @@ export default function RenderObjectForm(props: any) {
                     <Autocomplete
                       key={property + key}
                       id={property}
+                      disabled={!editEnabled}
                       // value={ { ['rdfs:label']: renderObject[property]}}
                       defaultValue={{'rdfs:label': renderObject[property]}}
                       options={state.autocompleteOntologyOptions}
@@ -371,6 +372,7 @@ export default function RenderObjectForm(props: any) {
                         <Autocomplete
                           key={property + key}
                           id={property}
+                          disabled={!editEnabled}
                           className={classes.autocomplete}
                           // value={ { ['rdfs:label']: renderObject[property]}}
                           defaultValue={{'rdfs:label': property}}
@@ -505,6 +507,7 @@ export default function RenderObjectForm(props: any) {
                             <Autocomplete
                               key={property + key}
                               id={property}
+                              disabled={!editEnabled}
                               // value={ { ['rdfs:label']: renderObject[property]}}
                               defaultValue={{'rdfs:label': property}}
                               options={state.autocompleteOntologyOptions}
