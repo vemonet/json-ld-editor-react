@@ -99,9 +99,7 @@ export default function RenderObjectForm(props: any) {
   }, [setState]);
 
   const handleTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('parentType: ' + renderObject['@type'])
-    console.log(parentType)
-    if (renderObject['@type'] === 'URL') {
+    if (renderObject['@type'] === 'URL' && event.target.id === '@value') {
       // URL validation
       if ((!event.target.value.startsWith('http://') && !event.target.value.startsWith('https://')) || event.target.value.includes(' ')) {
         updateState({ errorMessage: 'Provide a valid URL'})
