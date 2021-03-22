@@ -23,6 +23,8 @@ A few URL parameters can be provided to automate some actions:
   * e.g. https://maastrichtu-ids.github.io/fair-metadata-wizard?toysrus=false
   * Help making sure the people filling the form will comply with the provided structure 
 
+Combined: https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=false
+
 ## Metadata examples 📝
 
 Here are a few examples of metadata templates to load from JSON-LD files URL:
