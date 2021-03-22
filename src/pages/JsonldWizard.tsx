@@ -102,6 +102,10 @@ export default function JsonldWizard() {
     // and passed to renderObjectForm to resolve classes and properties
     const params = new URLSearchParams(location.search + location.hash);
     let jsonld_uri_provided = params.get('edit');
+    let editionEnabled = params.get('toysrus');
+    if (!editionEnabled) {
+      // Disable edit if false
+    }
     if (jsonld_uri_provided) {
       axios.get(jsonld_uri_provided)
         .then(res => {
@@ -250,12 +254,12 @@ export default function JsonldWizard() {
 
       <Snackbar open={state.ontoload_error_open} onClose={closeOntoloadError} autoHideDuration={10000}>
         <MuiAlert elevation={6} variant="filled" severity="error">
-          The ontology at the URL {state.wizard_jsonld['@context']} provided in @context could not be loaded
+          The ontology provided in @context could not be loaded from {state.wizard_jsonld['@context']}
         </MuiAlert>
       </Snackbar>
       <Snackbar open={state.ontoload_success_open} onClose={closeOntoloadSuccess} autoHideDuration={10000}>
         <MuiAlert elevation={6} variant="filled" severity="success">
-          The ontology {state.wizard_jsonld['@context']} from @context has been loaded successfully, it will be used for @types autocomplete
+          The ontology {state.wizard_jsonld['@context']} from @context has been loaded successfully, it will be used for classes and properties autocomplete
         </MuiAlert>
       </Snackbar>
 

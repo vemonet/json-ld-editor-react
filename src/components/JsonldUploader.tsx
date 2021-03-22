@@ -160,7 +160,7 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
                 </div>
                 <Snackbar open={state.json_error_open} onClose={closeJsonError} autoHideDuration={10000}>
                   <MuiAlert elevation={6} variant="filled" severity="error">
-                    The JSON-LD provided is not valid
+                    The JSON-LD provided is not valid ❌️
                   </MuiAlert>
                 </Snackbar>
                 <Snackbar open={state.json_loaded_open} onClose={closeJsonLoaded} autoHideDuration={10000}>

@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'none',
     margin: theme.spacing(2, 2),
   },
-  addEntryButton: {
+  editButtons: {
     textTransform: 'none',
     marginLeft: theme.spacing(2),
     // marginTop: theme.spacing(2),
@@ -50,8 +50,8 @@ const useStyles = makeStyles(theme => ({
     background: 'white',
     width: '100%'
   },
-  smallerFont: {
-    fontSize: '12px',
+  biggerFont: {
+    fontSize: '14px',
   },
   alignLeft: {
     textAlign: 'left'
@@ -259,7 +259,7 @@ export default function RenderObjectForm(props: any) {
                     <Tooltip title='Delete the property and its child objects'>
                       <IconButton onClick={(subSelections: any) => handleRemoveProperty(property, subSelections)}
                         style={{ margin: theme.spacing(1,1) }}
-                        className={classes.addEntryButton} 
+                        className={classes.editButtons} 
                         disabled={property === '0' || property === '@type'}
                         color="default" >
                           <RemoveIcon />
@@ -467,7 +467,7 @@ export default function RenderObjectForm(props: any) {
                           variant="contained" 
                           size="small"
                           style={{ textTransform: 'none', marginLeft: theme.spacing(2), marginTop: theme.spacing(1) }}
-                          className={classes.addEntryButton} 
+                          className={classes.editButtons} 
                           startIcon={<RemoveIcon />}
                           color="primary" >
                             Delete
@@ -588,7 +588,7 @@ export default function RenderObjectForm(props: any) {
                               variant="contained" 
                               size="small"
                               style={{ textTransform: 'none', marginLeft: theme.spacing(2) }}
-                              className={classes.addEntryButton} 
+                              className={classes.editButtons} 
                               startIcon={<RemoveIcon />}
                               color="primary" >
                                 Delete
@@ -602,7 +602,7 @@ export default function RenderObjectForm(props: any) {
                               style={{marginTop: theme.spacing(3)}}
                               variant="contained" 
                               size="small"
-                              className={classes.addEntryButton} 
+                              className={classes.editButtons} 
                               startIcon={<AddIcon />}
                               color="default" >
                                 Add {property} entry
@@ -624,7 +624,7 @@ export default function RenderObjectForm(props: any) {
                           style={{marginTop: theme.spacing(1)}}
                           variant="contained" 
                           size="small"
-                          className={classes.addEntryButton} 
+                          className={classes.editButtons} 
                           startIcon={<AddIcon />}
                           color="default" >
                             Add {property} entry
@@ -648,34 +648,34 @@ export default function RenderObjectForm(props: any) {
             </GridListTile>
             ))}
             </GridList> */}
-          <Tooltip title='Add Data Property'>
+          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Data Property <br/>(new property with a string value)</Typography>}>
             <IconButton onClick={(subSelections: any) => handleAddProperty('dataProperty', subSelections)}
               style={{marginTop: theme.spacing(1)}}
-              className={classes.addEntryButton}
+              className={classes.editButtons}
               color="default" >
                 <AddDataPropertyIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title='Add Data Array'>
+          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Data Array <br/>(new property pointing to an array of strings)</Typography>}>
             <IconButton onClick={(subSelections: any) => handleAddProperty('dataArray', subSelections)}
               style={{marginTop: theme.spacing(1)}}
-              className={classes.addEntryButton} 
+              className={classes.editButtons} 
               color="default" >
                 <AddDataArrayIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title='Add Object Property'>
+          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Object Property <br/>(new property pointing to a new object)</Typography>}>
             <IconButton onClick={(subSelections: any) => handleAddProperty('objectProperty', subSelections)}
               style={{marginTop: theme.spacing(1)}}
-              className={classes.addEntryButton}
+              className={classes.editButtons}
               color="default" >
                 <AddObjectPropertyIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title='Add Object Array'>
+          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Object Array <br/>(new property pointing to an array of objects)</Typography>}>
             <IconButton onClick={(subSelections: any) => handleAddProperty('objectArray', subSelections)}
               style={{marginTop: theme.spacing(1)}}
-              className={classes.addEntryButton} 
+              className={classes.editButtons} 
               color="default" >
                 <AddObjectArrayIcon />
             </IconButton>
@@ -689,7 +689,7 @@ export default function RenderObjectForm(props: any) {
             style={{marginTop: theme.spacing(1)}}
             variant="contained" 
             size="small"
-            className={classes.addEntryButton} 
+            className={classes.editButtons} 
             startIcon={<AddDataPropertyIcon />}
             color="primary" >
               Data Property
@@ -698,7 +698,7 @@ export default function RenderObjectForm(props: any) {
             style={{marginTop: theme.spacing(1)}}
             variant="contained" 
             size="small"
-            className={classes.addEntryButton} 
+            className={classes.editButtons} 
             startIcon={<AddDataArrayIcon />}
             color="primary" >
               Data array
@@ -707,7 +707,7 @@ export default function RenderObjectForm(props: any) {
             style={{marginTop: theme.spacing(1)}}
             variant="contained" 
             size="small"
-            className={classes.addEntryButton} 
+            className={classes.editButtons} 
             startIcon={<AddObjectPropertyIcon />}
             color="primary" >
               Object Property
@@ -716,7 +716,7 @@ export default function RenderObjectForm(props: any) {
             style={{marginTop: theme.spacing(1)}}
             variant="contained" 
             size="small"
-            className={classes.addEntryButton} 
+            className={classes.editButtons} 
             startIcon={<AddObjectArrayIcon />}
             color="primary" >
               Object array
