@@ -12,7 +12,16 @@ Deployed as a static website on [GitHub Pages](https://pages.github.com/).
 
 Access the website at **[https://maastrichtu-ids.github.io/fair-metadata-wizard 🔗](https://maastrichtu-ids.github.io/fair-metadata-wizard)**
 
-You can provide the URL of the JSON-LD file in the `?edit=` URL param. This automatically loads this JSON-LD and the ontology provided in `@context`. This also deactivates the possibility to upload a new JSON-LD file, so that you can send the URL to anyone to faithfully fill this metadata file! 📬
+A few URL parameters can be provided to automate some actions:
+
+* **Provide the JSON-LD file to load** with `edit=http://my-url`
+  * e.g. https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json
+  * It will automatically load the JSON-LD available at this URL, and the ontology provided in `@context`. 
+  * It also deactivates the possibility to upload a new JSON-LD file, so that you can send the URL to anyone to faithfully fill this metadata file! 📬
+
+* **Disable adding or removing objects** in the form with `toysrus=false`
+  * e.g. https://maastrichtu-ids.github.io/fair-metadata-wizard?toysrus=false
+  * Help making sure the people filling the form will comply with the provided structure 
 
 ## Metadata examples 📝
 
