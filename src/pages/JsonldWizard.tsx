@@ -231,8 +231,11 @@ export default function JsonldWizard() {
   return(
     <Container className='mainContainer'>
       <Typography variant="h4" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-          FAIR metadata wizard 🧙‍♂️
+        🧙‍♂️ FAIR Metadata Wizard, a JSON-LD editor
       </Typography>
+      {/* <Typography variant="body1" color='initial' style={{ textAlign: 'center', marginBottom: theme.spacing(1)}}>
+        The JSON-LD editor you have been dreaming of
+      </Typography> */}
 
       <LoggedIn>
         <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
@@ -240,12 +243,10 @@ export default function JsonldWizard() {
         </Typography>
       </LoggedIn>
       {/* <LoggedOut>
-        <p>
-          Please login with SOLID
-        </p>
+        <p>Please login with SOLID</p>
       </LoggedOut> */}
       <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        Load and edit JSON-LD RDF metadata files in a user-friendly web interface, with autocomplete based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
+        Load and edit JSON-LD RDF files in a user-friendly web interface, with autocomplete based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
       </Typography>
 
       {/* Display the JSON-LD file uploader (if no ?edit= URL param provided) */}

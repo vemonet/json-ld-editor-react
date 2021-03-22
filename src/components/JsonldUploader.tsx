@@ -94,7 +94,7 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
               aria-expanded={state.show_info_card}
               aria-label="show about"
             >
-              Upload&nbsp;
+              Import&nbsp;
               {!state.show_info_card &&
                 <ExpandMoreIcon />
               }
@@ -103,8 +103,8 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
               }
             </IconButton>
           }
-          title="Upload your JSON-LD metadata"
-          subheader={"Paste your JSON-LD metadata file content in the box, and start to edit it easily."}
+          title="Import your JSON-LD"
+          subheader={"Paste your JSON-LD file content in the box, and start to edit it easily."}
         />
 
 
