@@ -376,7 +376,7 @@ export default function RenderObjectForm(props: any) {
                           className={classes.autocomplete}
                           // value={ { ['rdfs:label']: renderObject[property]}}
                           defaultValue={{'rdfs:label': property}}
-                          options={state.autocompleteOntologyOptions}
+                          options={jsonld_properties.concat(state.autocompleteOntologyOptions)}
                           onInputChange={handleAutocompleteOntologyOptions}
                           onSelect={handleAutocompleteOntologyOptions}
                           // ADD ONTOLOGY: fix how the entity id/label is retrieved (main outcome of the input)
@@ -510,7 +510,7 @@ export default function RenderObjectForm(props: any) {
                               disabled={!editEnabled}
                               // value={ { ['rdfs:label']: renderObject[property]}}
                               defaultValue={{'rdfs:label': property}}
-                              options={state.autocompleteOntologyOptions}
+                              options={jsonld_properties.concat(state.autocompleteOntologyOptions)}
                               onInputChange={handleAutocompleteOntologyOptions}
                               onSelect={handleAutocompleteOntologyOptions}
 
@@ -748,3 +748,55 @@ export default function RenderObjectForm(props: any) {
     </div>
   )
 }
+
+// Default JSON-LD properties for Autocomplete
+const jsonld_properties = [
+  {
+    '@id': '@value',
+    '@type': 'JSON-LD properties'
+  },
+  {
+    '@id': '@id',
+    '@type': 'JSON-LD properties'
+  },
+  {
+    '@id': '@type',
+    '@type': 'JSON-LD properties'
+  },
+  {
+    '@id': '@graph',
+    '@type': 'JSON-LD properties'
+  },
+  {
+    '@id': '@context',
+    '@type': 'JSON-LD properties'
+  },
+  {
+    '@id': '@language',
+    '@type': 'JSON-LD properties'
+  },
+  {
+    '@id': '@vocab',
+    '@type': 'JSON-LD properties'
+  },
+  {
+    '@id': '@base',
+    '@type': 'JSON-LD properties'
+  },
+  {
+    '@id': '@container',
+    '@type': 'JSON-LD properties'
+  },
+  {
+    '@id': '@list',
+    '@type': 'JSON-LD properties'
+  },
+  {
+    '@id': '@set',
+    '@type': 'JSON-LD properties'
+  },
+  {
+    '@id': '@reverse',
+    '@type': 'JSON-LD properties'
+  },
+]

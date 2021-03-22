@@ -4,6 +4,8 @@ import { IconButton, Typography, Button, FormControl, TextField, CircularProgres
 import UploadIcon from '@material-ui/icons/CloudUpload';
 import EditParamIcon from '@material-ui/icons/Link';
 import LockFormParamIcon from '@material-ui/icons/Lock';
+import WizardQuestionsIcon from '@material-ui/icons/LiveHelp';
+// QuestionAnswer
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
@@ -113,25 +115,35 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
         <Collapse in={state.show_info_card} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
-              All <code>@type</code> values and properties autocomplete are based on the classes and properties described in the ontology loaded.
+              All <code>@type</code> values and properties <b>autocompletes are based on the classes and properties described in the ontology loaded</b>.
             </Typography>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
-              The main <code>@context</code> URL is used to automatically download the related ontology as JSON-LD using Content-Negociation (accept <code>application/json+ld</code>). 
-            </Typography>
-            <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
-              This feature has been tested with <a href="https://schema.org" className={classes.link} target="_blank" rel="noopener noreferrer">https://schema.org</a> 
-              , <a href="http://www.w3.org/ns/csvw" className={classes.link} target="_blank" rel="noopener noreferrer">http://www.w3.org/ns/csvw</a>
-              , <a href="https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl" className={classes.link} target="_blank" rel="noopener noreferrer">the SemanticScience ontology</a>
-              , and <a href="https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.ttl" className={classes.link} target="_blank" rel="noopener noreferrer">the BioLink model</a>
+              The main <code>@context</code> URL is used to automatically download the related ontology as JSON-LD, using Content-Negociation (accept <code>application/json+ld</code>). 
+            {/* </Typography>
+            <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}> */}
+              &nbsp;This feature has been tested with the <a href="https://schema.org" className={classes.link} target="_blank" rel="noopener noreferrer">Schema.org vocabulary</a> 
+              , the <a href="http://www.w3.org/ns/csvw" className={classes.link} target="_blank" rel="noopener noreferrer">CSVW ontology</a>
+              , the <a href="https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl" className={classes.link} target="_blank" rel="noopener noreferrer">SemanticScience ontology</a>
+              , and the <a href="https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.ttl" className={classes.link} target="_blank" rel="noopener noreferrer">BioLink model</a>
             </Typography>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(2)}}>
               Provide a URL to download your ontology as JSON-LD in the main <code>@context</code>, and feel free to <a href="https://github.com/MaastrichtU-IDS/fair-metadata-wizard/issues" className={classes.link} target="_blank" rel="noopener noreferrer">create an issue</a> on GitHub if the autocomplete does not work.
             </Typography>
 
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(0)}}>
-              A few URL parameters can be provided to automate some actions:
+              A few other features are available:
             </Typography>
             <List style={{marginTop: theme.spacing(0), marginBottom: theme.spacing(1)}}>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <WizardQuestionsIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText>
+                  <b>Provide human-readable questions</b> for each property to fill with the <code>@wizardQuestions</code> special property, refer to the default JSON-LD to use it.
+                </ListItemText>
+              </ListItem>
               <ListItem>
                 <ListItemAvatar>
                   <Avatar>
@@ -139,7 +151,7 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText>
-                  <b>Provide the URL of the JSON-LD to edit</b> with the <code>edit=http://myjsonld</code> parameter in the URL, convenient to send the right form to a collaborator, e.g. <a href="https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json" className={classes.link}>https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json</a>
+                  <b>Provide the URL of the JSON-LD to edit</b> with the <code>edit=http://myjsonld</code> URL parameter, convenient to send the right form to a collaborator, e.g. <a href="https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json" className={classes.link}>https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json</a>
                 </ListItemText>
               </ListItem>
               <ListItem>
@@ -149,7 +161,7 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText>
-                  <b>Lock the form</b> with <code>toysrus=false</code>, to insure your user can only change the values in the provided structure, e.g. <a href="https://maastrichtu-ids.github.io/fair-metadata-wizard?toysrus=false" className={classes.link}>https://maastrichtu-ids.github.io/fair-metadata-wizard?toysrus=false</a>
+                  <b>Lock the form</b> with the <code>toysrus=false</code> URL parameter, to insure your user can only change the values in the provided structure, e.g. <a href="https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=false" className={classes.link}>https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=false</a>
                 </ListItemText>
               </ListItem>
             </List>
