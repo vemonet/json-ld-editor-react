@@ -81,6 +81,7 @@ export default function RenderObjectForm(props: any) {
   const onChange = props.onChange;
   const ontologyObject = props.ontologyObject;
   const fullJsonld = props.fullJsonld;
+  const editEnabled = props.editEnabled;
   const classes = useStyles();
   const theme = useTheme();
 
@@ -253,8 +254,8 @@ export default function RenderObjectForm(props: any) {
                     </Typography>
                   </Grid>
                 }
-                {property !== '@context' &&
-                  // Button to delete any property object
+                {property !== '@context' && (editEnabled || Array.isArray(renderObject)) &&
+                  // Button to delete any property object. Hide for objects if edit disabled
                   <Grid item>
                     <Tooltip title='Delete the property and its child objects'>
                       <IconButton onClick={(subSelections: any) => handleRemoveProperty(property, subSelections)}
@@ -617,6 +618,7 @@ export default function RenderObjectForm(props: any) {
                         onChange={(subSelections: any) => handleRecursiveChange(property, subSelections)}
                         ontologyObject={ontologyObject}
                         fullJsonld={fullJsonld}
+                        editEnabled={editEnabled}
                       />
                       { Array.isArray(renderObject[property]) &&
                         // Create Add entry button at the bottom of the list, if the property value is an array
@@ -639,7 +641,7 @@ export default function RenderObjectForm(props: any) {
           }
         </div>
       ))}
-      {typeof renderObject === 'object' && !Array.isArray(renderObject) && 
+      {typeof renderObject === 'object' && !Array.isArray(renderObject) && editEnabled &&
         // Buttons to add new properties or arrays for each object
         <>
           {/* <GridList cols={1}>
@@ -681,7 +683,7 @@ export default function RenderObjectForm(props: any) {
             </IconButton>
           </Tooltip>
         </>
-      } 
+      }
       {/* { typeof renderObject === 'object' && !Array.isArray(renderObject) &&
         // Buttons to add new properties or arrays for each object
         <>

@@ -82,6 +82,7 @@ export default function JsonldWizard() {
     wizard_jsonld: wizard_jsonld,
     jsonld_uri_provided: null,
     ontology_jsonld: {},
+    edit_enabled: true,
     ontoload_error_open: false,
     ontoload_success_open: false,
   });
@@ -103,8 +104,9 @@ export default function JsonldWizard() {
     const params = new URLSearchParams(location.search + location.hash);
     let jsonld_uri_provided = params.get('edit');
     let editionEnabled = params.get('toysrus');
-    if (!editionEnabled) {
-      // Disable edit if false
+    if (editionEnabled === 'false') {
+      // Disable edit if toysrus=false
+      updateState({ edit_enabled: false })
     }
     if (jsonld_uri_provided) {
       axios.get(jsonld_uri_provided)
@@ -267,9 +269,12 @@ export default function JsonldWizard() {
         <FormControl className={classes.settingsForm}>
 
           {/* First call of RenderObjectForm (the rest is handled recursively in this component) */}
-          <RenderObjectForm renderObject={state.wizard_jsonld} ontologyObject={state.ontology_jsonld}
+          <RenderObjectForm
+            renderObject={state.wizard_jsonld}
+            ontologyObject={state.ontology_jsonld}
             onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld})} }
             fullJsonld={state.wizard_jsonld}
+            editEnabled={state.edit_enabled}
           />
 
           {/* Button to download the JSON-LD */}
