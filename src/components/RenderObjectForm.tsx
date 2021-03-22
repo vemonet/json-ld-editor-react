@@ -377,8 +377,8 @@ export default function RenderObjectForm(props: any) {
                           options={state.autocompleteOntologyOptions}
                           onInputChange={handleAutocompleteOntologyOptions}
                           onSelect={handleAutocompleteOntologyOptions}
+                          // ADD ONTOLOGY: fix how the entity id/label is retrieved (main outcome of the input)
                           onChange={(event, newInputValue: any) => {
-                            // ADD ONTOLOGY: fix how the entity id/label is retrieved (main outcome of the input)
                             if (newInputValue) {
                               let newProperty = ''
                               if (newInputValue['rdfs:label']) {
@@ -392,20 +392,12 @@ export default function RenderObjectForm(props: any) {
                               } else if(newInputValue['@id']) {
                                 // This is more semantically accurate but it imports the whole concept object
                                 // We could use the @id URI
-                                renderObject[property] = newInputValue['@id']
+                                newProperty = newInputValue['@id']
                               } else {
                                 newProperty = newInputValue
                               }
                               if (newProperty) renameKey(renderObject, property, newProperty);
                               onChange(renderObject)
-                            }
-                          }}
-                          groupBy={(option: any): any => {
-                            if (option['@type'] && Array.isArray(option['@type'])) {
-                              // Handle when array of types provided (e.g. SIO via rdflib)
-                              return option['@type'][0]
-                            } else {
-                              return option['@type']
                             }
                           }}
                           getOptionSelected={(option: any, selectedValue: any): any => {
@@ -416,6 +408,9 @@ export default function RenderObjectForm(props: any) {
                             }
                             if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
                               return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
+                            }
+                            if (option['@id']) {
+                              return option['@id'] === selectedValue['@id']
                             }
                             return option === selectedValue
                           }}
@@ -428,7 +423,18 @@ export default function RenderObjectForm(props: any) {
                             if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
                               return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
                             }
+                            if (option['@id']) {
+                              return option['@id']
+                            }
                             return option
+                          }}
+                          groupBy={(option: any): any => {
+                            if (option['@type'] && Array.isArray(option['@type'])) {
+                              // Handle when array of types provided (e.g. SIO via rdflib)
+                              return option['@type'][0]
+                            } else {
+                              return option['@type']
+                            }
                           }}
                           renderInput={params => (
                             <TextField
@@ -504,8 +510,9 @@ export default function RenderObjectForm(props: any) {
                               options={state.autocompleteOntologyOptions}
                               onInputChange={handleAutocompleteOntologyOptions}
                               onSelect={handleAutocompleteOntologyOptions}
+
+                              // ADD ONTOLOGY: fix how the entity id/label is retrieved (main outcome of the input) 
                               onChange={(event, newInputValue: any) => {
-                                // ADD ONTOLOGY: fix how the entity id/label is retrieved (main outcome of the input) 
                                 if (newInputValue) {
                                   let newProperty = ''
                                   if (newInputValue['rdfs:label']) {
@@ -519,20 +526,12 @@ export default function RenderObjectForm(props: any) {
                                   } else if(newInputValue['@id']) {
                                     // This is more semantically accurate but it imports the whole concept object
                                     // We could use the @id URI
-                                    renderObject[property] = newInputValue['@id']
+                                    newProperty = newInputValue['@id']
                                   } else {
                                     newProperty = newInputValue
                                   }
                                   if (newProperty) renameKey(renderObject, property, newProperty);
                                   onChange(renderObject)
-                                }
-                              }}
-                              groupBy={(option: any): any => {
-                                if (option['@type'] && Array.isArray(option['@type'])) {
-                                  // Handle when array of types provided (e.g. SIO via rdflib)
-                                  return option['@type'][0]
-                                } else {
-                                  return option['@type']
                                 }
                               }}
                               getOptionSelected={(option: any, selectedValue: any): any => {
@@ -543,6 +542,9 @@ export default function RenderObjectForm(props: any) {
                                 }
                                 if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
                                   return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
+                                }
+                                if (option['@id']) {
+                                  return option['@id'] === selectedValue['@id']
                                 }
                                 return option === selectedValue
                               }}
@@ -555,7 +557,19 @@ export default function RenderObjectForm(props: any) {
                                 if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
                                   return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
                                 }
+                                if (option['@id']) {
+                                  return option['@id']
+                                }
                                 return option
+                              }}
+
+                              groupBy={(option: any): any => {
+                                if (option['@type'] && Array.isArray(option['@type'])) {
+                                  // Handle when array of types provided (e.g. SIO via rdflib)
+                                  return option['@type'][0]
+                                } else {
+                                  return option['@type']
+                                }
                               }}
                               renderInput={params => (
                                 <TextField
