@@ -283,6 +283,7 @@ export default function JsonldWizard() {
             fullJsonld={state.wizard_jsonld}
             editEnabled={state.edit_enabled}
             parentProperty='root'
+            parentType='root'
           />
 
           {/* Button to download the JSON-LD */}

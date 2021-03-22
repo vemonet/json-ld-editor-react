@@ -83,11 +83,13 @@ export default function RenderObjectForm(props: any) {
   const fullJsonld = props.fullJsonld;
   const editEnabled = props.editEnabled;
   const parentProperty = props.parentProperty;
+  const parentType = props.parentType;
   const classes = useStyles();
   const theme = useTheme();
 
   const [state, setState] = React.useState({
     autocompleteOntologyOptions: [],
+    errorMessage: ''
   });
   const stateRef = React.useRef(state);
   // Avoid conflict when async calls
@@ -96,8 +98,20 @@ export default function RenderObjectForm(props: any) {
     setState(stateRef.current);
   }, [setState]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    renderObject[event.target.id] = event.target.value
+  const handleTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('parentType: ' + renderObject['@type'])
+    console.log(parentType)
+    if (renderObject['@type'] === 'URL') {
+      // URL validation
+      if (!event.target.value.startsWith('http://') && !event.target.value.startsWith('https://') ) {
+        updateState({ errorMessage: 'Provide a valid URL'})
+      } else {
+        renderObject[event.target.id] = event.target.value
+      }
+
+    } else {
+      renderObject[event.target.id] = event.target.value
+    }
     // call onChange function given by parent
     onChange(renderObject) 
   }
@@ -462,12 +476,17 @@ export default function RenderObjectForm(props: any) {
                         value={renderObject[property]}
                         className={classes.fullWidth}
                         variant="outlined"
-                        onChange={handleChange}
+                        // onChange={handleTextFieldChange}
+                        onInput={handleTextFieldChange}
                         size='small'
                         InputProps={{
                           className: classes.formInput
                         }}
                         required
+                        error={state.errorMessage.length > 0}
+                        helperText={state.errorMessage}
+                        // helperText="Incorrect entry."
+                        // errorText={state.errorMessage}
                         InputLabelProps={{ required: false }}
                         // All field are required but we hide the *
                       />
@@ -639,6 +658,7 @@ export default function RenderObjectForm(props: any) {
                         fullJsonld={fullJsonld}
                         editEnabled={editEnabled}
                         parentProperty={property}
+                        parentType={renderObject['@type']}
                       />
                       { Array.isArray(renderObject[property]) &&
                         // Create Add entry button at the bottom of the list, if the property value is an array
