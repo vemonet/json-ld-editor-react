@@ -103,9 +103,10 @@ export default function RenderObjectForm(props: any) {
     console.log(parentType)
     if (renderObject['@type'] === 'URL') {
       // URL validation
-      if (!event.target.value.startsWith('http://') && !event.target.value.startsWith('https://') ) {
+      if ((!event.target.value.startsWith('http://') && !event.target.value.startsWith('https://')) || event.target.value.includes(' ')) {
         updateState({ errorMessage: 'Provide a valid URL'})
       } else {
+        updateState({ errorMessage: ''})
         renderObject[event.target.id] = event.target.value
       }
 
