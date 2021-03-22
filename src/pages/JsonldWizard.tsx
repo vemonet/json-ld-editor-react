@@ -275,6 +275,7 @@ export default function JsonldWizard() {
             onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld})} }
             fullJsonld={state.wizard_jsonld}
             editEnabled={state.edit_enabled}
+            parentProperty='root'
           />
 
           {/* Button to download the JSON-LD */}

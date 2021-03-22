@@ -82,6 +82,7 @@ export default function RenderObjectForm(props: any) {
   const ontologyObject = props.ontologyObject;
   const fullJsonld = props.fullJsonld;
   const editEnabled = props.editEnabled;
+  const parentProperty = props.parentProperty;
   const classes = useStyles();
   const theme = useTheme();
 
@@ -257,7 +258,8 @@ export default function RenderObjectForm(props: any) {
                 {property !== '@context' && (editEnabled || Array.isArray(renderObject)) &&
                   // Button to delete any property object. Hide for objects if edit disabled
                   <Grid item>
-                    <Tooltip title='Delete the property and its child objects'>
+                    {/* <Tooltip title='Delete the property {} and its child objects'> */}
+                    <Tooltip title={<Typography style={{textAlign: 'center'}}>Delete the <code>{property}</code> property<br/>and its children</Typography>}>
                       <IconButton onClick={(subSelections: any) => handleRemoveProperty(property, subSelections)}
                         style={{ margin: theme.spacing(1,1) }}
                         className={classes.editButtons} 
@@ -619,6 +621,7 @@ export default function RenderObjectForm(props: any) {
                         ontologyObject={ontologyObject}
                         fullJsonld={fullJsonld}
                         editEnabled={editEnabled}
+                        parentProperty={property}
                       />
                       { Array.isArray(renderObject[property]) &&
                         // Create Add entry button at the bottom of the list, if the property value is an array
@@ -650,7 +653,7 @@ export default function RenderObjectForm(props: any) {
             </GridListTile>
             ))}
             </GridList> */}
-          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Data Property <br/>(new property with a string value)</Typography>}>
+          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Data Property to the <code>{parentProperty}</code> object<br/>(new property with a string value)</Typography>}>
             <IconButton onClick={(subSelections: any) => handleAddProperty('dataProperty', subSelections)}
               style={{marginTop: theme.spacing(1)}}
               className={classes.editButtons}
@@ -658,7 +661,7 @@ export default function RenderObjectForm(props: any) {
                 <AddDataPropertyIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Data Array <br/>(new property pointing to an array of strings)</Typography>}>
+          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Data Array to the <code>{parentProperty}</code> object<br/>(new property pointing to an array of strings)</Typography>}>
             <IconButton onClick={(subSelections: any) => handleAddProperty('dataArray', subSelections)}
               style={{marginTop: theme.spacing(1)}}
               className={classes.editButtons} 
@@ -666,7 +669,7 @@ export default function RenderObjectForm(props: any) {
                 <AddDataArrayIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Object Property <br/>(new property pointing to a new object)</Typography>}>
+          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Object Property to the <code>{parentProperty}</code> object<br/>(new property pointing to a new object)</Typography>}>
             <IconButton onClick={(subSelections: any) => handleAddProperty('objectProperty', subSelections)}
               style={{marginTop: theme.spacing(1)}}
               className={classes.editButtons}
@@ -674,7 +677,7 @@ export default function RenderObjectForm(props: any) {
                 <AddObjectPropertyIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Object Array <br/>(new property pointing to an array of objects)</Typography>}>
+          <Tooltip title={<Typography style={{textAlign: 'center'}}>Add Object Array to the <code>{parentProperty}</code> object<br/>(new property pointing to an array of objects)</Typography>}>
             <IconButton onClick={(subSelections: any) => handleAddProperty('objectArray', subSelections)}
               style={{marginTop: theme.spacing(1)}}
               className={classes.editButtons} 
