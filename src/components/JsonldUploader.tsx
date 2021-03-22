@@ -118,7 +118,7 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
               All <code>@type</code> values and properties <b>autocompletes are based on the classes and properties described in the ontology loaded</b>.
             </Typography>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}>
-              The main <code>@context</code> URL is used to automatically download the related ontology as JSON-LD, using Content-Negociation (accept <code>application/json+ld</code>). 
+              The main <code>@context</code> URL is used to automatically download the related ontology as JSON-LD, using Content-Negociation (with accept <code>application/ld+json</code>). 
             {/* </Typography>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(1)}}> */}
               &nbsp;This feature has been tested with the <a href="https://schema.org" className={classes.link} target="_blank" rel="noopener noreferrer">Schema.org vocabulary</a> 
@@ -161,7 +161,7 @@ export default function JsonldUploader({ renderObject, onChange }: any) {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText>
-                  <b>Lock the form</b> with the <code>toysrus=false</code> URL parameter, to insure your user can only change the values in the provided structure, e.g. <a href="https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=false" className={classes.link}>https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=false</a>
+                  <b>Lock the form</b> with the <code>toysrus=false</code> URL parameter, to insure your users can't play around, and can only change the property values in the provided structure, e.g. <a href="https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=false" className={classes.link}>https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=false</a>
                 </ListItemText>
               </ListItem>
             </List>

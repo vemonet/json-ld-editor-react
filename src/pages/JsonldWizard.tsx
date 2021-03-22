@@ -124,7 +124,13 @@ export default function JsonldWizard() {
   }, [state.wizard_jsonld['@context']])
 
   const downloadOntology  = (contextUrl: string) => {
-    // Download the ontology JSON-LD at start
+    // Download the ontology JSON-LD 
+    if (!contextUrl) {
+      // Handle when no @context provided, use schema.org by default
+      contextUrl = 'https://schema.org/'
+      // if (!state.wizard_jsonld['@context']) updateState({...state.wizard_jsonld, '@context': contextUrl})
+      console.log('No @context provided, using schema.org by default');
+    }
     if (contextUrl.startsWith('https://schema.org') || contextUrl.startsWith('https://schema.org')) {
       // Schema.org does not enable content-negociation 
       contextUrl = 'https://schema.org/version/latest/schemaorg-current-https.jsonld'
@@ -231,7 +237,7 @@ export default function JsonldWizard() {
   return(
     <Container className='mainContainer'>
       <Typography variant="h4" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        🧙‍♂️ FAIR Metadata Wizard, a JSON-LD editor
+        🧙‍♂️ FAIR Metadata Wizard, a JSON-LD editor 📝
       </Typography>
       {/* <Typography variant="body1" color='initial' style={{ textAlign: 'center', marginBottom: theme.spacing(1)}}>
         The JSON-LD editor you have been dreaming of
