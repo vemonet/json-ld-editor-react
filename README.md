@@ -14,7 +14,7 @@ Access the website at **[https://maastrichtu-ids.github.io/fair-metadata-wizard 
 
 A few URL parameters can be provided to automate some actions:
 
-* **Provide the JSON-LD file to load** with `edit=http://my-url`
+* **Provide the JSON-LD file to load** with `edit=https://my-jsonld`
   * e.g. https://maastrichtu-ids.github.io/fair-metadata-wizard?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json
   * It will automatically load the JSON-LD available at this URL, and the ontology provided in `@context`. 
   * It also deactivates the possibility to upload a new JSON-LD file, so that you can send the URL to anyone to faithfully fill this metadata file! 📬
@@ -48,6 +48,12 @@ The following ontologies has been tested to be properly loaded when provided in 
 Ontologies are converted from RDF formats to JSON-LD using `rdflib-js`
 
 > Please report if an ontology does not load properly by [creating an issue on GitHub](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/issues).
+
+## Known issues ⚠️
+
+* It is **not possible to resolve HTTP URLs** from HTTPS (triggers a `mixed active content blocked` error). Deploying to github.io/maastrichtu-ids forces redirect to HTTPS
+  * I currently rewrite ontologies URL using `http://` to `https://` before downloading them to work around this issue
+  * It can be solved by redirecting GitHub Pages a custom URL, such as http://wizard.semanticscience.org, and accessing via HTTP
 
 ## Run in development 🏗️
 
