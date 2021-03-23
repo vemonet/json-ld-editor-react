@@ -466,7 +466,7 @@ export default function RenderObjectForm(props: any) {
                     }
                     {/* Full width for TextField on small screen 60% for bigger */}
                     <Grid item xs={12} md={7}>
-                      {/* TextField for "Data Properties" value */}
+                      {/* Only TextField for "Data Properties" value */}
                       <TextField
                         id={property}
                         multiline

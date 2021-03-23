@@ -1,9 +1,10 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Container, Button, Card, FormControl, Snackbar } from "@material-ui/core";
+import { Typography, Container, Button, Card, FormControl, Snackbar, TextField } from "@material-ui/core";
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import DownloadJsonldIcon from '@material-ui/icons/Description';
+import UploadTriplestoreIcon from '@material-ui/icons/Share';
 import axios from 'axios';
 const $rdf = require('rdflib')
 import { LoggedIn, LoggedOut, Value } from '@solid/react';
@@ -85,6 +86,9 @@ export default function JsonldWizard() {
     edit_enabled: true,
     ontoload_error_open: false,
     ontoload_success_open: false,
+    sparql_endpoint: '',
+    sparql_username: '',
+    sparql_password: '',
   });
   const stateRef = React.useRef(state);
   // Avoid conflict when async calls
@@ -234,6 +238,19 @@ export default function JsonldWizard() {
     updateState({...state, ontoload_success_open: false})
   };
 
+  // Handle TextField changes for SPARQL endpoint upload
+  const handleTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    updateState({[event.target.id]: event.target.value})
+  }
+  const handleUploadToSparql  = (event: any) => {
+    // Trigger JSON-LD file download
+    event.preventDefault();
+    console.log('Uploading RDF to: ' + state.sparql_endpoint);
+    console.log('With username: ' + state.sparql_username);
+    console.log('With password: ' + state.sparql_password);
+    console.log('WORK IN PROGRESS: triplestore upload currently not implemented');
+  }
+
   return(
     <Container className='mainContainer'>
       <Typography variant="h4" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
@@ -252,7 +269,7 @@ export default function JsonldWizard() {
         <p>Please login with SOLID</p>
       </LoggedOut> */}
       <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        Load and edit JSON-LD RDF files in a user-friendly web interface, with autocomplete based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
+        Load and edit <a href="https://json-ld.org/" className={classes.link} target="_blank" rel="noopener noreferrer">JSON-LD</a> <a href="https://en.wikipedia.org/wiki/Resource_Description_Framework" className={classes.link} target="_blank" rel="noopener noreferrer">RDF</a> files in a user-friendly web interface, with autocomplete based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
       </Typography>
 
       {/* Display the JSON-LD file uploader (if no ?edit= URL param provided) */}
@@ -295,6 +312,74 @@ export default function JsonldWizard() {
               color="secondary" >
                 Download metadata in JSON-LD format
             </Button>
+            <Card className={classes.paperPadding}>
+              <Typography variant="h5" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
+                Publish this RDF to a triplestore
+              </Typography>
+              <TextField
+                id='sparql_endpoint'
+                label='SPARQL endpoint URL'
+                placeholder='SPARQL endpoint URL'
+                value={state.sparql_endpoint}
+                className={classes.fullWidth}
+                variant="outlined"
+                onChange={handleTextFieldChange}
+                size='small'
+                InputProps={{
+                  className: classes.formInput
+                }}
+                // required
+                // helperText="Incorrect entry."
+                // errorText={state.errorMessage}
+                // InputLabelProps={{ required: false }}
+                // All field are required but we hide the *
+              />
+              <TextField
+                id='sparql_username'
+                label='Username'
+                placeholder='Username'
+                value={state.sparql_username}
+                className={classes.fullWidth}
+                variant="outlined"
+                onChange={handleTextFieldChange}
+                size='small'
+                InputProps={{
+                  className: classes.formInput
+                }}
+                // required
+                // helperText="Incorrect entry."
+                // errorText={state.errorMessage}
+                // InputLabelProps={{ required: false }}
+                // All field are required but we hide the *
+              />
+              <TextField
+                id='sparql_password'
+                type="password"
+                label='Password'
+                placeholder='Password'
+                value={state.sparql_password}
+                className={classes.fullWidth}
+                variant="outlined"
+                onChange={handleTextFieldChange}
+                size='small'
+                InputProps={{
+                  className: classes.formInput
+                }}
+                // required
+                // helperText="Incorrect entry."
+                // errorText={state.errorMessage}
+                // InputLabelProps={{ required: false }}
+                // All field are required but we hide the *
+              />
+              <Button
+                variant="contained" 
+                className={classes.saveButton} 
+                onClick={handleUploadToSparql}
+                startIcon={<UploadTriplestoreIcon />}
+                color="secondary" >
+                  Upload RDF to triplestore
+              </Button>
+            </Card>
           </div>
         </FormControl>
       </form>
