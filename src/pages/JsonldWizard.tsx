@@ -243,7 +243,16 @@ export default function JsonldWizard() {
     updateState({[event.target.id]: event.target.value})
   }
   const handleUploadToSparql  = (event: any) => {
-    // Trigger JSON-LD file download
+    // https://github.com/linkeddata/rdflib.js/issues/310
+    // Use UpdateManager.update?
+    // var friends = store.each(me, FOAF('knows'), undefined)
+    // for (var i=0; i<friends.length;i++) {
+    //     friend = friends[i]
+    //     console.log(friend.uri) // the WebID of a friend
+    //     ...
+    // }
+    // https://github.com/MaastrichtU-IDS/translator-openpredict/blob/master/openpredict/rdf_utils.py#L58
+    // TODO: run POST query providing username and password
     event.preventDefault();
     console.log('Uploading RDF to: ' + state.sparql_endpoint);
     console.log('With username: ' + state.sparql_username);
@@ -377,7 +386,7 @@ export default function JsonldWizard() {
                 onClick={handleUploadToSparql}
                 startIcon={<UploadTriplestoreIcon />}
                 color="secondary" >
-                  Upload RDF to triplestore
+                  Upload your JSON-LD to the triplestore
               </Button>
             </Card>
           </div>
