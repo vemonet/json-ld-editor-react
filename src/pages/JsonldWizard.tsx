@@ -243,8 +243,8 @@ export default function JsonldWizard() {
     updateState({[event.target.id]: event.target.value})
   }
   const handleUploadToSparql  = (event: any) => {
+    // TODO: Use UpdateManager.update? Or iterate store and generate INSERT
     // https://github.com/linkeddata/rdflib.js/issues/310
-    // Use UpdateManager.update?
     // var friends = store.each(me, FOAF('knows'), undefined)
     // for (var i=0; i<friends.length;i++) {
     //     friend = friends[i]
@@ -252,7 +252,7 @@ export default function JsonldWizard() {
     //     ...
     // }
     // https://github.com/MaastrichtU-IDS/translator-openpredict/blob/master/openpredict/rdf_utils.py#L58
-    // TODO: run POST query providing username and password
+    // Then run POST query providing username and password
     event.preventDefault();
     console.log('Uploading RDF to: ' + state.sparql_endpoint);
     console.log('With username: ' + state.sparql_username);
@@ -323,7 +323,7 @@ export default function JsonldWizard() {
             </Button>
             <Card className={classes.paperPadding}>
               <Typography variant="h5" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-                Publish this RDF to a triplestore
+                Publish this RDF to a triplestore (work in progress 🏗️)
               </Typography>
               <TextField
                 id='sparql_endpoint'
@@ -337,11 +337,6 @@ export default function JsonldWizard() {
                 InputProps={{
                   className: classes.formInput
                 }}
-                // required
-                // helperText="Incorrect entry."
-                // errorText={state.errorMessage}
-                // InputLabelProps={{ required: false }}
-                // All field are required but we hide the *
               />
               <TextField
                 id='sparql_username'
@@ -355,11 +350,6 @@ export default function JsonldWizard() {
                 InputProps={{
                   className: classes.formInput
                 }}
-                // required
-                // helperText="Incorrect entry."
-                // errorText={state.errorMessage}
-                // InputLabelProps={{ required: false }}
-                // All field are required but we hide the *
               />
               <TextField
                 id='sparql_password'
@@ -374,11 +364,6 @@ export default function JsonldWizard() {
                 InputProps={{
                   className: classes.formInput
                 }}
-                // required
-                // helperText="Incorrect entry."
-                // errorText={state.errorMessage}
-                // InputLabelProps={{ required: false }}
-                // All field are required but we hide the *
               />
               <Button
                 variant="contained" 
