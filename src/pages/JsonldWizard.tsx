@@ -13,6 +13,7 @@ import { LoggedIn, LoggedOut, Value } from '@solid/react';
 // const jsonld = require('jsonld')
 
 import JsonldUploader from "../components/JsonldUploader";
+import CsvUploader from "../components/CsvUploader";
 import RenderObjectForm from "../components/RenderObjectForm";
 
 const useStyles = makeStyles(theme => ({
@@ -81,6 +82,7 @@ export default function JsonldWizard() {
     open: false,
     dialogOpen: false,
     wizard_jsonld: wizard_jsonld,
+    csvwColumnsArray: [],
     jsonld_uri_provided: null,
     ontology_jsonld: {},
     edit_enabled: true,
@@ -287,6 +289,11 @@ export default function JsonldWizard() {
           onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld})}} />
       }
 
+      {/* <CsvUploader 
+        csvwColumnsArray={state.csvwColumnsArray}
+        onChange={(csvwColumnsArray: any) => {updateState({csvwColumnsArray})}} 
+      /> */}
+
       <Snackbar open={state.ontoload_error_open} onClose={closeOntoloadError} autoHideDuration={10000}>
         <MuiAlert elevation={6} variant="filled" severity="error">
           The ontology provided in @context could not be loaded from {state.wizard_jsonld['@context']}
@@ -305,7 +312,7 @@ export default function JsonldWizard() {
           <RenderObjectForm
             renderObject={state.wizard_jsonld}
             ontologyObject={state.ontology_jsonld}
-            onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld})} }
+            onChange={(wizard_jsonld: any) => { updateState({wizard_jsonld})} }
             fullJsonld={state.wizard_jsonld}
             editEnabled={state.edit_enabled}
             parentProperty='root'

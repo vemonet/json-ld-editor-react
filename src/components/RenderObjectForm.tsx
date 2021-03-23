@@ -59,6 +59,7 @@ const useStyles = makeStyles(theme => ({
   paperPadding: {
     padding: theme.spacing(2, 2),
     margin: theme.spacing(2, 2),
+    width: '100%'
   },
   paperTitle: {
     fontWeight: 300,
@@ -83,7 +84,7 @@ export default function RenderObjectForm(props: any) {
   const fullJsonld = props.fullJsonld;
   const editEnabled = props.editEnabled;
   const parentProperty = props.parentProperty;
-  const parentType = props.parentType;
+  // const parentType = props.parentType;
   const classes = useStyles();
   const theme = useTheme();
 
@@ -165,7 +166,7 @@ export default function RenderObjectForm(props: any) {
     delete renderObject[property];
     let newObject = renderObject;
     if (Array.isArray(renderObject)) {
-      // Properly remove null from array fater delete
+      // Properly remove null from array that we deleted
       newObject = renderObject.filter(function (el: any) {
         return el != null;
       });
@@ -509,7 +510,16 @@ export default function RenderObjectForm(props: any) {
                 {(typeof renderObject[property] === 'object' && renderObject[property]) &&
                   // TODO: improve width handling within the Grid
                   <Grid item xs={11}>
-                    <Card elevation={4} className={classes.paperPadding} style={{width: '100%'}}>
+                    <Card elevation={4} className={classes.paperPadding} 
+                      // Arrays are using a different grey color
+                      style={{
+                        backgroundColor: (Array.isArray(renderObject[property]) ? "#e8eaf6" : "white")
+                      }}
+                      // style={ if ()
+                      //   backgroundColor: 'transparent',
+                      //   // boxShadow: 'none',
+                      // }
+                    >
                       <Grid container>
                         { Array.isArray(renderObject) &&
                           <Grid item>
