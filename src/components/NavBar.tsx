@@ -44,7 +44,7 @@ export default function NavBar() {
     <AppBar title="" position='static'>
       <Toolbar variant='dense'>
         <Link to="/" className={classes.linkLogo}>
-          <Tooltip title='FAIR metadata wizard 🧙‍♂️'>
+          <Tooltip title='JSON-LD Editor 🧙‍♂️'>
             <img src={iconImage} style={{height: '2em', width: '2em', marginRight: '10px'}} alt="Logo" />
           </Tooltip>
         </Link>
