@@ -1,1 +1,1 @@
-"serviceWorker"in navigator&&window.addEventListener("load",(function(){navigator.serviceWorker.register("/fair-metadata-wizard/expo-service-worker.js",{scope:"/fair-metadata-wizard/"}).then((function(e){})).catch((function(e){console.info("Failed to register service-worker",e)}))}));
+"serviceWorker"in navigator&&window.addEventListener("load",(function(){navigator.serviceWorker.register("/jsonld-editor/expo-service-worker.js",{scope:"/jsonld-editor/"}).then((function(e){})).catch((function(e){console.info("Failed to register service-worker",e)}))}));

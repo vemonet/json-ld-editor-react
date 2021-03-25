@@ -1,23 +1,23 @@
 {
   "files": {
-    "app.js": "/fair-metadata-wizard/static/js/app.c4c54e1c.chunk.js",
-    "app.js.map": "/fair-metadata-wizard/static/js/app.c4c54e1c.chunk.js.map",
-    "runtime~app.js": "/fair-metadata-wizard/static/js/runtime~app.256c1066.js",
-    "runtime~app.js.map": "/fair-metadata-wizard/static/js/runtime~app.256c1066.js.map",
-    "static/js/2.8e00b29c.chunk.js": "/fair-metadata-wizard/static/js/2.8e00b29c.chunk.js",
-    "static/js/2.8e00b29c.chunk.js.map": "/fair-metadata-wizard/static/js/2.8e00b29c.chunk.js.map",
-    "favicon-16.png": "/fair-metadata-wizard/favicon-16.png",
-    "favicon-32.png": "/fair-metadata-wizard/favicon-32.png",
-    "favicon.ico": "/fair-metadata-wizard/favicon.ico",
-    "index.html": "/fair-metadata-wizard/index.html",
-    "manifest.json": "/fair-metadata-wizard/manifest.json",
-    "serve.json": "/fair-metadata-wizard/serve.json",
-    "static/js/2.8e00b29c.chunk.js.LICENSE.txt": "/fair-metadata-wizard/static/js/2.8e00b29c.chunk.js.LICENSE.txt",
-    "static/media/icon.png": "/fair-metadata-wizard/static/media/icon.72626586.png"
+    "app.js": "/jsonld-editor/static/js/app.76a0edab.chunk.js",
+    "app.js.map": "/jsonld-editor/static/js/app.76a0edab.chunk.js.map",
+    "runtime~app.js": "/jsonld-editor/static/js/runtime~app.d59ccd21.js",
+    "runtime~app.js.map": "/jsonld-editor/static/js/runtime~app.d59ccd21.js.map",
+    "static/js/2.10a9ef52.chunk.js": "/jsonld-editor/static/js/2.10a9ef52.chunk.js",
+    "static/js/2.10a9ef52.chunk.js.map": "/jsonld-editor/static/js/2.10a9ef52.chunk.js.map",
+    "favicon-16.png": "/jsonld-editor/favicon-16.png",
+    "favicon-32.png": "/jsonld-editor/favicon-32.png",
+    "favicon.ico": "/jsonld-editor/favicon.ico",
+    "index.html": "/jsonld-editor/index.html",
+    "manifest.json": "/jsonld-editor/manifest.json",
+    "serve.json": "/jsonld-editor/serve.json",
+    "static/js/2.10a9ef52.chunk.js.LICENSE.txt": "/jsonld-editor/static/js/2.10a9ef52.chunk.js.LICENSE.txt",
+    "static/media/icon.png": "/jsonld-editor/static/media/icon.72626586.png"
   },
   "entrypoints": [
-    "static/js/runtime~app.256c1066.js",
-    "static/js/2.8e00b29c.chunk.js",
-    "static/js/app.c4c54e1c.chunk.js"
+    "static/js/runtime~app.d59ccd21.js",
+    "static/js/2.10a9ef52.chunk.js",
+    "static/js/app.76a0edab.chunk.js"
   ]
 }
