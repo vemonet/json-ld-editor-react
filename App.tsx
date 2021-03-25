@@ -31,7 +31,7 @@ const theme = createMuiTheme({
 
 const App = () => (
   <MuiThemeProvider theme={theme}>
-    <Router basename="/fair-metadata-wizard/">
+    <Router basename="/jsonld-editor/">
       <View style={{height: '100%', backgroundColor: '#eceff1'}}>
         <NavBar />
 

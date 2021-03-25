@@ -1,16 +1,16 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via an [issue](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/issues) if applicable.
+When contributing to this repository, please first discuss the change you wish to make via an [issue](https://github.com/vemonet/jsonld-editor/issues) if applicable.
 
-If you are part of the [MaastrichtU-IDS organization on GitHub](https://github.com/MaastrichtU-IDS) you can directly create a branch in this repository. Otherwise you will need to first [fork this repository](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/fork).
+If you are part of the [MaastrichtU-IDS organization on GitHub](https://github.com/MaastrichtU-IDS) you can directly create a branch in this repository. Otherwise you will need to first [fork this repository](https://github.com/vemonet/jsonld-editor/fork).
 
 To contribute:
 
 1. Clone the repository
 
 ```bash
-git clone https://github.com/MaastrichtU-IDS/fair-metadata-wizard.git
-cd fair-metadata-wizard
+git clone https://github.com/vemonet/jsonld-editor.git
+cd jsonld-editor
 ```
 
 2. Create a new branch from the `main` branch and add your changes to this branch.
@@ -19,7 +19,7 @@ cd fair-metadata-wizard
 git checkout -b my-branch
 ```
 
-3. See how to run the API in development at https://github.com/MaastrichtU-IDS/fair-metadata-wizard 
+3. See how to run the API in development at https://github.com/vemonet/jsonld-editor 
 
 ```bash
 yarn install
@@ -32,6 +32,6 @@ yarn dev
 ## Pull Request process
 
 1. Before sending a pull request make sure the project still work as expected with the new changes properly integrated.
-2. [Send a pull request](https://github.com/MaastrichtU-IDS/fair-metadata-wizard/compare) to the `main` branch.
+2. [Send a pull request](https://github.com/vemonet/jsonld-editor/compare) to the `main` branch.
 3. Project contributors will review your change as soon as they can!
 

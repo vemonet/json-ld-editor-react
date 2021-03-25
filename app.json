@@ -2,7 +2,7 @@
     "expo": {
       "name": "FAIR metadata wizard",
       "description": "Wizard to generate RDF JSON-LD metadata",
-      "slug": "fair-metadata-wizard ",
+      "slug": "jsonld-editor ",
       "privacy": "public",
       "sdkVersion": "35.0.0",
       "platforms": ["web"],
