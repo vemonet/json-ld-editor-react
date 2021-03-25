@@ -1,23 +1,23 @@
 {
   "files": {
-    "app.js": "/jsonld-editor/static/js/app.76a0edab.chunk.js",
-    "app.js.map": "/jsonld-editor/static/js/app.76a0edab.chunk.js.map",
+    "app.js": "/jsonld-editor/static/js/app.a31b051e.chunk.js",
+    "app.js.map": "/jsonld-editor/static/js/app.a31b051e.chunk.js.map",
     "runtime~app.js": "/jsonld-editor/static/js/runtime~app.d59ccd21.js",
     "runtime~app.js.map": "/jsonld-editor/static/js/runtime~app.d59ccd21.js.map",
-    "static/js/2.10a9ef52.chunk.js": "/jsonld-editor/static/js/2.10a9ef52.chunk.js",
-    "static/js/2.10a9ef52.chunk.js.map": "/jsonld-editor/static/js/2.10a9ef52.chunk.js.map",
+    "static/js/2.7d74c3cb.chunk.js": "/jsonld-editor/static/js/2.7d74c3cb.chunk.js",
+    "static/js/2.7d74c3cb.chunk.js.map": "/jsonld-editor/static/js/2.7d74c3cb.chunk.js.map",
     "favicon-16.png": "/jsonld-editor/favicon-16.png",
     "favicon-32.png": "/jsonld-editor/favicon-32.png",
     "favicon.ico": "/jsonld-editor/favicon.ico",
     "index.html": "/jsonld-editor/index.html",
     "manifest.json": "/jsonld-editor/manifest.json",
     "serve.json": "/jsonld-editor/serve.json",
-    "static/js/2.10a9ef52.chunk.js.LICENSE.txt": "/jsonld-editor/static/js/2.10a9ef52.chunk.js.LICENSE.txt",
+    "static/js/2.7d74c3cb.chunk.js.LICENSE.txt": "/jsonld-editor/static/js/2.7d74c3cb.chunk.js.LICENSE.txt",
     "static/media/icon.png": "/jsonld-editor/static/media/icon.72626586.png"
   },
   "entrypoints": [
     "static/js/runtime~app.d59ccd21.js",
-    "static/js/2.10a9ef52.chunk.js",
-    "static/js/app.76a0edab.chunk.js"
+    "static/js/2.7d74c3cb.chunk.js",
+    "static/js/app.a31b051e.chunk.js"
   ]
 }

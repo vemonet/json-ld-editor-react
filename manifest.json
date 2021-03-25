@@ -1,9 +1,9 @@
 {
-  "description": "Wizard to generate RDF JSON-LD metadata",
+  "description": "JSON-LD web editor, with autocomplete based on the loaded ontologies concepts and properties, to easily generate and edit FAIR RDF metadata",
   "display": "standalone",
   "lang": "en",
-  "name": "FAIR metadata wizard",
-  "short_name": "FAIR metadata wizard",
+  "name": "JSON-LD editor",
+  "short_name": "JSON-LD editor",
   "start_url": "/?utm_source=web_app_manifest",
   "orientation": "portrait",
   "icons": [

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/jsonld-editor/precache-manifest.e63f57655bef68eec92489b81ca1ebe9.js"
+  "/jsonld-editor/precache-manifest.3c5c04a1ca87b6d7158f75000a5c03ca.js"
 );
 
 workbox.skipWaiting();
