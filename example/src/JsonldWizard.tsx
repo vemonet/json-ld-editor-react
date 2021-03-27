@@ -12,9 +12,11 @@ import { LoggedIn, LoggedOut, Value } from '@solid/react';
 // import {$rdf} from 'rdflib'
 // const jsonld = require('jsonld')
 
-import JsonldUploader from "../components/JsonldUploader";
-import CsvUploader from "../components/CsvUploader";
-import RenderObjectForm from "../components/RenderObjectForm";
+import JsonldUploader from "../../src/components/JsonldUploader";
+import CsvUploader from "../../src/components/CsvUploader";
+import RenderObjectForm from "../../src/components/RenderObjectForm";
+
+import { JsonldEditor } from 'jsonld-editor';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -264,70 +266,14 @@ export default function JsonldWizard() {
 
   return(
     <Container className='mainContainer'>
-      <Typography variant="h4" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        🧙‍♂️ FAIR Metadata Wizard, a JSON-LD editor 📝
-      </Typography>
-      {/* <Typography variant="body1" color='initial' style={{ textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        The JSON-LD editor you have been dreaming of
-      </Typography> */}
-
-      <LoggedIn>
-        <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-          Welcome <Value src="user.name"/>!
-        </Typography>
-      </LoggedIn>
-      {/* <LoggedOut>
-        <p>Please login with SOLID</p>
-      </LoggedOut> */}
-      <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        Load and edit <a href="https://json-ld.org/" className={classes.link} target="_blank" rel="noopener noreferrer">JSON-LD</a> <a href="https://en.wikipedia.org/wiki/Resource_Description_Framework" className={classes.link} target="_blank" rel="noopener noreferrer">RDF</a> files in a user-friendly web interface, with autocomplete based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
-      </Typography>
-
-      {/* Display the JSON-LD file uploader (if no ?edit= URL param provided) */}
-      {!state.jsonld_uri_provided &&
-        <JsonldUploader renderObject={state.wizard_jsonld} 
-          onChange={(wizard_jsonld: any) => {updateState({wizard_jsonld})}} />
-      }
-
-      {/* <CsvUploader 
-        csvwColumnsArray={state.csvwColumnsArray}
-        onChange={(csvwColumnsArray: any) => {updateState({csvwColumnsArray})}} 
-      /> */}
-
-      <Snackbar open={state.ontoload_error_open} onClose={closeOntoloadError} autoHideDuration={10000}>
-        <MuiAlert elevation={6} variant="filled" severity="error">
-          The ontology provided in @context could not be loaded from {state.wizard_jsonld['@context']}
-        </MuiAlert>
-      </Snackbar>
-      <Snackbar open={state.ontoload_success_open} onClose={closeOntoloadSuccess} autoHideDuration={10000}>
-        <MuiAlert elevation={6} variant="filled" severity="success">
-          The ontology {state.wizard_jsonld['@context']} from @context has been loaded successfully, it will be used for classes and properties autocomplete
-        </MuiAlert>
-      </Snackbar>
-
+      
       <form onSubmit={handleSubmit}>
         <FormControl className={classes.settingsForm}>
 
-          {/* First call of RenderObjectForm (the rest is handled recursively in this component) */}
-          <RenderObjectForm
-            renderObject={state.wizard_jsonld}
-            ontologyObject={state.ontology_jsonld}
-            onChange={(wizard_jsonld: any) => { updateState({wizard_jsonld})} }
-            fullJsonld={state.wizard_jsonld}
-            editEnabled={state.edit_enabled}
-            parentProperty='root'
-            parentType='root'
-          />
+          <JsonldEditor />
 
           {/* Button to download the JSON-LD */}
           <div style={{width: '100%', textAlign: 'center'}}>
-            <Button type="submit" 
-              variant="contained" 
-              className={classes.saveButton} 
-              startIcon={<DownloadJsonldIcon />}
-              color="secondary" >
-                Download metadata in JSON-LD format
-            </Button>
             <Card className={classes.paperPadding}>
               <Typography variant="h5" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
                 Publish this RDF to a triplestore (work in progress 🏗️)

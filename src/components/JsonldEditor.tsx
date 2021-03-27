@@ -2,12 +2,13 @@ import React from 'react';
 import { useLocation } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Typography, Container, Button, Card, FormControl, Snackbar, TextField } from "@material-ui/core";
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import MuiAlert from '@material-ui/lab/Alert';
+// import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import DownloadJsonldIcon from '@material-ui/icons/Description';
 import UploadTriplestoreIcon from '@material-ui/icons/Share';
 import axios from 'axios';
 const $rdf = require('rdflib')
-import { LoggedIn, LoggedOut, Value } from '@solid/react';
+import { LoggedIn, Value } from '@solid/react';
 // import * as jsonld from 'jsonld'
 // import {$rdf} from 'rdflib'
 // const jsonld = require('jsonld')

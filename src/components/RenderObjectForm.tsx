@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Button, Card, Chip, Grid, Snackbar, Box, IconButton, TextField, Tooltip } from "@material-ui/core";
+import { Typography, Button, Card, Chip, Grid, IconButton, TextField, Tooltip } from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Delete';
@@ -389,6 +389,7 @@ export default function RenderObjectForm(props: any) {
                           disabled={!editEnabled}
                           className={classes.autocomplete}
                           // value={ { ['rdfs:label']: renderObject[property]}}
+                          // @ts-ignore
                           defaultValue={{'rdfs:label': property}}
                           options={jsonld_properties.concat(state.autocompleteOntologyOptions)}
                           onInputChange={handleAutocompleteOntologyOptions}
@@ -536,6 +537,7 @@ export default function RenderObjectForm(props: any) {
                               id={property}
                               disabled={!editEnabled}
                               // value={ { ['rdfs:label']: renderObject[property]}}
+                              // @ts-ignore
                               defaultValue={{'rdfs:label': property}}
                               options={jsonld_properties.concat(state.autocompleteOntologyOptions)}
                               onInputChange={handleAutocompleteOntologyOptions}

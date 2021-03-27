@@ -1,14 +1,14 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { IconButton, Typography, Button, FormControl, TextField, CircularProgress, Card, CardContent, CardHeader, Collapse, Snackbar,  List, ListItem, ListItemAvatar, Avatar, ListItemText } from "@material-ui/core";
+import { IconButton, Typography, Button, FormControl, TextField, Card, CardContent, CardHeader, Collapse, Snackbar } from "@material-ui/core";
 import UploadIcon from '@material-ui/icons/CloudUpload';
-import EditParamIcon from '@material-ui/icons/Link';
-import LockFormParamIcon from '@material-ui/icons/Lock';
-import WizardQuestionsIcon from '@material-ui/icons/LiveHelp';
+// import EditParamIcon from '@material-ui/icons/Link';
+// import LockFormParamIcon from '@material-ui/icons/Lock';
+// import WizardQuestionsIcon from '@material-ui/icons/LiveHelp';
 // QuestionAnswer
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -68,12 +68,12 @@ export default function CsvUploader({ csvwColumnsArray, onChange }: any) {
     updateState({ upload_jsonld: event.target.value})
   }
 
-  const generateJsonldFromCsv = (csv: any) => {
-    // Generate basic CSVW JSON-LD from the input CSV 
-    const jsonld_csvw = csv
+  // const generateJsonldFromCsv = (csv: any) => {
+  //   // Generate basic CSVW JSON-LD from the input CSV 
+  //   const jsonld_csvw = csv
 
-    return jsonld_csvw
-  }
+  //   return jsonld_csvw
+  // }
 
   // Function called when submit button clicked
   const handleSubmit = (event: React.FormEvent) => {
@@ -193,27 +193,27 @@ export default function CsvUploader({ csvwColumnsArray, onChange }: any) {
 
 // https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl
 
-const csvw_jsonld = {
-  "@context": "http://www.w3.org/ns/csvw",
-  "url": "tree-ops.csv",
-  "tableSchema": {
-    "columns": [{
-      "@type": "Schema",
-      "name": "GID",
-      "titles": "GID"
-    }, {
-      "name": "on_street",
-      "titles": "On Street"
-    }, {
-      "name": "species",
-      "titles": "Species"
-    }, {
-      "name": "trim_cycle",
-      "titles": "Trim Cycle"
-    }, {
-      "name": "inventory_date",
-      "titles": "Inventory Date",
-      "datatype": {"base": "date", "format": "M/d/yyyy"}
-    }]
-  }
-}
+// const csvw_jsonld = {
+//   "@context": "http://www.w3.org/ns/csvw",
+//   "url": "tree-ops.csv",
+//   "tableSchema": {
+//     "columns": [{
+//       "@type": "Schema",
+//       "name": "GID",
+//       "titles": "GID"
+//     }, {
+//       "name": "on_street",
+//       "titles": "On Street"
+//     }, {
+//       "name": "species",
+//       "titles": "Species"
+//     }, {
+//       "name": "trim_cycle",
+//       "titles": "Trim Cycle"
+//     }, {
+//       "name": "inventory_date",
+//       "titles": "Inventory Date",
+//       "datatype": {"base": "date", "format": "M/d/yyyy"}
+//     }]
+//   }
+// }

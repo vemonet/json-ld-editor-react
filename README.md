@@ -107,11 +107,38 @@ docker-compose up
 
 ## Build package 📦
 
+Build with [React Native builder `bob`](https://github.com/callstack/react-native-builder-bob)
+
+```bash
+yarn prepare
+```
+
+Generate tarball:
+
 ```bash
 npm pack
 ```
 
-Use https://github.com/callstack/react-native-builder-bob ?
+Test the package:
+
+```bash
+cd example
+yarn remove jsonld-editor
+yarn add ../jsonld-editor-0.0.1.tgz
+yarn dev
+```
+
+Upgrade the package:
+
+```bash
+yarn upgrade ../jsonld-editor-0.0.1.tgz
+```
+
+Link (experimental):
+
+```bash
+yarn link ../
+```
 
 ## Contribute 🤝
 

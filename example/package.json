@@ -9,6 +9,7 @@
     "chart.js": "^2.9.3",
     "chartjs-plugin-labels": "^1.1.0",
     "expo": "~39.0.0",
+    "jsonld-editor": "./jsonld-editor-0.0.1.tgz",
     "normalizr": "^3.6.0",
     "rdflib": "^2.2.0",
     "react": "~16.13.0",

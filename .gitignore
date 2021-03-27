@@ -1,4 +1,5 @@
-doap-rdf/
+lib/
+jsonld-editor-*.tgz
 
 # OSX
 #
@@ -61,5 +62,5 @@ buck-out/
 /ios/Pods/
 
 # Expo
-.expo/*
+.expo
 web-build/

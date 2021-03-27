@@ -18,14 +18,12 @@
     "noImplicitThis": true,
     "strictNullChecks": true,
     "declaration": true,
-		"emitDeclarationOnly": true,
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"baseUrl": "./",
     "paths": {
       "jsonld-editor": ["./src/index"]
-    },
-    "outDir": "dist",
+    }
   },
   "include": [
 		"src/**/*" 

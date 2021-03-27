@@ -1,11 +1,8 @@
 {
   "homepage": "https://vemonet.github.io/jsonld-editor",
-  "name": "perfect-graph",
-  "version": "0.0.74",
+  "name": "jsonld-editor",
+  "version": "0.0.1",
   "description": "",
-  "main": "lib/commonjs/index",
-  "module": "lib/module/index",
-  "types": "lib/typescript/src/index.d.ts",
   "author": {
     "name": "Vincent Emonet",
     "email": "vincent.emonet@gmail.com",
@@ -23,17 +20,26 @@
     "editor",
     "react"
   ],
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/src/index.d.ts",
+  "source": "src/index",
+  "react-native": "src/index",
+  "files": [
+    "lib/",
+    "src/"
+  ],
   "scripts": {
     "android": "expo start --android",
     "ios": "expo start --ios",
     "dev": "expo web",
     "eject": "expo eject",
     "build": "expo build:web",
-    "bob": "bob build",
     "serve": "serve -s web-build",
     "start": "npm run build && npm run serve",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d web-build"
+    "deploy": "gh-pages -d web-build",
+    "prepare": "bob build"
   },
   "dependencies": {
     "@comunica/actor-init-sparql": "^1.17.0",
@@ -73,7 +79,7 @@
     "react-router-dom": "*",
     "react-router-native": "*"
   },
-  "@react-native-community/bob": {
+  "react-native-builder-bob": {
     "source": "src",
     "output": "lib",
     "targets": [
