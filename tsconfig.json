@@ -1,14 +1,41 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+		"checkJs": false,
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+		"noImplicitReturns": true,
+		"strict": true,
+		"noUnusedLocals": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
     "jsx": "react-native",
     "lib": ["dom", "esnext", "es6"],
     "moduleResolution": "node",
-    "noEmit": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
+    "module": "esnext",
+		"target": "ES5",
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": true
-  }
+    "strictNullChecks": true,
+    "declaration": true,
+		"emitDeclarationOnly": true,
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
+		"baseUrl": "./",
+    "paths": {
+      "jsonld-editor": ["./src/index"]
+    },
+    "outDir": "dist",
+  },
+  "include": [
+		"src/**/*" 
+  ],
+  "exclude": [
+		"node_modules",
+		"**/node_modules/*",
+		"lib",
+		"dist",
+		"generated",
+		"example"
+	]
 }

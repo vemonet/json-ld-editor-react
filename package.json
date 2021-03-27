@@ -1,4 +1,40 @@
 {
+  "homepage": "https://vemonet.github.io/jsonld-editor",
+  "name": "perfect-graph",
+  "version": "0.0.74",
+  "description": "",
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/src/index.d.ts",
+  "author": {
+    "name": "Vincent Emonet",
+    "email": "vincent.emonet@gmail.com",
+    "url": "https://vemonet.github.io"
+  },
+  "bugs": {
+    "url": "https://github.com/vemonet/jsonld-editor/issues"
+  },
+  "repository": "https://github.com/vemonet/jsonld-editor",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "JSON-LD",
+    "RDF",
+    "editor",
+    "react"
+  ],
+  "scripts": {
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "dev": "expo web",
+    "eject": "expo eject",
+    "build": "expo build:web",
+    "bob": "bob build",
+    "serve": "serve -s web-build",
+    "start": "npm run build && npm run serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d web-build"
+  },
   "dependencies": {
     "@comunica/actor-init-sparql": "^1.17.0",
     "@material-ui/core": "^4.11.0",
@@ -11,13 +47,7 @@
     "expo": "~39.0.0",
     "normalizr": "^3.6.0",
     "rdflib": "^2.2.0",
-    "react": "~16.13.0",
-    "react-chartjs-2": "^2.10.0",
-    "react-dom": "~16.13.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.2.tar.gz",
-    "react-native-web": "0.13.13",
-    "react-router-dom": "^5.2.0",
-    "react-router-native": "5.1.2"
+    "react-chartjs-2": "^2.10.0"
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
@@ -31,20 +61,25 @@
     "@types/solid__react": "^1.6.3",
     "expo-cli": "^3.27.13",
     "gh-pages": "^3.1.0",
+    "react-native-builder-bob": "^0.18.1",
     "serve": "^11.3.2",
     "typescript": "^4.0.3"
   },
-  "scripts": {
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "dev": "expo web",
-    "eject": "expo eject",
-    "build": "expo build:web",
-    "serve": "serve -s web-build",
-    "start": "npm run build && npm run serve",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d web-build"
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*",
+    "react-native": "*",
+    "react-native-web": "*",
+    "react-router-dom": "*",
+    "react-router-native": "*"
   },
-  "homepage": "https://vemonet.github.io/jsonld-editor",
-  "private": true
+  "@react-native-community/bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
+  }
 }

@@ -105,14 +105,6 @@ docker-compose up
 
 > Checkout the [docker-compose.yml](/docker-compose.yml) file to see how we run the Docker image ⛵️
 
-## Build package 📦
-
-```bash
-npm pack
-```
-
-Use https://github.com/callstack/react-native-builder-bob ?
-
 ## Contribute 🤝
 
 Contributions are welcome! See the [guidelines to contribute](/CONTRIBUTING.md).

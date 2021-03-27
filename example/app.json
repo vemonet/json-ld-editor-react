@@ -1,0 +1,16 @@
+{
+    "expo": {
+      "name": "JSON-LD editor",
+      "description": "JSON-LD web editor, with autocomplete based on the loaded ontologies concepts and properties, to easily generate and edit FAIR RDF metadata",
+      "slug": "jsonld-editor ",
+      "privacy": "public",
+      "sdkVersion": "35.0.0",
+      "platforms": ["web"],
+      "version": "0.0.1",
+      "icon": "./assets/icon.png",
+      "orientation": "portrait",
+      "packagerOpts": {
+        "assetExts": ["html"]
+      }
+    }
+  }  
