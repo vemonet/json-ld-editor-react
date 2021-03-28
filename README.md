@@ -1,4 +1,4 @@
-[![Deploy to GitHub Pages](https://github.com/vemonet/jsonld-editor/workflows/Deploy%20website%20to%20GitHub%20Pages/badge.svg)](https://github.com/vemonet/jsonld-editor/actions/workflows/deploy-github.yml) [![CodeQL analysis](https://github.com/vemonet/jsonld-editor/workflows/CodeQL%20analysis/badge.svg)](https://github.com/vemonet/jsonld-editor/actions/workflows/codeql-analysis.yml)
+[![Deploy to GitHub Pages](https://github.com/vemonet/json-ld-editor-react/workflows/Deploy%20website%20to%20GitHub%20Pages/badge.svg)](https://github.com/vemonet/json-ld-editor-react/actions/workflows/deploy-github.yml) [![CodeQL analysis](https://github.com/vemonet/json-ld-editor-react/workflows/CodeQL%20analysis/badge.svg)](https://github.com/vemonet/json-ld-editor-react/actions/workflows/codeql-analysis.yml)
 
 # 🧙‍♂️📝 FAIR Metadata Wizard, a JSON-LD editor
 
@@ -10,27 +10,27 @@ Deployed as a static website on [GitHub Pages](https://pages.github.com/).
 
 ## Access 👩‍💻
 
-Access the website at **[https://vemonet.github.io/jsonld-editor 🔗](https://vemonet.github.io/jsonld-editor)**
+Access the website at **[https://vemonet.github.io/json-ld-editor-react 🔗](https://vemonet.github.io/json-ld-editor-react)**
 
 A few URL parameters can be provided to automate some actions:
 
 * **Provide the JSON-LD file to load** with `edit=https://my-jsonld`
-  * e.g. https://vemonet.github.io/jsonld-editor?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json
+  * e.g. https://vemonet.github.io/json-ld-editor-react?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json
   * It will automatically load the JSON-LD available at this URL, and the ontology provided in `@context`. 
   * It also deactivates the possibility to upload a new JSON-LD file, so that you can send the URL to anyone to faithfully fill this metadata file! 📬
 
 * **Disable adding or removing objects** in the form with `toysrus=closed`
-  * e.g. https://vemonet.github.io/jsonld-editor?toysrus=closed
+  * e.g. https://vemonet.github.io/json-ld-editor-react?toysrus=closed
   * It helps to ensure the people filling the form will comply with a given structure 
 
-Combined: https://vemonet.github.io/jsonld-editor?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=closed
+Combined: https://vemonet.github.io/json-ld-editor-react?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json&toysrus=closed
 
 ## Metadata examples 📝
 
 Here are a few examples of metadata templates to load from JSON-LD files URL:
 
-* Edit Schema.org Dataset metadata (default): https://vemonet.github.io/jsonld-editor?edit=https://raw.githubusercontent.com/kodymoodley/fair-metadata-html-page-generator/main/testdata/inputdata/test.jsonld
-* Edit CSV on the Web metadata: https://vemonet.github.io/jsonld-editor?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json
+* Edit Schema.org Dataset metadata (default): https://vemonet.github.io/json-ld-editor-react?edit=https://raw.githubusercontent.com/kodymoodley/fair-metadata-html-page-generator/main/testdata/inputdata/test.jsonld
+* Edit CSV on the Web metadata: https://vemonet.github.io/json-ld-editor-react?edit=https://raw.githubusercontent.com/w3c/csvw/gh-pages/tests%2Ftest086-metadata.json
 
 ## Tested ontologies ✔️
 
@@ -47,7 +47,7 @@ The following ontologies has been tested to be properly loaded when provided in 
 
 Ontologies are converted from RDF formats to JSON-LD using `rdflib-js`
 
-> Please report if an ontology does not load properly by [creating an issue on GitHub](https://github.com/vemonet/jsonld-editor/issues).
+> Please report if an ontology does not load properly by [creating an issue on GitHub](https://github.com/vemonet/json-ld-editor-react/issues).
 
 ## Known issues ⚠️
 
@@ -62,8 +62,8 @@ Requirements:  [npm](https://www.npmjs.com/get-npm) and [yarn](https://classic.y
 Clone the repository, and get in the folder:
 
 ```bash
-git clone https://github.com/vemonet/jsonld-editor 
-cd jsonld-editor
+git clone https://github.com/vemonet/json-ld-editor-react 
+cd json-ld-editor-react
 ```
 
 Install dependencies :inbox_tray:
@@ -88,7 +88,7 @@ yarn upgrade
 
 ## Run in production 🛩️
 
-This website is automatically deployed by a [GitHub Actions worklow](https://github.com/vemonet/jsonld-editor/actions?query=workflow%3A%22Deploy+to+GitHub+Pages%22) to GitHub Pages at https://vemonet.github.io/jsonld-editor
+This website is automatically deployed by a [GitHub Actions worklow](https://github.com/vemonet/json-ld-editor-react/actions?query=workflow%3A%22Deploy+to+GitHub+Pages%22) to GitHub Pages at https://vemonet.github.io/json-ld-editor-react
 
 You can build locally in the `/web-build` folder, and serve on [http://localhost:5000](http://localhost:5000)
 

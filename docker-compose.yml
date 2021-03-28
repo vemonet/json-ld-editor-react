@@ -1,11 +1,11 @@
 version: "3"
 
 services:
-  jsonld-editor:
+  json-ld-editor-react:
     build: .
-    container_name: jsonld-editor
+    container_name: json-ld-editor-react
     ports:
       - 5000:5000
     environment:
-      VIRTUAL_HOST: jsonld-editor.137.120.31.102.nip.io
-      LETSENCRYPT_HOST: jsonld-editor.137.120.31.102.nip.io
+      VIRTUAL_HOST: json-ld-editor-react.137.120.31.102.nip.io
+      LETSENCRYPT_HOST: json-ld-editor-react.137.120.31.102.nip.io

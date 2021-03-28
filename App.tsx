@@ -31,7 +31,7 @@ const theme = createMuiTheme({
 
 const App = () => (
   <MuiThemeProvider theme={theme}>
-    <Router basename="/jsonld-editor/">
+    <Router basename="/json-ld-editor-react/">
       <View style={{height: '100%', backgroundColor: '#eceff1'}}>
         <NavBar />
 

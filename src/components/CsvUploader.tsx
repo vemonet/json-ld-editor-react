@@ -138,7 +138,7 @@ export default function CsvUploader({ csvwColumnsArray, onChange }: any) {
               , and the <a href="https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.ttl" className={classes.link} target="_blank" rel="noopener noreferrer">BioLink model</a>
             </Typography>
             <Typography variant="body1" style={{textAlign: 'left', marginBottom: theme.spacing(2)}}>
-              Provide a URL to download your ontology as JSON-LD in the main <code>@context</code>, and feel free to <a href="https://github.com/vemonet/jsonld-editor/issues" className={classes.link} target="_blank" rel="noopener noreferrer">create an issue</a> on GitHub if the autocomplete does not work.
+              Provide a URL to download your ontology as JSON-LD in the main <code>@context</code>, and feel free to <a href="https://github.com/vemonet/json-ld-editor-react/issues" className={classes.link} target="_blank" rel="noopener noreferrer">create an issue</a> on GitHub if the autocomplete does not work.
             </Typography>
 
             <form onSubmit={handleSubmit}>
