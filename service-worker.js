@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/jsonld-editor/precache-manifest.3c5c04a1ca87b6d7158f75000a5c03ca.js"
+  "/json-ld-editor-react/precache-manifest.f923c4df07e89993151d0349de5be0c1.js"
 );
 
 workbox.skipWaiting();
@@ -29,7 +29,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/jsonld-editor/index.html", {
+workbox.routing.registerNavigationRoute("/json-ld-editor-react/index.html", {
   
   blacklist: [/^\/_/,/\/[^/]+\.[^/]+$/],
 });

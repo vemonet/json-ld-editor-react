@@ -1,1 +1,1 @@
-"serviceWorker"in navigator&&window.addEventListener("load",(function(){navigator.serviceWorker.register("/jsonld-editor/expo-service-worker.js",{scope:"/jsonld-editor/"}).then((function(e){})).catch((function(e){console.info("Failed to register service-worker",e)}))}));
+"serviceWorker"in navigator&&window.addEventListener("load",(function(){navigator.serviceWorker.register("/json-ld-editor-react/expo-service-worker.js",{scope:"/json-ld-editor-react/"}).then((function(e){})).catch((function(e){console.info("Failed to register service-worker",e)}))}));
