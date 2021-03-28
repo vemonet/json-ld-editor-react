@@ -1,8 +1,8 @@
 {
   "homepage": "https://vemonet.github.io/jsonld-editor",
-  "name": "jsonld-editor",
+  "name": "json-ld-editor-react",
   "version": "0.0.1",
-  "description": "",
+  "description": "JSON-LD web editor component for React, with autocomplete based on the loaded ontologies concepts and properties.",
   "author": {
     "name": "Vincent Emonet",
     "email": "vincent.emonet@gmail.com",
@@ -43,11 +43,8 @@
   },
   "dependencies": {
     "@comunica/actor-init-sparql": "^1.17.0",
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
     "@solid/react": "^1.10.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "chart.js": "^2.9.3",
     "chartjs-plugin-labels": "^1.1.0",
     "expo": "~39.0.0",
@@ -77,7 +74,10 @@
     "react-native": "*",
     "react-native-web": "*",
     "react-router-dom": "*",
-    "react-router-native": "*"
+    "react-router-native": "*",
+    "@material-ui/core": "*",
+    "@material-ui/icons": "*",
+    "@material-ui/lab": "*"
   },
   "react-native-builder-bob": {
     "source": "src",

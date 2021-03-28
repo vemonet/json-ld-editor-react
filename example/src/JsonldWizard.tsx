@@ -16,7 +16,7 @@ import JsonldUploader from "../../src/components/JsonldUploader";
 import CsvUploader from "../../src/components/CsvUploader";
 import RenderObjectForm from "../../src/components/RenderObjectForm";
 
-import { JsonldEditor } from 'jsonld-editor';
+import { JsonldEditor } from 'json-ld-editor-react';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -105,31 +105,31 @@ export default function JsonldWizard() {
   // Questions: https://github.com/kodymoodley/fair-metadata-generator/blob/main/questions.csv
   // Full output: https://github.com/kodymoodley/fair-metadata-html-page-generator/blob/main/testdata/inputdata/test.jsonld
 
-  React.useEffect(() => {
-    // Get the edit URL param if provided, and download ontology if @context changed
-    // Ontology is stored in state.ontology_jsonld 
-    // and passed to renderObjectForm to resolve classes and properties
-    const params = new URLSearchParams(location.search + location.hash);
-    let jsonld_uri_provided = params.get('edit');
-    let editionEnabled = params.get('toysrus');
-    if (editionEnabled === 'closed') {
-      // Disable edit if toysrus=closed
-      updateState({ edit_enabled: false })
-    }
-    if (jsonld_uri_provided) {
-      axios.get(jsonld_uri_provided)
-        .then(res => {
-          updateState({
-            wizard_jsonld: res.data,
-            jsonld_uri_provided: jsonld_uri_provided,
-          })
-          downloadOntology(res.data['@context'])
-        })
-    } else {
-      downloadOntology(state.wizard_jsonld['@context'])
-    }
+  // React.useEffect(() => {
+  //   // Get the edit URL param if provided, and download ontology if @context changed
+  //   // Ontology is stored in state.ontology_jsonld 
+  //   // and passed to renderObjectForm to resolve classes and properties
+  //   const params = new URLSearchParams(location.search + location.hash);
+  //   let jsonld_uri_provided = params.get('edit');
+  //   let editionEnabled = params.get('toysrus');
+  //   if (editionEnabled === 'closed') {
+  //     // Disable edit if toysrus=closed
+  //     updateState({ edit_enabled: false })
+  //   }
+  //   if (jsonld_uri_provided) {
+  //     axios.get(jsonld_uri_provided)
+  //       .then(res => {
+  //         updateState({
+  //           wizard_jsonld: res.data,
+  //           jsonld_uri_provided: jsonld_uri_provided,
+  //         })
+  //         downloadOntology(res.data['@context'])
+  //       })
+  //   } else {
+  //     downloadOntology(state.wizard_jsonld['@context'])
+  //   }
     
-  }, [state.wizard_jsonld['@context']])
+  // }, [state.wizard_jsonld['@context']])
 
   const downloadOntology  = (contextUrl: string) => {
     // Download the ontology JSON-LD 
@@ -266,70 +266,23 @@ export default function JsonldWizard() {
 
   return(
     <Container className='mainContainer'>
+
+      <Typography variant="h4" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
+        🧙‍♂️ FAIR Metadata Wizard, a JSON-LD editor 📝
+      </Typography>
+
+      <LoggedIn>
+        <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
+          Welcome <Value src="user.name"/>!
+        </Typography>
+      </LoggedIn>
       
-      <form onSubmit={handleSubmit}>
-        <FormControl className={classes.settingsForm}>
+      <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
+        Load and edit <a href="https://json-ld.org/" className={classes.link} target="_blank" rel="noopener noreferrer">JSON-LD</a> <a href="https://en.wikipedia.org/wiki/Resource_Description_Framework" className={classes.link} target="_blank" rel="noopener noreferrer">RDF</a> files in a user-friendly web interface, with autocomplete based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
+      </Typography>
+      
+      <JsonldEditor />
 
-          <JsonldEditor />
-
-          {/* Button to download the JSON-LD */}
-          <div style={{width: '100%', textAlign: 'center'}}>
-            <Card className={classes.paperPadding}>
-              <Typography variant="h5" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-                Publish this RDF to a triplestore (work in progress 🏗️)
-              </Typography>
-              <TextField
-                id='sparql_endpoint'
-                label='SPARQL endpoint URL'
-                placeholder='SPARQL endpoint URL'
-                value={state.sparql_endpoint}
-                className={classes.fullWidth}
-                variant="outlined"
-                onChange={handleTextFieldChange}
-                size='small'
-                InputProps={{
-                  className: classes.formInput
-                }}
-              />
-              <TextField
-                id='sparql_username'
-                label='Username'
-                placeholder='Username'
-                value={state.sparql_username}
-                className={classes.fullWidth}
-                variant="outlined"
-                onChange={handleTextFieldChange}
-                size='small'
-                InputProps={{
-                  className: classes.formInput
-                }}
-              />
-              <TextField
-                id='sparql_password'
-                type="password"
-                label='Password'
-                placeholder='Password'
-                value={state.sparql_password}
-                className={classes.fullWidth}
-                variant="outlined"
-                onChange={handleTextFieldChange}
-                size='small'
-                InputProps={{
-                  className: classes.formInput
-                }}
-              />
-              <Button
-                variant="contained" 
-                className={classes.saveButton} 
-                onClick={handleUploadToSparql}
-                startIcon={<UploadTriplestoreIcon />}
-                color="secondary" >
-                  Upload your JSON-LD to the triplestore
-              </Button>
-            </Card>
-          </div>
-        </FormControl>
-      </form>
     </Container>
   )
 }

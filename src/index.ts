@@ -1,5 +1,5 @@
 import JsonldEditor from './components/JsonldEditor'
 
-export default{
+export {
     JsonldEditor
 };

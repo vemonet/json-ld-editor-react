@@ -1,14 +1,14 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Container, Button, Card, FormControl, Snackbar, TextField } from "@material-ui/core";
+import { Typography, Button, Card, FormControl, Snackbar, TextField } from "@material-ui/core";
 import MuiAlert from '@material-ui/lab/Alert';
 // import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import DownloadJsonldIcon from '@material-ui/icons/Description';
 import UploadTriplestoreIcon from '@material-ui/icons/Share';
 import axios from 'axios';
 const $rdf = require('rdflib')
-import { LoggedIn, Value } from '@solid/react';
+
 // import * as jsonld from 'jsonld'
 // import {$rdf} from 'rdflib'
 // const jsonld = require('jsonld')
@@ -17,6 +17,8 @@ import JsonldUploader from "../components/JsonldUploader";
 // import CsvUploader from "../components/CsvUploader";
 import RenderObjectForm from "../components/RenderObjectForm";
 
+// https://material-ui.com/styles/advanced/
+// https://stackoverflow.com/questions/62211659/custom-components-based-on-material-ui-and-react
 const useStyles = makeStyles(theme => ({
   link: {
     color: theme.palette.primary.main,
@@ -125,6 +127,7 @@ export default function JsonldEditor() {
           downloadOntology(res.data['@context'])
         })
     } else {
+      console.log('DownloadSchema 1 ' + state.wizard_jsonld['@context'])
       downloadOntology(state.wizard_jsonld['@context'])
     }
     
@@ -138,7 +141,7 @@ export default function JsonldEditor() {
       // if (!state.wizard_jsonld['@context']) updateState({...state.wizard_jsonld, '@context': contextUrl})
       console.log('No @context provided, using schema.org by default');
     }
-    if (contextUrl.startsWith('https://schema.org') || contextUrl.startsWith('https://schema.org')) {
+    if (contextUrl.startsWith('http://schema.org') || contextUrl.startsWith('https://schema.org')) {
       // Schema.org does not enable content-negociation 
       contextUrl = 'https://schema.org/version/latest/schemaorg-current-https.jsonld'
     }
@@ -147,6 +150,7 @@ export default function JsonldEditor() {
       // We would need to deploy on our own DNS to use http (https is forced on github.io URLs)
       contextUrl = contextUrl.replace('http://', 'https://')
     }
+    console.log('DownloadSchema 2 ' + contextUrl)
     // Try to download the ontology provided in @context URL as JSON-LD
     // curl -iL -H 'Accept: application/ld+json' http://www.w3.org/ns/csvw
     axios.defaults.headers.common['Accept'] = 'application/ld+json'
@@ -155,6 +159,7 @@ export default function JsonldEditor() {
         // console.log('ontology downloaded!')
         // console.log(res.data)
         // if not json
+        console.log('DownloadSchema 3 ')
         if (typeof res.data !== 'object') {
           // If not object, we try to parse
           // const jsonLDList = await jsonld.fromRDF(result.quadList)
@@ -179,6 +184,7 @@ export default function JsonldEditor() {
               // })
             })
         } else {
+          console.log('DownloadSchema 4 ')
           updateState({
             ontology_jsonld: res.data
           })
@@ -264,26 +270,7 @@ export default function JsonldEditor() {
   }
 
   return(
-    <Container className='mainContainer'>
-      <Typography variant="h4" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        🧙‍♂️ FAIR Metadata Wizard, a JSON-LD editor 📝
-      </Typography>
-      {/* <Typography variant="body1" color='initial' style={{ textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        The JSON-LD editor you have been dreaming of
-      </Typography> */}
-
-      <LoggedIn>
-        <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-          Welcome <Value src="user.name"/>!
-        </Typography>
-      </LoggedIn>
-      {/* <LoggedOut>
-        <p>Please login with SOLID</p>
-      </LoggedOut> */}
-      <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        Load and edit <a href="https://json-ld.org/" className={classes.link} target="_blank" rel="noopener noreferrer">JSON-LD</a> <a href="https://en.wikipedia.org/wiki/Resource_Description_Framework" className={classes.link} target="_blank" rel="noopener noreferrer">RDF</a> files in a user-friendly web interface, with autocomplete based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
-      </Typography>
-
+    <>
       {/* Display the JSON-LD file uploader (if no ?edit= URL param provided) */}
       {!state.jsonld_uri_provided &&
         <JsonldUploader renderObject={state.wizard_jsonld} 
@@ -385,7 +372,7 @@ export default function JsonldEditor() {
           </div>
         </FormControl>
       </form>
-    </Container>
+    </>
   )
 }
 

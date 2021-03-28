@@ -30,19 +30,22 @@ const useStyles = makeStyles(theme => ({
     textDecoration: 'none'
   },
   linkLogo: {
-    // Seems to fit the 48px navbar height...
-    // height: '48px',
     alignItems: 'center',
     display: 'flex',
   },
+  // navbar: {
+  //   color: 'white',
+  //   backgroundColor: theme.palette.primary.main,
+  // },
 }))
   
 export default function NavBar() {
   const classes = useStyles();
 
   return (
-    <AppBar title="" position='static'>
-      <Toolbar variant='dense'>
+    <AppBar title="" color='primary' position='static'>
+      {/* className={classes.navbar} */}
+      <Toolbar variant='dense' color='primary'>
         <Link to="/" className={classes.linkLogo}>
           <Tooltip title='JSON-LD Editor 🧙‍♂️'>
             <img src={iconImage} style={{height: '2em', width: '2em', marginRight: '10px'}} alt="Logo" />

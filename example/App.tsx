@@ -12,7 +12,7 @@ import About from "./src/About";
 // Change theme color and typography here
 const theme = createMuiTheme({
   palette: {
-    primary: { light: '#63a4ff', main: blue[700], dark: '#004ba0' },
+    primary: { light: '#63a4ff', main: '#1976d2', dark: '#004ba0' },
     secondary: { light: '#ff7043', main: '#ff5722', dark: '#087f23' },
     // Green:
     // secondary: { light: '#4caf50', main: '#087f23', dark: '#00600f' },
@@ -31,11 +31,9 @@ const theme = createMuiTheme({
 
 const App = () => (
   <MuiThemeProvider theme={theme}>
-    <Router basename="/fair-metadata-wizard/">
+    <Router basename="/json-ld-editor-react/">
       <View style={{height: '100%', backgroundColor: '#eceff1'}}>
         <NavBar />
-
-        {/* <Route exact path="/" component={ProjectsDashboard} /> */}
         <Route exact path="/" component={JsonldWizard} />
         <Route path="/about" component={About} />
         <Footer />

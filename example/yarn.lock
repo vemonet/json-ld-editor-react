@@ -9895,6 +9895,23 @@ json-buffer@3.0.1:
   resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.1.tgz#9338802a30d3b6605fbe0613e094008ca8c05a13"
   integrity sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==
 
+json-ld-editor-react@../json-ld-editor-react-0.0.1.tgz:
+  version "0.0.1"
+  resolved "../json-ld-editor-react-0.0.1.tgz#2adb0ff5a69f6a3c1cc06f9791bd08f159ecc995"
+  dependencies:
+    "@comunica/actor-init-sparql" "^1.17.0"
+    "@material-ui/core" "^4.11.0"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "^4.0.0-alpha.56"
+    "@solid/react" "^1.10.0"
+    axios "^0.20.0"
+    chart.js "^2.9.3"
+    chartjs-plugin-labels "^1.1.0"
+    expo "~39.0.0"
+    normalizr "^3.6.0"
+    rdflib "^2.2.0"
+    react-chartjs-2 "^2.10.0"
+
 json-parse-better-errors@^1.0.1, json-parse-better-errors@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
@@ -10009,23 +10026,6 @@ jsonld-context-parser@^2.0.0, jsonld-context-parser@^2.0.2, jsonld-context-parse
     cross-fetch "^3.0.6"
     http-link-header "^1.0.2"
     relative-to-absolute-iri "^1.0.5"
-
-jsonld-editor@./jsonld-editor-0.0.1.tgz:
-  version "0.0.1"
-  resolved "./jsonld-editor-0.0.1.tgz#0ec85ee875f8638381b5c02a62c33fb8edd23e4e"
-  dependencies:
-    "@comunica/actor-init-sparql" "^1.17.0"
-    "@material-ui/core" "^4.11.0"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "^4.0.0-alpha.56"
-    "@solid/react" "^1.10.0"
-    axios "^0.20.0"
-    chart.js "^2.9.3"
-    chartjs-plugin-labels "^1.1.0"
-    expo "~39.0.0"
-    normalizr "^3.6.0"
-    rdflib "^2.2.0"
-    react-chartjs-2 "^2.10.0"
 
 jsonld-streaming-parser@^2.1.1:
   version "2.2.1"

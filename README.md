@@ -123,21 +123,32 @@ Test the package:
 
 ```bash
 cd example
-yarn remove jsonld-editor
-yarn add ../jsonld-editor-0.0.1.tgz
+yarn remove json-ld-editor-react
+yarn add ../json-ld-editor-react-0.0.1.tgz
 yarn dev
 ```
 
 Upgrade the package:
 
 ```bash
-yarn upgrade ../jsonld-editor-0.0.1.tgz
+yarn upgrade ../json-ld-editor-react-0.0.1.tgz
 ```
 
-Link (experimental):
+### Development process
+
+If you wish to work on the JSON-LD editor and test it quickly
+
+Create a link in the `json-ld-editor-react` root folder:
 
 ```bash
-yarn link ../
+yarn link
+```
+
+Use this local link in `/example`:
+
+```bash
+cd example
+yarn link json-ld-editor-react
 ```
 
 ## Contribute 🤝
