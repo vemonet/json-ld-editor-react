@@ -1,8 +1,8 @@
 [![Deploy to GitHub Pages](https://github.com/vemonet/json-ld-editor-react/workflows/Deploy%20website%20to%20GitHub%20Pages/badge.svg)](https://github.com/vemonet/json-ld-editor-react/actions/workflows/deploy-github.yml) [![CodeQL analysis](https://github.com/vemonet/json-ld-editor-react/workflows/CodeQL%20analysis/badge.svg)](https://github.com/vemonet/json-ld-editor-react/actions/workflows/codeql-analysis.yml)
 
-# 🧙‍♂️📝 FAIR Metadata Wizard, a JSON-LD editor
+# 🧙‍♂️📝 JSON-LD editor
 
-**Load and edit JSON-LD RDF metadata files** in a user-friendly web interface, **with autocomplete** based on the classes and properties of the **ontology magically loaded** from `@context` ✨️
+**Load and edit JSON-LD RDF metadata files** in a user-friendly web interface, **with autocomplete** based on the classes and properties from the **ontologies loaded**
 
 Built with [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/), and [Material-UI](https://material-ui.com/).
 

@@ -57,8 +57,8 @@ export default function NavBar() {
         </Link> */}
         <div className="flexGrow"></div>
 
-        <AuthButton login='Login with SOLID' logout='Logout from SOLID' className={classes.solidButton}
-          popup="https://inrupt.net/common/popup.html"/>
+        {/* <AuthButton login='Login with SOLID' logout='Logout from SOLID' className={classes.solidButton}
+          popup="https://inrupt.net/common/popup.html"/> */}
         <Link to="/about" className={classes.linkButton}>
           <Tooltip title='About the Institute of Data Science'>
             <Button className={classes.menuButton}>
@@ -66,12 +66,12 @@ export default function NavBar() {
             </Button>
           </Tooltip>
         </Link>
-        <Tooltip title='Go to IDS Best Practices documentation'>
+        {/* <Tooltip title='Go to IDS Best Practices documentation'>
           <Button className={classes.menuButton} target="_blank"
           href="https://maastrichtu-ids.github.io/best-practices">
             <MenuBookIcon />
           </Button>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip title='Go to https://github.com/vemonet/json-ld-editor-react '>
           <Button className={classes.menuButton} target="_blank"
           href="https://github.com/vemonet/json-ld-editor-react ">

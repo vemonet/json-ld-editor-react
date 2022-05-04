@@ -12,7 +12,7 @@ import About from "./src/pages/About";
 // Change theme color and typography here
 const theme = createMuiTheme({
   palette: {
-    primary: { light: '#63a4ff', main: blue[700], dark: '#004ba0' },
+    primary: { light: '#6ab7ff', main: blue[600], dark: '#005cb2' },
     secondary: { light: '#ff7043', main: '#ff5722', dark: '#087f23' },
     // Green:
     // secondary: { light: '#4caf50', main: '#087f23', dark: '#00600f' },

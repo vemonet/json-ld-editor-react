@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Container, Button, Card, FormControl, Snackbar, TextField } from "@material-ui/core";
+import { Typography, Container, Button, Card, InputLabel, Select, MenuItem, FormControl, Snackbar, TextField } from "@material-ui/core";
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import DownloadJsonldIcon from '@material-ui/icons/Description';
 import UploadTriplestoreIcon from '@material-ui/icons/Share';
@@ -84,6 +84,7 @@ export default function JsonldWizard() {
     wizard_jsonld: wizard_jsonld,
     csvwColumnsArray: [],
     jsonld_uri_provided: null,
+    ontology_loaded: 'Schema.org vocabulary',
     ontology_jsonld: {},
     edit_enabled: true,
     ontoload_error_open: false,
@@ -114,20 +115,26 @@ export default function JsonldWizard() {
       // Disable edit if toysrus=closed
       updateState({ edit_enabled: false })
     }
-    if (jsonld_uri_provided) {
-      axios.get(jsonld_uri_provided)
-        .then(res => {
-          updateState({
-            wizard_jsonld: res.data,
-            jsonld_uri_provided: jsonld_uri_provided,
-          })
-          downloadOntology(res.data['@context'])
-        })
-    } else {
-      downloadOntology(state.wizard_jsonld['@context'])
+    if (Object.keys(state.ontology_jsonld).length === 0) {
+      downloadOntology(ontologiesList[state.ontology_loaded])
+      // axios.get(jsonld_uri_provided)
+      //   .then(res => {
+      //     updateState({
+      //       wizard_jsonld: res.data,
+      //       jsonld_uri_provided: jsonld_uri_provided,
+      //     })
+      //     downloadOntology(res.data['@context'])
+      //   })
     }
     
-  }, [state.wizard_jsonld['@context']])
+  }, [])
+
+  const ontologiesList: any = {
+    'Schema.org vocabulary': 'https://schema.org', 
+    'SemanticScience Integrated Ontology': 'https://raw.githubusercontent.com/MaastrichtU-IDS/semanticscience/master/ontology/sio.owl',
+    'CSV on the Web': 'http://www.w3.org/ns/csvw', 
+    'BioLink model': 'https://raw.githubusercontent.com/biolink/biolink-model/master/biolink-model.ttl',
+  }
 
   const downloadOntology  = (contextUrl: string) => {
     // Download the ontology JSON-LD 
@@ -219,6 +226,11 @@ export default function JsonldWizard() {
     })
   }
 
+  const handleSelectOntology = (event: React.ChangeEvent<HTMLInputElement>) => {
+    updateState({ontology_loaded: event.target.value})
+    downloadOntology(ontologiesList[event.target.value])
+  };
+
   const handleSubmit  = (event: React.FormEvent) => {
     // Trigger JSON-LD file download
     event.preventDefault();
@@ -265,7 +277,7 @@ export default function JsonldWizard() {
   return(
     <Container className='mainContainer'>
       <Typography variant="h4" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        🧙‍♂️ FAIR Metadata Wizard, a JSON-LD editor 📝
+        🧙‍♂️ JSON-LD editor 📝
       </Typography>
       {/* <Typography variant="body1" color='initial' style={{ textAlign: 'center', marginBottom: theme.spacing(1)}}>
         The JSON-LD editor you have been dreaming of
@@ -280,7 +292,26 @@ export default function JsonldWizard() {
         <p>Please login with SOLID</p>
       </LoggedOut> */}
       <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-        Load and edit <a href="https://json-ld.org/" className={classes.link} target="_blank" rel="noopener noreferrer">JSON-LD</a> <a href="https://en.wikipedia.org/wiki/Resource_Description_Framework" className={classes.link} target="_blank" rel="noopener noreferrer">RDF</a> files in a user-friendly web interface, with autocomplete based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
+        Load and edit <a href="https://json-ld.org/" className={classes.link} target="_blank" rel="noopener noreferrer">JSON-LD</a> <a href="https://en.wikipedia.org/wiki/Resource_Description_Framework" className={classes.link} target="_blank" rel="noopener noreferrer">RDF</a> files in a user-friendly web interface, with autocomplete based on the classes and properties from the loaded ontology
+      </Typography>
+
+      {/* <InputLabel id="select-ontology-label" style={{ marginTop: theme.spacing(2) }}>
+        Loaded ontology
+      </InputLabel> */}
+      <Typography style={{ marginTop: theme.spacing(2), }}>
+        Loaded ontology:
+        <Select
+          id="select-ontology"
+          value={state.ontology_loaded}
+          label="Loaded ontology"
+          variant="outlined"
+          style={{ backgroundColor: '#ffffff', marginLeft: theme.spacing(2)}}
+          onChange={handleSelectOntology}
+        >
+          { Object.keys(ontologiesList).map((label: any, key: number) => (
+            <MenuItem key={key} value={label}>{label}</MenuItem>
+          ))}
+        </Select>
       </Typography>
 
       {/* Display the JSON-LD file uploader (if no ?edit= URL param provided) */}
@@ -301,7 +332,7 @@ export default function JsonldWizard() {
       </Snackbar>
       <Snackbar open={state.ontoload_success_open} onClose={closeOntoloadSuccess} autoHideDuration={10000}>
         <MuiAlert elevation={6} variant="filled" severity="success">
-          The ontology {state.wizard_jsonld['@context']} from @context has been loaded successfully, it will be used for classes and properties autocomplete
+          The ontology {state.ontology_loaded} has been loaded successfully, it will be used for classes and properties autocomplete
         </MuiAlert>
       </Snackbar>
 

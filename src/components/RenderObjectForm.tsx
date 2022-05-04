@@ -322,17 +322,21 @@ export default function RenderObjectForm(props: any) {
                       }}
                       getOptionSelected={(option: any, selectedValue: any): any => {
                         // Handle option label when provided with rdfs:label or direct
-                        if (option['rdfs:label']) {
-                          if (typeof option['rdfs:label'] === 'string') return option['rdfs:label'] === selectedValue['rdfs:label']
-                          if (option['rdfs:label']['en']) return option['rdfs:label']['en'] === selectedValue
+                        try {
+                          if (option['rdfs:label']) {
+                            if (typeof option['rdfs:label'] === 'string') return option['rdfs:label'] === selectedValue['rdfs:label']
+                            if (option['rdfs:label']['en']) return option['rdfs:label']['en'] === selectedValue
+                          }
+                          if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] && selectedValue['http://www.w3.org/2000/01/rdf-schema#label']) {
+                            return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
+                          }
+                          if (option['@id']) {
+                            return option['@id'] === selectedValue['@id']
+                          }
+                          return option === selectedValue
+                        } catch (e) {
+                          return option === selectedValue
                         }
-                        if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
-                          return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
-                        }
-                        if (option['@id']) {
-                          return option['@id'] === selectedValue['@id']
-                        }
-                        return option === selectedValue
                       }}
                       getOptionLabel={(option: any): any => {
                         // Handle option label when provided with rdfs:label or direct
@@ -418,31 +422,39 @@ export default function RenderObjectForm(props: any) {
                           }}
                           getOptionSelected={(option: any, selectedValue: any): any => {
                             // Handle option label when provided with rdfs:label or direct
-                            if (option['rdfs:label']) {
-                              if (typeof option['rdfs:label'] === 'string') return option['rdfs:label'] === selectedValue['rdfs:label']
-                              if (option['rdfs:label']['en']) return option['rdfs:label']['en'] === selectedValue
+                            try {
+                              if (option['rdfs:label']) {
+                                if (typeof option['rdfs:label'] === 'string') return option['rdfs:label'] === selectedValue['rdfs:label']
+                                if (option['rdfs:label']['en']) return option['rdfs:label']['en'] === selectedValue
+                              }
+                              if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] && selectedValue['http://www.w3.org/2000/01/rdf-schema#label']) {
+                                return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
+                              }
+                              if (option['@id']) {
+                                return option['@id'] === selectedValue['@id']
+                              }
+                              return option === selectedValue
+                            } catch (e) {
+                              return option === selectedValue
                             }
-                            if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
-                              return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
-                            }
-                            if (option['@id']) {
-                              return option['@id'] === selectedValue['@id']
-                            }
-                            return option === selectedValue
                           }}
                           getOptionLabel={(option: any): any => {
                             // Handle option label when provided with rdfs:label or direct
-                            if (option['rdfs:label']) {
-                              if (typeof option['rdfs:label'] === 'string') return option['rdfs:label']
-                              if (option['rdfs:label']['en']) return option['rdfs:label']['en']
+                            try {
+                              if (option['rdfs:label']) {
+                                if (typeof option['rdfs:label'] === 'string') return option['rdfs:label']
+                                if (option['rdfs:label']['en']) return option['rdfs:label']['en']
+                              }
+                              if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
+                                return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
+                              }
+                              if (option['@id']) {
+                                return option['@id']
+                              }
+                              return option
+                            } catch (e) {
+                              return option
                             }
-                            if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
-                              return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
-                            }
-                            if (option['@id']) {
-                              return option['@id']
-                            }
-                            return option
                           }}
                           groupBy={(option: any): any => {
                             if (option['@type'] && Array.isArray(option['@type'])) {
@@ -566,31 +578,39 @@ export default function RenderObjectForm(props: any) {
                               }}
                               getOptionSelected={(option: any, selectedValue: any): any => {
                                 // Handle option label when provided with rdfs:label or direct
-                                if (option['rdfs:label']) {
-                                  if (typeof option['rdfs:label'] === 'string') return option['rdfs:label'] === selectedValue['rdfs:label']
-                                  if (option['rdfs:label']['en']) return option['rdfs:label']['en'] === selectedValue
+                                try {
+                                  if (option['rdfs:label']) {
+                                    if (typeof option['rdfs:label'] === 'string') return option['rdfs:label'] === selectedValue['rdfs:label']
+                                    if (option['rdfs:label']['en']) return option['rdfs:label']['en'] === selectedValue
+                                  }
+                                  if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
+                                    return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
+                                  }
+                                  if (option['@id']) {
+                                    return option['@id'] === selectedValue['@id']
+                                  }
+                                  return option === selectedValue
+                                } catch (e) {
+                                  return option === selectedValue
                                 }
-                                if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
-                                  return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value'] === selectedValue['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
-                                }
-                                if (option['@id']) {
-                                  return option['@id'] === selectedValue['@id']
-                                }
-                                return option === selectedValue
                               }}
                               getOptionLabel={(option: any): any => {
                                 // Handle option label when provided with rdfs:label or direct
-                                if (option['rdfs:label']) {
-                                  if (typeof option['rdfs:label'] === 'string') return option['rdfs:label']
-                                  if (option['rdfs:label']['en']) return option['rdfs:label']['en']
+                                try {
+                                  if (option['rdfs:label']) {
+                                    if (typeof option['rdfs:label'] === 'string') return option['rdfs:label']
+                                    if (option['rdfs:label']['en']) return option['rdfs:label']['en']
+                                  }
+                                  if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
+                                    return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
+                                  }
+                                  if (option['@id']) {
+                                    return option['@id']
+                                  }
+                                  return option
+                                } catch (e) {
+                                  return option
                                 }
-                                if (option['http://www.w3.org/2000/01/rdf-schema#label'] && option['http://www.w3.org/2000/01/rdf-schema#label'][0] && option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']) {
-                                  return option['http://www.w3.org/2000/01/rdf-schema#label'][0]['@value']
-                                }
-                                if (option['@id']) {
-                                  return option['@id']
-                                }
-                                return option
                               }}
 
                               groupBy={(option: any): any => {
