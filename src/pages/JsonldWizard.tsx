@@ -6,7 +6,7 @@ import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import DownloadJsonldIcon from '@material-ui/icons/Description';
 import UploadTriplestoreIcon from '@material-ui/icons/Share';
 import axios from 'axios';
-const $rdf = require('rdflib')
+import $rdf from 'rdflib';
 import { LoggedIn, LoggedOut, Value } from '@solid/react';
 // import * as jsonld from 'jsonld'
 // import {$rdf} from 'rdflib'
