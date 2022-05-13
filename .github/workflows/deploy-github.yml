@@ -14,10 +14,14 @@ jobs:
       with:
         node-version: 12
 
+
     - name: Install dependencies and build
+      # env:
+      #   API_URL: "https://"
       run: |
-        git config --global user.email "vincent.emonet@maastrichtuniversity.nl"
+        git config --global user.email "vincent.emonet@gmail.com"
         git config --global user.name "Vincent Emonet"
+        cd example
         yarn install
         yarn build
 
@@ -26,8 +30,5 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: web-build
+        FOLDER: example/web-build
         CLEAN: true
-
-    # - name: Deploy on GitHub
-    #   run: yarn deploy

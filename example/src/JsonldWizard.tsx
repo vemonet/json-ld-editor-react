@@ -1,85 +1,89 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Container, Button, Card, FormControl, Snackbar, TextField } from "@material-ui/core";
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
-import DownloadJsonldIcon from '@material-ui/icons/Description';
-import UploadTriplestoreIcon from '@material-ui/icons/Share';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import { Typography, Container, Button, Card, FormControl, Snackbar, TextField } from "@mui/material";
+// import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+// import DownloadJsonldIcon from '@mui/icons-material/Description';
+// import UploadTriplestoreIcon from '@mui/icons-material/Share';
 import axios from 'axios';
 const $rdf = require('rdflib')
-import { LoggedIn, LoggedOut, Value } from '@solid/react';
+// import { LoggedIn, LoggedOut, Value } from '@solid/react';
 // import * as jsonld from 'jsonld'
 // import {$rdf} from 'rdflib'
 // const jsonld = require('jsonld')
 
-import JsonldUploader from "../../src/components/JsonldUploader";
-import CsvUploader from "../../src/components/CsvUploader";
-import RenderObjectForm from "../../src/components/RenderObjectForm";
+// import JsonldUploader from "../../src/components/JsonldUploader";
+// import CsvUploader from "../../src/components/CsvUploader";
+// import RenderObjectForm from "../../src/components/RenderObjectForm";
 
 import { JsonldEditor } from 'json-ld-editor-react';
 
-const useStyles = makeStyles(theme => ({
-  link: {
-    color: theme.palette.primary.main,
-    textDecoration: 'none',
-    // color: 'inherit',
-    '&:hover': {
-      color: theme.palette.primary.light,
-      textDecoration: 'none',
-    },
-  },
-  settingsForm: {
-    width: '100%',
-    // textAlign: 'center',
-    '& .MuiFormControl-root': {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
-    },
-    '& .MuiFormHelperText-root': {
-      marginTop: theme.spacing(0),
-      marginBottom: theme.spacing(1),
-    },
-  },
-  saveButton: {
-    textTransform: 'none',
-    margin: theme.spacing(2, 2),
-  },
-  addEntryButton: {
-    textTransform: 'none',
-    marginLeft: theme.spacing(2),
-    // marginTop: theme.spacing(2),
-  },
-  fullWidth: {
-    width: '100%',
-  },
-  autocomplete: {
-    marginRight: theme.spacing(2)
-  },
-  formInput: {
-    background: 'white',
-    width: '100%'
-  },
-  smallerFont: {
-    fontSize: '12px',
-  },
-  alignLeft: {
-    textAlign: 'left'
-  },
-  paperPadding: {
-    padding: theme.spacing(2, 2),
-    margin: theme.spacing(2, 2),
-  },
-  paperTitle: {
-    fontWeight: 300,
-    marginBottom: theme.spacing(1),
-  }
-}))
 
 export default function JsonldWizard() {
-  const classes = useStyles();
+
+  // TODO: use sx https://github.com/mui/material-ui/blob/master/examples/create-react-app-with-typescript/src/index.tsx
   const theme = useTheme();
+  const useStyles = makeStyles(() => ({
+    link: {
+      color: theme.palette.primary.main,
+      textDecoration: 'none',
+      // color: 'inherit',
+      '&:hover': {
+        color: theme.palette.primary.light,
+        textDecoration: 'none',
+      },
+    },
+    settingsForm: {
+      width: '100%',
+      // textAlign: 'center',
+      '& .MuiFormControl-root': {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+      },
+      '& .MuiFormHelperText-root': {
+        marginTop: theme.spacing(0),
+        marginBottom: theme.spacing(1),
+      },
+    },
+    saveButton: {
+      textTransform: 'none',
+      margin: theme.spacing(2, 2),
+    },
+    addEntryButton: {
+      textTransform: 'none',
+      marginLeft: theme.spacing(2),
+      // marginTop: theme.spacing(2),
+    },
+    fullWidth: {
+      width: '100%',
+    },
+    autocomplete: {
+      marginRight: theme.spacing(2)
+    },
+    formInput: {
+      background: 'white',
+      width: '100%'
+    },
+    smallerFont: {
+      fontSize: '12px',
+    },
+    alignLeft: {
+      textAlign: 'left'
+    },
+    paperPadding: {
+      padding: theme.spacing(2, 2),
+      margin: theme.spacing(2, 2),
+    },
+    paperTitle: {
+      fontWeight: 300,
+      marginBottom: theme.spacing(1),
+    }
+  }))
+  const classes = useStyles();
+  
   // useLocation hook to get URL params
-  let location = useLocation();  
+  // let location = useLocation();  
   const [state, setState] = React.useState({
     open: false,
     dialogOpen: false,
@@ -96,7 +100,7 @@ export default function JsonldWizard() {
   });
   const stateRef = React.useRef(state);
   // Avoid conflict when async calls
-  const updateState = React.useCallback((update) => {
+  const updateState = React.useCallback((update: any) => {
     stateRef.current = {...stateRef.current, ...update};
     setState(stateRef.current);
   }, [setState]);
@@ -271,11 +275,11 @@ export default function JsonldWizard() {
         🧙‍♂️ FAIR Metadata Wizard, a JSON-LD editor 📝
       </Typography>
 
-      <LoggedIn>
+      {/* <LoggedIn>
         <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
           Welcome <Value src="user.name"/>!
         </Typography>
-      </LoggedIn>
+      </LoggedIn> */}
       
       <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
         Load and edit <a href="https://json-ld.org/" className={classes.link} target="_blank" rel="noopener noreferrer">JSON-LD</a> <a href="https://en.wikipedia.org/wiki/Resource_Description_Framework" className={classes.link} target="_blank" rel="noopener noreferrer">RDF</a> files in a user-friendly web interface, with autocomplete based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️

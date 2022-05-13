@@ -1,54 +1,55 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { IconButton, Typography, Button, FormControl, TextField, Card, CardContent, CardHeader, Collapse, Snackbar } from "@material-ui/core";
-import UploadIcon from '@material-ui/icons/CloudUpload';
-// import EditParamIcon from '@material-ui/icons/Link';
-// import LockFormParamIcon from '@material-ui/icons/Lock';
-// import WizardQuestionsIcon from '@material-ui/icons/LiveHelp';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import { IconButton, Typography, Button, FormControl, TextField, Card, CardContent, CardHeader, Collapse, Snackbar } from "@mui/material";
+import UploadIcon from '@mui/icons-material/CloudUpload';
+// import EditParamIcon from '@mui/icons-material/Link';
+// import LockFormParamIcon from '@mui/icons-material/Lock';
+// import WizardQuestionsIcon from '@mui/icons-material/LiveHelp';
 // QuestionAnswer
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import MuiAlert from '@material-ui/lab/Alert';
-
-const useStyles = makeStyles(theme => ({
-  link: {
-    textDecoration: 'none',
-    color: theme.palette.primary.main,
-    '&:hover': {
-      color: theme.palette.secondary.main,
-      textDecoration: 'none',
-    },
-  },
-  input: {
-    background: 'white',
-    fontSize: '11px',
-    fontFamily: 'monospace'
-  },
-  settingsForm: {
-    width: '100%',
-    // textAlign: 'center',
-    '& .MuiFormControl-root': {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
-    },
-    '& .MuiFormHelperText-root': {
-      marginTop: theme.spacing(0),
-      marginBottom: theme.spacing(1),
-    },
-  },
-  saveButton: {
-    textTransform: 'none',
-    margin: theme.spacing(2, 2),
-  },
-  fullWidth: {
-    width: '100%',
-  },
-}))
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import MuiAlert from '@mui/material/Alert';
 
 
 export default function CsvUploader({ csvwColumnsArray, onChange }: any) {
-  const classes = useStyles();
+  
   const theme = useTheme();
+  const useStyles = makeStyles(() => ({
+    link: {
+      textDecoration: 'none',
+      color: theme.palette.primary.main,
+      '&:hover': {
+        color: theme.palette.secondary.main,
+        textDecoration: 'none',
+      },
+    },
+    input: {
+      background: 'white',
+      fontSize: '11px',
+      fontFamily: 'monospace'
+    },
+    settingsForm: {
+      width: '100%',
+      // textAlign: 'center',
+      '& .MuiFormControl-root': {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+      },
+      '& .MuiFormHelperText-root': {
+        marginTop: theme.spacing(0),
+        marginBottom: theme.spacing(1),
+      },
+    },
+    saveButton: {
+      textTransform: 'none',
+      margin: theme.spacing(2, 2),
+    },
+    fullWidth: {
+      width: '100%',
+    },
+  }))
+  const classes = useStyles();
   
   const [state, setState] = React.useState({
     csvw_tables: csvwColumnsArray,
@@ -59,7 +60,7 @@ export default function CsvUploader({ csvwColumnsArray, onChange }: any) {
   });
   const stateRef = React.useRef(state);
   // Avoid conflict when async calls
-  const updateState = React.useCallback((update) => {
+  const updateState = React.useCallback((update: any) => {
     stateRef.current = {...stateRef.current, ...update};
     setState(stateRef.current);
   }, [setState]);

@@ -1,49 +1,52 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Container, Typography } from "@material-ui/core";
-
-const useStyles = makeStyles(theme => ({
-  settingsForm: {
-    width: '100%',
-    // textAlign: 'center',
-    '& .MuiFormControl-root': {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
-    },
-    '& .MuiFormHelperText-root': {
-      marginTop: theme.spacing(0),
-      marginBottom: theme.spacing(1),
-    },
-  },
-  saveButton: {
-    textTransform: 'none',
-    margin: theme.spacing(2, 2),
-  },
-  fullWidth: {
-    width: '100%',
-  },
-  normalFont: {
-    fontSize: '14px',
-  },
-  smallerFont: {
-    fontSize: '12px',
-  },
-  alignLeft: {
-    textAlign: 'left'
-  },
-  paperPadding: {
-    padding: theme.spacing(2, 2),
-    margin: theme.spacing(2, 2),
-  },
-  paperTitle: {
-    fontWeight: 300,
-    marginBottom: theme.spacing(1),
-  }
-}))
+import { makeStyles } from '@mui/styles';
+import { useTheme } from '@mui/material/styles';
+import { Container, Typography } from "@mui/material";
 
 
 export default function About() {
+  const theme = useTheme();
+
+  const useStyles = makeStyles(() => ({
+    settingsForm: {
+      width: '100%',
+      // textAlign: 'center',
+      '& .MuiFormControl-root': {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+      },
+      '& .MuiFormHelperText-root': {
+        marginTop: theme.spacing(0),
+        marginBottom: theme.spacing(1),
+      },
+    },
+    saveButton: {
+      textTransform: 'none',
+      margin: theme.spacing(2, 2),
+    },
+    fullWidth: {
+      width: '100%',
+    },
+    normalFont: {
+      fontSize: '14px',
+    },
+    smallerFont: {
+      fontSize: '12px',
+    },
+    alignLeft: {
+      textAlign: 'left'
+    },
+    paperPadding: {
+      padding: theme.spacing(2, 2),
+      margin: theme.spacing(2, 2),
+    },
+    paperTitle: {
+      fontWeight: 300,
+      marginBottom: theme.spacing(1),
+    }
+  }))
   const classes = useStyles();
+
   const [state, setState] = React.useState({
     open: false,
     dialogOpen: false,

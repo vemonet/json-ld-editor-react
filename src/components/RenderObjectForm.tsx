@@ -1,71 +1,15 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Button, Card, Chip, Grid, IconButton, TextField, Tooltip } from "@material-ui/core";
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Delete';
-import AddObjectPropertyIcon from '@material-ui/icons/SubdirectoryArrowRight';
-import AddDataPropertyIcon from '@material-ui/icons/PlaylistAdd';
-import AddObjectArrayIcon from '@material-ui/icons/AccountTree';
-import AddDataArrayIcon from '@material-ui/icons/PostAdd';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import { Typography, Button, Card, Chip, Grid, IconButton, TextField, Tooltip } from "@mui/material";
+import Autocomplete from '@mui/material/Autocomplete';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Delete';
+import AddObjectPropertyIcon from '@mui/icons-material/SubdirectoryArrowRight';
+import AddDataPropertyIcon from '@mui/icons-material/PlaylistAdd';
+import AddObjectArrayIcon from '@mui/icons-material/AccountTree';
+import AddDataArrayIcon from '@mui/icons-material/PostAdd';
 
-const useStyles = makeStyles(theme => ({
-  link: {
-    color: theme.palette.primary.main,
-    textDecoration: 'none',
-    // color: 'inherit',
-    '&:hover': {
-      color: theme.palette.primary.light,
-      textDecoration: 'none',
-    },
-  },
-  settingsForm: {
-    width: '100%',
-    // textAlign: 'center',
-    '& .MuiFormControl-root': {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
-    },
-    '& .MuiFormHelperText-root': {
-      marginTop: theme.spacing(0),
-      marginBottom: theme.spacing(1),
-    },
-  },
-  saveButton: {
-    textTransform: 'none',
-    margin: theme.spacing(2, 2),
-  },
-  editButtons: {
-    textTransform: 'none',
-    marginLeft: theme.spacing(2),
-    // marginTop: theme.spacing(2),
-  },
-  fullWidth: {
-    width: '100%',
-  },
-  autocomplete: {
-    marginRight: theme.spacing(2)
-  },
-  formInput: {
-    background: 'white',
-    width: '100%'
-  },
-  biggerFont: {
-    fontSize: '14px',
-  },
-  alignLeft: {
-    textAlign: 'left'
-  },
-  paperPadding: {
-    padding: theme.spacing(2, 2),
-    margin: theme.spacing(2, 2),
-    width: '100%'
-  },
-  paperTitle: {
-    fontWeight: 300,
-    marginBottom: theme.spacing(1),
-  }
-}))
 
 const renameKey = (object: any, old_key: any, new_key: any): any => {
   if (old_key !== new_key) {
@@ -85,8 +29,66 @@ export default function RenderObjectForm(props: any) {
   const editEnabled = props.editEnabled;
   const parentProperty = props.parentProperty;
   // const parentType = props.parentType;
-  const classes = useStyles();
+
   const theme = useTheme();
+  const useStyles = makeStyles(() => ({
+    link: {
+      color: theme.palette.primary.main,
+      textDecoration: 'none',
+      // color: 'inherit',
+      '&:hover': {
+        color: theme.palette.primary.light,
+        textDecoration: 'none',
+      },
+    },
+    settingsForm: {
+      width: '100%',
+      // textAlign: 'center',
+      '& .MuiFormControl-root': {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+      },
+      '& .MuiFormHelperText-root': {
+        marginTop: theme.spacing(0),
+        marginBottom: theme.spacing(1),
+      },
+    },
+    saveButton: {
+      textTransform: 'none',
+      margin: theme.spacing(2, 2),
+    },
+    editButtons: {
+      textTransform: 'none',
+      marginLeft: theme.spacing(2),
+      // marginTop: theme.spacing(2),
+    },
+    fullWidth: {
+      width: '100%',
+    },
+    autocomplete: {
+      marginRight: theme.spacing(2)
+    },
+    formInput: {
+      background: 'white',
+      width: '100%'
+    },
+    biggerFont: {
+      fontSize: '14px',
+    },
+    alignLeft: {
+      textAlign: 'left'
+    },
+    paperPadding: {
+      padding: theme.spacing(2, 2),
+      margin: theme.spacing(2, 2),
+      width: '100%'
+    },
+    paperTitle: {
+      fontWeight: 300,
+      marginBottom: theme.spacing(1),
+    }
+  }))
+  const classes = useStyles();
 
   const [state, setState] = React.useState({
     autocompleteOntologyOptions: [],
@@ -94,7 +96,7 @@ export default function RenderObjectForm(props: any) {
   });
   const stateRef = React.useRef(state);
   // Avoid conflict when async calls
-  const updateState = React.useCallback((update) => {
+  const updateState = React.useCallback((update: any) => {
     stateRef.current = {...stateRef.current, ...update};
     setState(stateRef.current);
   }, [setState]);
@@ -320,6 +322,7 @@ export default function RenderObjectForm(props: any) {
                           onChange(renderObject)
                         }
                       }}
+                      // @ts-ignore
                       getOptionSelected={(option: any, selectedValue: any): any => {
                         // Handle option label when provided with rdfs:label or direct
                         if (option['rdfs:label']) {
@@ -653,7 +656,7 @@ export default function RenderObjectForm(props: any) {
                               size="small"
                               className={classes.editButtons} 
                               startIcon={<AddIcon />}
-                              color="default" >
+                              color="inherit" >
                                 Add {property} entry
                             </Button>
                           </Grid>
@@ -678,7 +681,7 @@ export default function RenderObjectForm(props: any) {
                           size="small"
                           className={classes.editButtons} 
                           startIcon={<AddIcon />}
-                          color="default" >
+                          color="inherit" >
                             Add {property} entry
                         </Button>
                       }

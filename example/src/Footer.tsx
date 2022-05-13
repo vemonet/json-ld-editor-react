@@ -1,47 +1,35 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Container, Typography } from '@material-ui/core';
-
-const useStyles = makeStyles(theme => ({
-  darkLink: {
-    textDecoration: 'none',
-    color: 'inherit',
-    '&:hover': {
-      color: theme.palette.primary.light,
-      textDecoration: 'none',
-    },
-  },
-  whiteLink: {
-    textDecoration: 'none',
-    color: 'inherit',
-    '&:hover': {
-      color: theme.palette.primary.dark,
-      textDecoration: 'none',
-    },
-  },
-  footer: {
-    padding: theme.spacing(2),
-    marginTop: 'auto',
-    color: 'white',
-    backgroundColor: theme.palette.primary.main,
-  },
-}));
-
-function Copyright() {
-  const classes = useStyles();
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <a className={classes.darkLink} target="_blank"
-      href="https://maastrichtuniversity.nl/ids">
-        Institute of Data Science at Maastricht University
-      </a>{' '}
-      {'2020.'}
-    </Typography>
-  );
-}
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import { Container, Typography } from '@mui/material';
 
 export default function Footer() {
+  
+  const theme = useTheme();
+  const useStyles = makeStyles(() => ({
+    darkLink: {
+      textDecoration: 'none',
+      color: 'inherit',
+      '&:hover': {
+        color: theme.palette.primary.light,
+        textDecoration: 'none',
+      },
+    },
+    whiteLink: {
+      textDecoration: 'none',
+      color: 'inherit',
+      '&:hover': {
+        color: theme.palette.primary.dark,
+        textDecoration: 'none',
+      },
+    },
+    footer: {
+      padding: theme.spacing(2),
+      marginTop: 'auto',
+      color: 'white',
+      backgroundColor: theme.palette.primary.main,
+    },
+  }));
   const classes = useStyles();
   // Set state in functional style:
   // const [state, setState] = React.useState({search: '', name: 'Vincent'});
@@ -61,6 +49,20 @@ export default function Footer() {
   //   }
   // }, []) 
   // Empty dep list: will only run when componentDidMount
+
+  function Copyright() {
+
+    return (
+      <Typography variant="body2" color="textSecondary" align="center">
+        {'Copyright © '}
+        <a className={classes.darkLink} target="_blank"
+        href="https://maastrichtuniversity.nl/ids">
+          Institute of Data Science at Maastricht University
+        </a>{' '}
+        {'2020.'}
+      </Typography>
+    );
+  }
 
   return (
       <footer className={classes.footer}>

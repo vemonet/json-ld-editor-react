@@ -1,11 +1,12 @@
 import React from 'react';
-import { useLocation } from "react-router-dom";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Button, Card, FormControl, Snackbar, TextField } from "@material-ui/core";
-import MuiAlert from '@material-ui/lab/Alert';
-// import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
-import DownloadJsonldIcon from '@material-ui/icons/Description';
-import UploadTriplestoreIcon from '@material-ui/icons/Share';
+// import { useLocation } from "react-router-dom";
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import { Typography, Button, Card, FormControl, Snackbar, TextField } from "@mui/material";
+import MuiAlert from '@mui/material/Alert';
+// import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import DownloadJsonldIcon from '@mui/icons-material/Description';
+import UploadTriplestoreIcon from '@mui/icons-material/Share';
 import axios from 'axios';
 const $rdf = require('rdflib')
 
@@ -17,70 +18,72 @@ import JsonldUploader from "../components/JsonldUploader";
 // import CsvUploader from "../components/CsvUploader";
 import RenderObjectForm from "../components/RenderObjectForm";
 
-// https://material-ui.com/styles/advanced/
-// https://stackoverflow.com/questions/62211659/custom-components-based-on-material-ui-and-react
-const useStyles = makeStyles(theme => ({
-  link: {
-    color: theme.palette.primary.main,
-    textDecoration: 'none',
-    // color: 'inherit',
-    '&:hover': {
-      color: theme.palette.primary.light,
-      textDecoration: 'none',
-    },
-  },
-  settingsForm: {
-    width: '100%',
-    // textAlign: 'center',
-    '& .MuiFormControl-root': {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
-    },
-    '& .MuiFormHelperText-root': {
-      marginTop: theme.spacing(0),
-      marginBottom: theme.spacing(1),
-    },
-  },
-  saveButton: {
-    textTransform: 'none',
-    margin: theme.spacing(2, 2),
-  },
-  addEntryButton: {
-    textTransform: 'none',
-    marginLeft: theme.spacing(2),
-    // marginTop: theme.spacing(2),
-  },
-  fullWidth: {
-    width: '100%',
-  },
-  autocomplete: {
-    marginRight: theme.spacing(2)
-  },
-  formInput: {
-    background: 'white',
-    width: '100%'
-  },
-  smallerFont: {
-    fontSize: '12px',
-  },
-  alignLeft: {
-    textAlign: 'left'
-  },
-  paperPadding: {
-    padding: theme.spacing(2, 2),
-    margin: theme.spacing(2, 2),
-  },
-  paperTitle: {
-    fontWeight: 300,
-    marginBottom: theme.spacing(1),
-  }
-}))
 
 export default function JsonldEditor() {
-  const classes = useStyles();
   const theme = useTheme();
+
+  // https://material-ui.com/styles/advanced/
+  // https://stackoverflow.com/questions/62211659/custom-components-based-on-material-ui-and-react
+  const useStyles = makeStyles(() => ({
+    link: {
+      color: theme.palette.primary.main,
+      textDecoration: 'none',
+      // color: 'inherit',
+      '&:hover': {
+        color: theme.palette.primary.light,
+        textDecoration: 'none',
+      },
+    },
+    settingsForm: {
+      width: '100%',
+      // textAlign: 'center',
+      '& .MuiFormControl-root': {
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+      },
+      '& .MuiFormHelperText-root': {
+        marginTop: theme.spacing(0),
+        marginBottom: theme.spacing(1),
+      },
+    },
+    saveButton: {
+      textTransform: 'none',
+      margin: theme.spacing(2, 2),
+    },
+    addEntryButton: {
+      textTransform: 'none',
+      marginLeft: theme.spacing(2),
+      // marginTop: theme.spacing(2),
+    },
+    fullWidth: {
+      width: '100%',
+    },
+    autocomplete: {
+      marginRight: theme.spacing(2)
+    },
+    formInput: {
+      background: 'white',
+      width: '100%'
+    },
+    smallerFont: {
+      fontSize: '12px',
+    },
+    alignLeft: {
+      textAlign: 'left'
+    },
+    paperPadding: {
+      padding: theme.spacing(2, 2),
+      margin: theme.spacing(2, 2),
+    },
+    paperTitle: {
+      fontWeight: 300,
+      marginBottom: theme.spacing(1),
+    }
+  }))
+  const classes = useStyles();
+
   // useLocation hook to get URL params
-  let location = useLocation();  
+  // let location = useLocation();  
   const [state, setState] = React.useState({
     open: false,
     dialogOpen: false,
@@ -97,7 +100,7 @@ export default function JsonldEditor() {
   });
   const stateRef = React.useRef(state);
   // Avoid conflict when async calls
-  const updateState = React.useCallback((update) => {
+  const updateState = React.useCallback((update: any) => {
     stateRef.current = {...stateRef.current, ...update};
     setState(stateRef.current);
   }, [setState]);
@@ -110,27 +113,27 @@ export default function JsonldEditor() {
     // Get the edit URL param if provided, and download ontology if @context changed
     // Ontology is stored in state.ontology_jsonld 
     // and passed to renderObjectForm to resolve classes and properties
-    const params = new URLSearchParams(location.search + location.hash);
-    let jsonld_uri_provided = params.get('edit');
-    let editionEnabled = params.get('toysrus');
-    if (editionEnabled === 'closed') {
-      // Disable edit if toysrus=closed
-      updateState({ edit_enabled: false })
-    }
-    if (jsonld_uri_provided) {
-      axios.get(jsonld_uri_provided)
-        .then(res => {
-          updateState({
-            wizard_jsonld: res.data,
-            jsonld_uri_provided: jsonld_uri_provided,
-          })
-          downloadOntology(res.data['@context'])
-        })
-    } else {
-      console.log('DownloadSchema 1 ' + state.wizard_jsonld['@context'])
-      downloadOntology(state.wizard_jsonld['@context'])
-    }
+    // const params = new URLSearchParams(location.search + location.hash);
+    // let jsonld_uri_provided = params.get('edit');
+    // let editionEnabled = params.get('toysrus');
+    // if (editionEnabled === 'closed') {
+    //   // Disable edit if toysrus=closed
+    //   updateState({ edit_enabled: false })
+    // }
+    // if (jsonld_uri_provided) {
+    //   axios.get(jsonld_uri_provided)
+    //     .then(res => {
+    //       updateState({
+    //         wizard_jsonld: res.data,
+    //         jsonld_uri_provided: jsonld_uri_provided,
+    //       })
+    //       downloadOntology(res.data['@context'])
+    //     })
+    // } else {
+    //   downloadOntology(state.wizard_jsonld['@context'])
+    // }
     
+    downloadOntology(state.wizard_jsonld['@context'])
   }, [state.wizard_jsonld['@context']])
 
   const downloadOntology  = (contextUrl: string) => {

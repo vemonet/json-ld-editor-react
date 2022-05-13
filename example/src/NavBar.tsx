@@ -1,45 +1,48 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
 import { Link } from "react-router-dom";
-import { AppBar, Toolbar, Button, Tooltip } from '@material-ui/core';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import InfoIcon from '@material-ui/icons/Info';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
+import { AppBar, Toolbar, Button, Tooltip } from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import InfoIcon from '@mui/icons-material/Info';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { AuthButton } from '@solid/react';
 
 // @ts-ignore
 import iconImage from '../../assets/icon.png';
 
-const useStyles = makeStyles(theme => ({
-  solidButton: {
-    backgroundColor: theme.palette.primary.main,
-    color: '#fff',
-    borderRadius: '6px',
-    // boxShadow: '0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08)',
-    padding: '7px 14px',
-    '&:hover': {  
-      backgroundColor: theme.palette.primary.dark,
-      cursor: 'pointer'
-    }
-  },
-  menuButton: {
-    color: theme.palette.common.white
-  },
-  linkButton: {
-    textTransform: 'none',
-    textDecoration: 'none'
-  },
-  linkLogo: {
-    alignItems: 'center',
-    display: 'flex',
-  },
-  // navbar: {
-  //   color: 'white',
-  //   backgroundColor: theme.palette.primary.main,
-  // },
-}))
   
 export default function NavBar() {
+
+  const theme = useTheme();
+  const useStyles = makeStyles(() => ({
+    solidButton: {
+      backgroundColor: theme.palette.primary.main,
+      color: '#fff',
+      borderRadius: '6px',
+      // boxShadow: '0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08)',
+      padding: '7px 14px',
+      '&:hover': {  
+        backgroundColor: theme.palette.primary.dark,
+        cursor: 'pointer'
+      }
+    },
+    menuButton: {
+      color: theme.palette.common.white
+    },
+    linkButton: {
+      textTransform: 'none',
+      textDecoration: 'none'
+    },
+    linkLogo: {
+      alignItems: 'center',
+      display: 'flex',
+    },
+    // navbar: {
+    //   color: 'white',
+    //   backgroundColor: theme.palette.primary.main,
+    // },
+  }))
   const classes = useStyles();
 
   return (

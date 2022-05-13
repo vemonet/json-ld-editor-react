@@ -1,4 +1,5 @@
 lib/
+dist/
 jsonld-editor-*.tgz
 
 # OSX

@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
+		"target": "es5",
+    "moduleResolution": "node",
     "allowJs": true,
 		"checkJs": false,
     "allowSyntheticDefaultImports": true,
@@ -10,10 +13,7 @@
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
     "jsx": "react-native",
-    "lib": ["dom", "esnext", "es6"],
-    "moduleResolution": "node",
-    "module": "esnext",
-		"target": "ES5",
+    "lib": ["dom", "esnext", "es6", "es2016", "es2017"],
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,

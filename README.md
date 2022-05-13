@@ -151,6 +151,16 @@ cd example
 yarn link json-ld-editor-react
 ```
 
+You will need to do it only once.
+
+You can then run in development mode in the `example` folder:
+
+```bash
+yarn dev
+```
+
+> You will need to stop and restart the deployment everytime you make a change to the parent component
+
 ## Contribute 🤝
 
 Contributions are welcome! See the [guidelines to contribute](/CONTRIBUTING.md).
