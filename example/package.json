@@ -4,7 +4,8 @@
   "scripts": {
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "dev": "cd .. && yarn && yarn build:bob && cd example && expo web",
+    "dev": "expo web",
+    "dev:reload": "cd .. && yarn build:bob && cd example && expo web",
     "eject": "expo eject",
     "build": "expo build:web",
     "serve": "serve -s web-build",

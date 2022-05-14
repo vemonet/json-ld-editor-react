@@ -18,7 +18,8 @@ const $rdf = require('rdflib')
 // import RenderObjectForm from "../../src/components/RenderObjectForm";
 
 // @ts-ignore
-import { JsonldEditor } from 'json-ld-editor-react';
+import { JsonldForm } from 'json-ld-editor-react';
+// import { JsonldEditor, JsonldForm } from 'json-ld-editor-react';
 
 
 export default function JsonldWizard() {
@@ -272,27 +273,458 @@ export default function JsonldWizard() {
   return(
     <Container className='mainContainer'>
 
-      <Typography variant="h4" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
+      {/* <Typography variant="h4" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
         🧙‍♂️ FAIR Metadata Wizard, a JSON-LD editor 📝
-      </Typography>
-
-      {/* <LoggedIn>
-        <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
-          Welcome <Value src="user.name"/>!
-        </Typography>
-      </LoggedIn> */}
+      </Typography> */}
       
-      <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
+      {/* <Typography variant="body1" style={{textAlign: 'center', marginBottom: theme.spacing(1)}}>
         Load and edit <a href="https://json-ld.org/" className={classes.link} target="_blank" rel="noopener noreferrer">JSON-LD</a> <a href="https://en.wikipedia.org/wiki/Resource_Description_Framework" className={classes.link} target="_blank" rel="noopener noreferrer">RDF</a> files in a user-friendly web interface, with autocomplete based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
-      </Typography>
+      </Typography> */}
       
-      <JsonldEditor />
+      {/* <JsonldEditor /> */}
+
+      <JsonldForm 
+        shape={shaclShape} 
+        target="http://purl.org/hcls-metadata-spec/HCLSDistributionShape" 
+      />
 
     </Container>
   )
 }
 
 
+// SHACL shapes examples:
+// Articles: https://raw.githubusercontent.com/NCATS-Gamma/omnicorp/master/shacl/omnicorp-shapes.ttl
+
+const shaclShape = `@prefix : <http://purl.org/hcls-metadata-spec/> .
+@prefix dctypes: <http://purl.org/dc/dcmitype/> .
+@prefix schemaorg: <http://schema.org/> .
+@prefix void:  <http://rdfs.org/ns/void#> .
+@prefix pav:   <http://purl.org/pav/> .
+@prefix freq:  <http://purl.org/cld/freq/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix void-ext: <http://ldf.fi/void-ext#> .
+@prefix cito:  <http://purl.org/spar/cito/> .
+@prefix idot:  <http://identifiers.org/idot/> .
+@prefix sd:    <http://www.w3.org/ns/sparql-service-description#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sio:   <http://semanticscience.org/resource/> .
+@prefix lexvo: <http://lexvo.org/id/iso639-3/> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+
+## See the HCLS dataset metadata specs at https://www.w3.org/TR/hcls-dataset
+# This SHACL shape validates most MUST and SHOULD properties for HCLS dataset summary, version and distribution (regular and RDF)
+# Missing MUST properties generate a Violation
+# Missing SHOULD properties generate a Warning
+# Other issues are reported as Info
+# This shape has predefined targets to validate (classes, subject and/or object).
+
+
+:HCLSDistributionShape
+    a sh:NodeShape ;
+    sh:nodeKind sh:IRI ;
+    sh:targetClass dcat:Distribution ;
+    sh:targetObjectsOf dcat:distribution ;
+    sh:severity sh:Info ;
+
+    sh:property [
+        sh:path dct:title ;
+        sh:name "Title" ;
+        sh:description "Title of the distribution" ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+        sh:nodeKind sh:Literal
+    ] ;
+    sh:property [
+        sh:path dct:language ;
+        sh:severity sh:Warning ;
+        sh:name "Language" ;
+        sh:description "Language of the distribution" ;
+        sh:message "Distribution SHOULD use dct:language with a lexvo URI: http://lexvo.org/id/iso639-3/{tag}" ;
+        sh:nodeKind sh:IRI
+    ] ;
+    sh:property [
+        sh:path dct:creator ;
+        sh:severity sh:Violation ;
+        sh:name "Creator" ;
+        sh:description "Creator of the distribution" ;
+        sh:minCount 1;
+        sh:node :HCLSAgentShape
+    ] ;
+
+    .
+
+
+
+:HCLSAgentShape
+    a sh:NodeShape ;
+    sh:targetClass dct:Agent ;
+    sh:nodeKind sh:IRI ;
+    
+    sh:property [
+        sh:path dct:title ;
+        sh:name "Title" ;
+        sh:description "Title of the agent" ;
+        sh:severity sh:Violation ;
+        sh:minCount 1 ;
+        sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+        sh:nodeKind sh:Literal ;
+    ] 
+    .
+
+`
+
+
+const fullShaclShape = `@prefix : <http://purl.org/hcls-metadata-spec/> .
+@prefix dctypes: <http://purl.org/dc/dcmitype/> .
+@prefix schemaorg: <http://schema.org/> .
+@prefix void:  <http://rdfs.org/ns/void#> .
+@prefix pav:   <http://purl.org/pav/> .
+@prefix freq:  <http://purl.org/cld/freq/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix void-ext: <http://ldf.fi/void-ext#> .
+@prefix cito:  <http://purl.org/spar/cito/> .
+@prefix idot:  <http://identifiers.org/idot/> .
+@prefix sd:    <http://www.w3.org/ns/sparql-service-description#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sio:   <http://semanticscience.org/resource/> .
+@prefix lexvo: <http://lexvo.org/id/iso639-3/> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+
+## See the HCLS dataset metadata specs at https://www.w3.org/TR/hcls-dataset
+# This SHACL shape validates most MUST and SHOULD properties for HCLS dataset summary, version and distribution (regular and RDF)
+# Missing MUST properties generate a Violation
+# Missing SHOULD properties generate a Warning
+# Other issues are reported as Info
+# This shape has predefined targets to validate (classes, subject and/or object).
+
+
+:HCLSDistributionShape
+    a sh:NodeShape ;
+    sh:nodeKind sh:IRI ;
+    sh:targetClass dcat:Distribution ;
+    sh:targetObjectsOf dcat:distribution ;
+    sh:severity sh:Info ;
+
+    sh:property [
+        sh:path dct:title ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] )
+    ] ;
+    sh:property [
+        sh:path dct:description ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    ] ;
+    sh:property [
+        sh:path dct:format ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:or ( [ sh:datatype xsd:string ] [ sh:node [ sh:nodeKind sh:IRI ] ] ) ;
+    ] ;
+
+    sh:property [
+        sh:path dcat:accessURL ;
+        sh:minCount 0;
+        sh:node [ sh:nodeKind sh:IRI ]
+    ] ;
+    sh:property [
+        sh:path dct:created ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:or ( [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:date ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+    ] ;
+    sh:property [
+        sh:path dct:creator ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:node :HCLSAgentShape
+    ] ;
+    sh:property [
+        sh:path dct:publisher ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:node :HCLSAgentShape
+    ] ;
+    sh:property [
+        sh:path dct:issued ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:or ( [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:date ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+    ] ;
+    sh:property [
+        sh:path dct:license ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:node [ sh:nodeKind sh:IRI ]
+    ] ;
+    sh:property [
+        sh:path dct:language ;
+        sh:severity sh:Warning ;
+        sh:message "Distribution SHOULD use dct:language with a lexvo URI: http://lexvo.org/id/iso639-3/{tag}" ;
+        sh:minCount 1;
+        sh:node [ sh:nodeKind sh:IRI ]
+    ] ;
+    sh:property [
+        sh:path pav:createdWith ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:node [ sh:nodeKind sh:IRI ]
+    ] ;
+    sh:property [
+        sh:message "Distribution SHOULD provide the data source provenance with dct:source, pav:retrievedFrom or prov:wasDerivedFrom" ;
+        sh:or ( 
+            [ sh:path dct:source ; sh:minCount 1 ] 
+            [ sh:path pav:retrievedFrom ; sh:minCount 1 ] 
+            [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ] 
+        ) ;
+        sh:severity sh:Warning ;
+        sh:node [ sh:nodeKind sh:IRI ]
+    ] ;
+
+    .
+
+
+
+:HCLSRDFDistributionShape
+    a sh:NodeShape ;
+    sh:nodeKind sh:IRI ;
+    sh:targetClass void:Dataset ;
+    ## SHACL web services don't support SHACL "advanced features": https://www.w3.org/TR/shacl-af/#SPARQLTarget
+    # sh:target [
+	# 	a void:Dataset 
+    #   sh:not [ a void:Linkset ]
+	# ] ;
+    # sh:target [
+    #     a sh:SPARQLTarget ;
+    #     sh:prefixes void: ;
+    #     sh:select """
+    #     SELECT ?this 
+    #     WHERE {
+    #         ?this a void:Dataset .
+    #         FILTER NOT EXISTS { ?this a void:Linkset }
+    #     }
+    #     """ ;
+    # ] ;
+
+    sh:severity sh:Info ;
+
+    sh:property [
+        sh:path void:subset ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:node [ sh:nodeKind sh:IRI ]
+    ] ;
+    # Check for HCLS descriptive statistics
+    sh:property [
+        sh:path void:triples ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:datatype xsd:integer
+    ] ;
+    sh:property [
+        sh:path void:entities ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:datatype xsd:integer
+    ] ;
+    sh:property [
+        sh:path void:distinctSubjects ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:datatype xsd:integer
+    ] ;
+    sh:property [
+        sh:path void:properties ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:datatype xsd:integer
+    ] ;
+    sh:property [
+        sh:path void:distinctObjects ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:datatype xsd:integer
+    ] ;
+    sh:property [
+        sh:path void:classPartition ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:node [ sh:nodeKind sh:BlankNodeOrIRI ]
+    ] ;
+
+    .
+
+
+
+:HCLSVersionShape
+    a sh:NodeShape ;
+    sh:nodeKind sh:IRI ;
+    sh:targetSubjectsOf dcat:distribution, dct:isVersionOf ;
+    sh:severity sh:Info ;
+
+    sh:property [
+        sh:path dct:title ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    ] ;
+    sh:property [
+        sh:path dct:description ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    ] ;
+    sh:property [
+        sh:path dct:created ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:or ( [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:date ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+    ] ;
+    sh:property [
+        sh:path dct:issued ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:or ( [ sh:datatype xsd:dateTime ] [ sh:datatype xsd:date ] [ sh:datatype xsd:gYearMonth ] [ sh:datatype xsd:gYear ] ) ;
+    ] ;
+    sh:property [
+        sh:path dct:creator ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:node :HCLSAgentShape
+    ] ;
+    sh:property [
+        sh:path dct:publisher ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:node :HCLSAgentShape
+    ] ;
+    sh:property [
+        sh:path dct:license ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:node [ sh:nodeKind sh:IRI ]
+    ] ;
+    sh:property [
+        sh:path dct:language ;
+        sh:severity sh:Warning ;
+        sh:message "Version SHOULD use dct:language with a lexvo URI: http://lexvo.org/id/iso639-3/{tag}" ;
+        sh:minCount 1;
+        sh:node [ sh:nodeKind sh:IRI ]
+    ] ;
+    sh:property [
+        sh:path pav:version ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:datatype xsd:string
+    ] ;
+
+    sh:property [
+        sh:path dct:isVersionOf ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:node :HCLSSummaryShape
+    ] ;
+    sh:property [
+        sh:path dcat:distribution ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:node :HCLSDistributionShape
+    ] ;
+    sh:property [
+        sh:path pav:createdWith ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:node [ sh:nodeKind sh:IRI ]
+    ] ;
+    sh:property [
+        sh:message "Version SHOULD provide the data source provenance using dct:source, pav:retrievedFrom or prov:wasDerivedFrom" ;
+        sh:or ( 
+            [ sh:path dct:source ; sh:minCount 1 ] 
+            [ sh:path pav:retrievedFrom ; sh:minCount 1 ] 
+            [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ] 
+        ) ;
+        sh:severity sh:Warning ;
+        sh:node [ sh:nodeKind sh:IRI ]
+    ] ;
+
+    .
+
+
+
+:HCLSSummaryShape
+    a sh:NodeShape ;
+    sh:nodeKind sh:IRI ;
+    sh:targetObjectsOf dct:isVersionOf ;
+    sh:severity sh:Info ;
+
+    sh:property [
+        sh:path dct:title ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    ] ;
+    sh:property [
+        sh:path dct:description ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:or ( [ sh:datatype xsd:string ] [ sh:datatype rdf:langString ] ) ;
+    ] ;
+    sh:property [
+        sh:path dct:publisher ;
+        sh:severity sh:Violation ;
+        sh:minCount 1;
+        sh:node :HCLSAgentShape
+    ] ;
+    sh:property [
+        sh:path foaf:page ;
+        sh:severity sh:Warning ;
+        sh:minCount 0;
+        sh:node [ sh:nodeKind sh:IRI ]
+    ] ;
+    sh:property [
+        sh:path dct:accrualPeriodicity ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:node [ sh:nodeKind sh:IRI ]
+    ] ;
+    sh:property [
+        sh:path void:sparqlEndpoint ;
+        sh:severity sh:Warning ;
+        sh:minCount 1;
+        sh:node [ sh:nodeKind sh:IRI ]
+    ] ;
+
+    ## This will trigger an InternalError due to too much recursion:
+    # sh:property [
+    #     sh:path pav:hasCurrentVersion ;
+    #     sh:severity sh:Info ;
+    #     sh:minCount 1;
+    #     sh:node :HCLSVersionShape
+    # ] ;
+    
+    .
+
+
+
+:HCLSAgentShape
+    a sh:NodeShape ;
+    sh:nodeKind sh:IRI .`
+
+    
 const wizard_jsonld = {
   "@context": "https://schema.org",
   "@wizardQuestions": {

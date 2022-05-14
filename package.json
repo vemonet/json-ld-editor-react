@@ -32,19 +32,25 @@
   "scripts": {
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "dev": "expo web",
+    "web": "expo web",
     "eject": "expo eject",
     "build": "rm -rf dist && tsc --outDir dist",
     "build:bob": "bob build",
     "build:babel": "rm -rf dist && NODE_ENV=production babel ./src/ --extensions .ts --out-dir dist --copy-files",
     "build:web": "expo build:web",
+    "dev": "watch 'yarn build:bob' ./src",
     "serve": "serve -s web-build",
     "start": "npm run build && npm run serve",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d web-build"
   },
   "dependencies": {
+    "@rjsf/core": "^4.2.0",
+    "@rjsf/material-ui": "^4.2.0",
     "axios": "^0.27.2",
+    "highlight.js": "^11.5.1",
+    "json-form-custom-element": "^1.12.0",
+    "n3": "^1.16.2",
     "rdflib": "^2.2.0"
   },
   "devDependencies": {
@@ -56,14 +62,17 @@
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.7.0",
     "@mui/styles": "^5.7.0",
+    "@types/n3": "^1.10.4",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
     "@types/react-native": "^0.67.7",
     "@types/react-router-dom": "^5.1.6",
+    "concurrently": "^7.1.0",
     "gh-pages": "^4.0.0",
     "react-native-builder-bob": "^0.18.1",
     "serve": "^13.0.2",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.4",
+    "watch": "^1.0.2"
   },
   "peerDependencies": {
     "@emotion/react": "*",

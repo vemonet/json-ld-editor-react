@@ -20,9 +20,11 @@
     "declaration": true,
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
+    "downlevelIteration": true,
 		"baseUrl": "./",
     "paths": {
-      "jsonld-editor": ["./src/index"]
+      "jsonld-editor": ["./src/index"],
+      "@rjsf/material-ui/*": ["node_modules/@rjsf/material-ui/dist/*"]
     }
   },
   "include": [
