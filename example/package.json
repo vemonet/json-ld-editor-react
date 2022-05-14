@@ -1,4 +1,17 @@
 {
+  "homepage": "https://vemonet.github.io/jsonld-editor",
+  "private": true,
+  "scripts": {
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "dev": "cd .. && yarn && yarn build:bob && cd example && expo web",
+    "eject": "expo eject",
+    "build": "expo build:web",
+    "serve": "serve -s web-build",
+    "start": "npm run build && npm run serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d web-build"
+  },
   "dependencies": {
     "@comunica/actor-init-sparql": "^2.0.1",
     "@emotion/react": "^11.9.0",
@@ -6,15 +19,10 @@
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.7.0",
     "@mui/styles": "^5.7.0",
-    "@solid/react": "^1.10.0",
     "axios": "^0.27.2",
-    "chart.js": "^3.7.1",
-    "chartjs-plugin-labels": "^1.1.0",
     "json-ld-editor-react": "../",
-    "normalizr": "^3.6.2",
     "rdflib": "^2.2.19",
     "react": "~18.1.0",
-    "react-chartjs-2": "^4.1.0",
     "react-dom": "~18.1.0",
     "react-native": "~0.68.2",
     "react-native-web": "0.17.7",
@@ -23,31 +31,14 @@
   },
   "devDependencies": {
     "@babel/core": "7.17.10",
-    "@types/axios": "^0.14.0",
-    "@types/chart.js": "^2.9.37",
-    "@types/material-ui": "^0.21.12",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^18.0.4",
     "@types/react-native": "^0.67.7",
     "@types/react-router-dom": "^5.3.3",
-    "@types/solid__react": "^1.6.4",
     "expo": "~45.0.4",
     "expo-cli": "^5.4.3",
     "gh-pages": "^4.0.0",
     "serve": "^13.0.2",
     "typescript": "^4.6.4"
-  },
-  "scripts": {
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "dev": "cd .. && yarn build:bob && cd example && expo web",
-    "eject": "expo eject",
-    "build": "expo build:web",
-    "serve": "serve -s web-build",
-    "start": "npm run build && npm run serve",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d web-build"
-  },
-  "homepage": "https://vemonet.github.io/jsonld-editor",
-  "private": true
+  }
 }

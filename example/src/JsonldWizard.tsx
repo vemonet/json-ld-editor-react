@@ -17,6 +17,7 @@ const $rdf = require('rdflib')
 // import CsvUploader from "../../src/components/CsvUploader";
 // import RenderObjectForm from "../../src/components/RenderObjectForm";
 
+// @ts-ignore
 import { JsonldEditor } from 'json-ld-editor-react';
 
 
