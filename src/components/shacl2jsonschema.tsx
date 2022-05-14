@@ -11,7 +11,7 @@ export const shacl2jsonschema = (
     store: Store, 
     target: string, 
     prefixes: any, 
-    title: any = null
+    title: any = null,
   ) => {
   
   // JSON-LD JSON Schema: https://github.com/json-ld/json-ld.org/blob/main/schemas/jsonld-schema.json
@@ -26,38 +26,67 @@ export const shacl2jsonschema = (
     jsonschema["title"] = title
     jsonschema["ui"] = { "expandable": true }
   }
-  const jsonld = {}
+  const jsonld: any = {}
 
   // TODO: improve handling of the targetClass (used for the @type) for recursion
-  let targetClass = ''
-  const typeProp: any = {}
-  for (const targetClassQuad of store.match(namedNode(target), sh("targetClass"), null, null)) {
-    targetClass = targetClassQuad.object.value.toString()
+  const typeProp: any = {"enum": []}
+  store.getQuads(namedNode(target), sh("targetClass"), null, null).map((targetClassQuad: any) => {
     typeProp['title'] = 'Type'
     typeProp['description'] = 'Type of the resource (@type)'
     typeProp["type"] = "string"
-    typeProp["format"] = "uri"
-    typeProp["pattern"] = "^https?://"
-    typeProp["default"] = targetClass
-    // typeProp["ui"] = { "disable": true }
-    typeProp["ui"] = { 
-      "rule": {
-        "action": "disable",
-        "path": "/enabled",
-        "condition": {
-          "const": false,
-          "default": false
-        }
-      }
-    }
-    // ui:readonly
-    // updateState({targetClass: targetClassQuad.object.value})
-  }
+    typeProp["enum"].push(targetClassQuad.object.value.toString())
+    typeProp["default"] = targetClassQuad.object.value.toString()
+
+    console.log("TargetClass for:", target)
+    console.log("Is:", targetClassQuad.object.value.toString())
+      
+    // typeProp["format"] = "uri"
+    // typeProp["pattern"] = "^https?://"
+    jsonld['@type'] = targetClassQuad.object.value.toString()
+    
+    // Disable changes to @type:
+    // typeProp["ui"] = { 
+    //   "rule": {
+    //     "action": "disable",
+    //     "path": "/enabled",
+    //     "condition": { "const": false, "default": false }
+    //   }
+    // }
+  })
   jsonschema["properties"]['@type'] = typeProp
+
+  // for (const targetClassQuad of store.getQuads(namedNode(target), sh("targetClass"), null, null)) {
+  //   // targetClass = targetClassQuad.object.value.toString()
+  //   typeProp['title'] = 'Type'
+  //   typeProp['description'] = 'Type of the resource (@type)'
+  //   typeProp["type"] = "string"
+  //   typeProp["enum"].push(targetClassQuad.object.value.toString())
+  //   typeProp["default"] = targetClassQuad.object.value.toString()
+      
+  //   // typeProp["format"] = "uri"
+  //   // typeProp["pattern"] = "^https?://"
+  //   jsonld['@type'] = targetClassQuad.object.value.toString()
+  //   // typeProp["ui"] = { "disable": true }
+  //   typeProp["ui"] = { 
+  //     "rule": {
+  //       "action": "disable",
+  //       "path": "/enabled",
+  //       "condition": {
+  //         "const": false,
+  //         "default": false
+  //       }
+  //     }
+  //   }
+  //   // ui:readonly
+  //   // updateState({targetClass: targetClassQuad.object.value})
+  // }
+
+
+  // jsonschema["properties"]['@type'] = typeProp
   
   // Checking every sh:property for the ShapeNode
   const requiredProps: any = ["@type"]
-  for (const propQuad of store.match(namedNode(target), sh("property"), null, null)) {
+  for (const propQuad of store.getQuads(namedNode(target), sh("property"), null, null)) {
     
     console.log("Checking property:", propQuad);
     const propSubj = propQuad.object
@@ -134,6 +163,9 @@ export const shacl2jsonschema = (
         const subSchema = shacl2jsonschema(store, subPropShape.subject.value.toString(), prefixes, propSchema['title'])
         // console.log('subSchema!', subSchema['jsonschema'])
         propSchema = subSchema['jsonschema']
+        jsonld[propPath] = subSchema['jsonld']
+        // propSchema = subSchema['jsonld']
+        // json
       }
     }
 
@@ -144,6 +176,6 @@ export const shacl2jsonschema = (
   }
   jsonschema["required"] = requiredProps
   console.log('One of the JSON Schema generated for the SHACL shape:', jsonschema)
-  return {jsonschema, jsonld, targetClass}
+  return {jsonschema, jsonld}
 }
 

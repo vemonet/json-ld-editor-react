@@ -86,11 +86,14 @@ export const JsonldForm = ({ shape, target, value }: Props) => {
     hljs.registerLanguage('json', json);
 
     const jsonForm: any = document.getElementById(target);
-    const event = new CustomEvent('change');
+    // const event = new CustomEvent('change');
     jsonForm.addEventListener("change", (event: any) => {
       handleChange(event);
     });
-    jsonForm.dispatchEvent(event)
+
+    // setTimeout(function() {
+    //   jsonForm.dispatchEvent(event)
+    // }, 2000);
 
 
     parser.parse(
@@ -101,10 +104,9 @@ export const JsonldForm = ({ shape, target, value }: Props) => {
         } else {
           console.log("Prefixes:", prefixes);
 
-          const {jsonschema, jsonld} = shacl2jsonschema(store, prefixes, target)
+          const {jsonschema, jsonld} = shacl2jsonschema(store, target, prefixes)
 
-          console.log('🏁 Final JSON Schema generated for the SHACL shape:')
-          console.log(jsonschema)
+          console.log('🏁 Final JSON Schema generated for the SHACL shape:', jsonschema)
           updateState({
             prefixes: prefixes,
             jsonschema: jsonschema,
@@ -150,8 +152,9 @@ export const JsonldForm = ({ shape, target, value }: Props) => {
       <json-form
         id={target}
         schema={JSON.stringify(state.jsonschema)}
-        value={JSON.stringify(state.jsonld)}
-        config={`{"dense": "true", "name": "json-form-${target}", "collapseNestedObjects": "false"}`}
+        // value={JSON.stringify(state.jsonld)}
+        // value={`{}`}
+        config={`{"collapseNestedObjects": false, "dense": true, "name": "json-form-${target}"}`}
         // @ts-ignore
       ></json-form>
       

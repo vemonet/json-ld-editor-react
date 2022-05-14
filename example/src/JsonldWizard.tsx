@@ -364,7 +364,7 @@ const shaclShape = `@prefix : <http://purl.org/hcls-metadata-spec/> .
 
 :HCLSAgentShape
     a sh:NodeShape ;
-    sh:targetClass dct:Agent ;
+    sh:targetClass foaf:Person, dct:Agent ;
     sh:nodeKind sh:IRI ;
     
     sh:property [
