@@ -13,7 +13,7 @@ const $rdf = require('rdflib')
 // import {$rdf} from 'rdflib'
 // const jsonld = require('jsonld')
 
-// import JsonldUploader from "../../src/components/JsonldUploader";
+import JsonldUploader from "./JsonldUploader";
 // import CsvUploader from "../../src/components/CsvUploader";
 // import RenderObjectForm from "../../src/components/RenderObjectForm";
 
@@ -87,6 +87,7 @@ export default function JsonldWizard() {
   // useLocation hook to get URL params
   // let location = useLocation();  
   const [state, setState] = React.useState({
+    shaclShape: shaclShape,
     open: false,
     dialogOpen: false,
     wizard_jsonld: wizard_jsonld,
@@ -281,10 +282,19 @@ export default function JsonldWizard() {
         Load and edit <a href="https://json-ld.org/" className={classes.link} target="_blank" rel="noopener noreferrer">JSON-LD</a> <a href="https://en.wikipedia.org/wiki/Resource_Description_Framework" className={classes.link} target="_blank" rel="noopener noreferrer">RDF</a> files in a user-friendly web interface, with autocomplete based on the classes and properties of the ontology magically loaded from <code>@context</code> ✨️
       </Typography> */}
       
-      {/* <JsonldEditor /> */}
+      <JsonldUploader 
+        renderObject={state.shaclShape} 
+        onChange={(shaclShape: any) => {
+          updateState({shaclShape})
+          setTimeout(function() {
+            console.log('shaclShape state after clicking upload', state.shaclShape)
+          }, 300);
+          // window.location.reload()
+        }} 
+      />
 
       <JsonldForm 
-        shape={shaclShape} 
+        shape={state.shaclShape}
         target="http://purl.org/hcls-metadata-spec/HCLSDistributionShape" 
       />
 

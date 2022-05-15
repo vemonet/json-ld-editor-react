@@ -1,11 +1,5 @@
 import React, { useEffect } from 'react';
 
-// import { useTheme } from '@mui/material/styles';
-// import { Button } from "@mui/material";
-// import DownloadJsonldIcon from '@mui/icons-material/Description';
-// import axios from 'axios';
-// const $rdf = require('rdflib')
-
 import { Parser, Store } from 'n3';
 // import { DataFactory, Parser } from 'n3';
 
@@ -36,6 +30,7 @@ export const JsonldForm = ({ shape, target, value }: Props) => {
   const store = new Store();
 
   const [state, setState] = React.useState({
+    shape: shape,
     store: store,
     prefixes: {},
     jsonld: {},
@@ -89,7 +84,7 @@ export const JsonldForm = ({ shape, target, value }: Props) => {
         }
       });
 
-  }, [])
+  }, [shape])
 
 
   const handleShowJsonld = (event: any) => {    
@@ -125,6 +120,7 @@ export const JsonldForm = ({ shape, target, value }: Props) => {
     // "textFieldStyle": "filled",
     "customCss": customCss
   }
+
   return(
     <div>
 
