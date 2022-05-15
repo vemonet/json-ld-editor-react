@@ -6,13 +6,15 @@ A React component to generate web forms from SHACL shapes. It aims to help devel
 
 The component first convert the SHACL shape to JSON Schema, then it displays a web form with validation. 
 
-**Load and edit JSON-LD RDF metadata files** in a user-friendly web interface, **with autocomplete** based on the classes and properties of the **ontology magically loaded** from `@context` ✨️
+⚠️ The predicate `sh:or` is not fully supported. This is a design choice, since the goal is to build a form the best is to use straightforward shapes where the best way to represent the data is defined (and not all the possible ways) 
 
 Built with [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/), and [Material-UI](https://material-ui.com/).
 
 Deployed as a static website on [GitHub Pages](https://pages.github.com/).
 
 ## 👩‍💻 Usage
+
+Define your SHACL shape, here is an example of a straightforward shape that will be properly rendered by the form:
 
 ```tsx
 const shaclShape = `@prefix : <http://purl.org/hcls-metadata-spec/> .
@@ -45,6 +47,14 @@ const shaclShape = `@prefix : <http://purl.org/hcls-metadata-spec/> .
         sh:message "Distribution SHOULD use dct:language with a lexvo URI: http://lexvo.org/id/iso639-3/{tag}" ;
         sh:nodeKind sh:IRI
     ] .`
+```
+
+Instantiate the JSON-LD form providing the SHACL shape and the target shape used to generate the form:
+
+```tsx
+import { JsonldForm } from 'json-ld-editor-react';
+
+const shaclShape = `Your SHACL shape here...`
 
 return(
     <JsonldForm 
@@ -53,8 +63,6 @@ return(
     />
 )
 ```
-
-
 
 ## 👩‍💻 Access
 

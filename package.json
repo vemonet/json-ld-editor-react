@@ -2,33 +2,7 @@
   "homepage": "https://vemonet.github.io/jsonld-editor",
   "name": "json-ld-editor-react",
   "version": "0.0.1",
-  "description": "JSON-LD web editor component for React, with autocomplete based on the loaded ontologies concepts and properties.",
-  "author": {
-    "name": "Vincent Emonet",
-    "email": "vincent.emonet@gmail.com",
-    "url": "https://vemonet.github.io"
-  },
-  "bugs": {
-    "url": "https://github.com/vemonet/jsonld-editor/issues"
-  },
-  "repository": "https://github.com/vemonet/jsonld-editor",
-  "license": "MIT",
   "private": false,
-  "keywords": [
-    "JSON-LD",
-    "RDF",
-    "editor",
-    "react"
-  ],
-  "main": "lib/commonjs/index",
-  "module": "lib/module/index",
-  "types": "lib/typescript/src/index.d.ts",
-  "source": "src/index",
-  "react-native": "src/index",
-  "files": [
-    "lib/",
-    "src/"
-  ],
   "scripts": {
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -50,24 +24,17 @@
     "axios": "^0.27.2",
     "highlight.js": "^11.5.1",
     "json-form-custom-element": "^1.12.0",
-    "n3": "^1.16.2",
-    "rdflib": "^2.2.0"
+    "n3": "^1.16.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
     "@babel/core": "7.17.10",
     "@babel/preset-typescript": "^7.16.7",
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.6.2",
-    "@mui/material": "^5.7.0",
-    "@mui/styles": "^5.7.0",
     "@types/n3": "^1.10.4",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
     "@types/react-native": "^0.67.7",
     "@types/react-router-dom": "^5.1.6",
-    "concurrently": "^7.1.0",
     "gh-pages": "^4.0.0",
     "react-native-builder-bob": "^0.18.1",
     "serve": "^13.0.2",
@@ -75,11 +42,6 @@
     "watch": "^1.0.2"
   },
   "peerDependencies": {
-    "@emotion/react": "*",
-    "@emotion/styled": "*",
-    "@mui/icons-material": "*",
-    "@mui/material": "*",
-    "@mui/styles": "*",
     "react": "*",
     "react-dom": "*",
     "react-native": "*",
@@ -95,5 +57,31 @@
       "module",
       "typescript"
     ]
-  }
+  },
+  "description": "JSON-LD web editor component for React, with autocomplete based on the loaded ontologies concepts and properties.",
+  "repository": "https://github.com/vemonet/jsonld-editor",
+  "license": "MIT",
+  "author": {
+    "name": "Vincent Emonet",
+    "email": "vincent.emonet@gmail.com",
+    "url": "https://vemonet.github.io"
+  },
+  "bugs": {
+    "url": "https://github.com/vemonet/jsonld-editor/issues"
+  },
+  "keywords": [
+    "JSON-LD",
+    "RDF",
+    "editor",
+    "react"
+  ],
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/src/index.d.ts",
+  "source": "src/index",
+  "react-native": "src/index",
+  "files": [
+    "lib/",
+    "src/"
+  ]
 }

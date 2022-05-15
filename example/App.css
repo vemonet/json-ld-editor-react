@@ -9,6 +9,11 @@
   margin-bottom: 20px;
 }
 
+.jf-textfield { 
+  height: 32px !important;
+  --field-height: 32px !important;
+}
+
 pre, code {
   font-family: monospace, monospace;
   border-radius: 6px;
