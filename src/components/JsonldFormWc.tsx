@@ -14,9 +14,8 @@ import { shacl2jsonschema } from 'json-ld-editor-react'
 
 // import Form from '@rjsf/material-ui/v5';
 // import Form from 'react-jsonschema-form'
-import Form from "@rjsf/core";
-// import Form from '@rjsf/material-ui/v5';
-// import Form from "@rjsf/material-ui";
+// import Form from "@rjsf/core";
+
 
 type Props = {
   shape: string;
@@ -56,11 +55,11 @@ export const JsonldForm = ({ shape, target, value }: Props) => {
   useEffect(() => {
     // hljs.registerLanguage('json', json);
 
-    // const jsonForm: any = document.getElementById(target);
-    // // const event = new CustomEvent('change');
-    // jsonForm.addEventListener("change", (event: any) => {
-    //   handleChange(event);
-    // });
+    const jsonForm: any = document.getElementById(target);
+    // const event = new CustomEvent('change');
+    jsonForm.addEventListener("change", (event: any) => {
+      handleChange(event);
+    });
     // setTimeout(function() {
     //   jsonForm.dispatchEvent(event)
     // }, 2000);
@@ -100,44 +99,34 @@ export const JsonldForm = ({ shape, target, value }: Props) => {
     // }, 200);
   }
 
-  // const handleChange = (event: any) => {
-  //   console.log("Handle Change:", event);
-  //   updateState({
-  //     jsonld: event.detail.value,
-  //     jsonErrors: event.detail.errors,
-  //     jsonValid: event.detail.isValid,
-  //   })
-  //   // if (state.showJsonld) {
-  //   //   hljs.highlightAll();
-  //   // }
-  //   // const blocks: any = document.querySelectorAll('pre code');
-  //   // blocks.forEach(hljs.highlightBlock);
-  //   console.log('Has jsonld changed after handleChange?', state.jsonld)
-  // }
+  const handleChange = (event: any) => {
+    console.log("Handle Change:", event);
+    updateState({
+      jsonld: event.detail.value,
+      jsonErrors: event.detail.errors,
+      jsonValid: event.detail.isValid,
+    })
+    // if (state.showJsonld) {
+    //   hljs.highlightAll();
+    // }
+    // const blocks: any = document.querySelectorAll('pre code');
+    // blocks.forEach(hljs.highlightBlock);
+    console.log('Has jsonld changed after handleChange?', state.jsonld)
+  }
 
-  // const jsonFormConfig = {
-  //   "collapseNestedObjects": false, 
-  //   "dense": true, 
-  //   "name": `json-form-${target}`,
-  //   // "textFieldStyle": "filled",
-  //   "customCss": customCss
-  // }
-
-  // const schema = {
-  //   title: "Todo",
-  //   type: "object",
-  //   required: ["title"],
-  //   properties: {
-  //     title: {type: "string", title: "Title", default: "A new task"},
-  //     done: {type: "boolean", title: "Done?", default: false}
-  //   }
-  // };
+  const jsonFormConfig = {
+    "collapseNestedObjects": false, 
+    "dense": true, 
+    "name": `json-form-${target}`,
+    // "textFieldStyle": "filled",
+    "customCss": customCss
+  }
 
   return(
-    <div style={{display: 'inline-block'}}>
+    <div>
 
       {/* @ts-ignore https://github.com/json-tools/json-form-custom-element */}
-      {/* <json-form
+      <json-form
         id={target}
         schema={JSON.stringify(state.jsonschema)}
         config={JSON.stringify(jsonFormConfig)}
@@ -145,22 +134,16 @@ export const JsonldForm = ({ shape, target, value }: Props) => {
         // value={`{}`}
         // config={`{"collapseNestedObjects": false, "dense": true, "name": "json-form-${target}"}`}
         // @ts-ignore
-      ></json-form> */}
+      ></json-form>
       
-      {/* TODO: Check peer dependencies, etc
-      Try React 17: https://github.com/rjsf-team/react-jsonschema-form/issues/2857 */}
-
       {/* More modern, react and mui based JSON schema form: https://github.com/rjsf-team/react-jsonschema-form/tree/master/packages/material-ui */}
       {/* But weird imports v4/v5 for mui not working properly */}
-      {/* { state.jsonschema &&  */}
-      <Form 
-        id='jsonld-form'
+      {/* <Form 
         schema={state.jsonschema}
-        onChange={(data) => {console.log("changed", data)}}
-        onSubmit={(data) => {console.log("submitted", data)}}
-        onError={(data) => {console.log("errors", data)}}
-      />
-      {/* } */}
+        onChange={() => {console.log("changed")}}
+        onSubmit={() => {console.log("submitted")}}
+        onError={() => {console.log("errors")}}
+      /> */}
 
 
 
@@ -260,7 +243,6 @@ export const JsonldForm = ({ shape, target, value }: Props) => {
 // Unfortunately, the easiest way I found to get the custom CSS in the component 
 // is to have it has a string here
 // It mainly make the original style more compact
-// @ts-ignore
 const customCss = `
 :root {
   --color-active: #27b9cc;

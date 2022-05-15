@@ -296,6 +296,7 @@ export default function JsonldWizard() {
       <JsonldForm 
         shape={state.shaclShape}
         target="http://purl.org/hcls-metadata-spec/HCLSDistributionShape" 
+        liveValidate
       />
 
     </Container>

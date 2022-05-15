@@ -1,4 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
+/* Bootstrap imported for rjsf default (mui bug) */
+
+#root {
+  display: inline-block;
+}
 
 .flexGrow {
   flex-grow: 1; 
@@ -9,10 +15,6 @@
   margin-bottom: 20px;
 }
 
-.jf-textfield { 
-  height: 32px !important;
-  --field-height: 32px !important;
-}
 
 pre, code {
   font-family: monospace, monospace;

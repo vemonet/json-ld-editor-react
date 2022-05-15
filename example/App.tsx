@@ -14,6 +14,7 @@ import { blue } from "@mui/material/colors";
 import JsonldWizard from "./src/JsonldWizard";
 // import About from "./src/About";
 import "./App.css";
+{/* <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link> */}
 
 // Change theme color and typography here
 const theme = createTheme({
